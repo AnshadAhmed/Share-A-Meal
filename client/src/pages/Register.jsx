@@ -106,7 +106,7 @@ function Register() {
             </button>
           </form>
           <div className="signup-link">
-            already have an Account? <a href="/login"> SIGN UP</a>
+            already have an Account? <a href="/login"> SIGN UP asds</a>
           </div>
           {/* <div className="checkbox-container">
               <input type="checkbox" required="" />
