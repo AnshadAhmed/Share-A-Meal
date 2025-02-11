@@ -6,7 +6,7 @@ const PORT = process.env.PORT
 
 const { body, validationResult } = require('express-validator');
 
-const db = require('./model/db')  //to connect to the database
+const db = require('./model/db')
 db.connect()
 
 const User = require('./model/User')
