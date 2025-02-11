@@ -102,7 +102,7 @@ function Register() {
               <input type="password" placeholder="Password" required="" onChange={(e) => { setpass(e.target.value) }} value={pass} />
             </div>
             <button type="submit" className="login-btn">
-              LOG IN
+              SIGN UP
             </button>
           </form>
           <div className="signup-link">
