@@ -3,6 +3,7 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT
+const bcrypt = require('bcryptjs')
 
 const { body, validationResult } = require('express-validator');
 
@@ -35,15 +36,28 @@ app.post("/login", [
 
         console.log(userdata);
 
-        if (userdata) {
-            if (userdata.pwd === pwd) {
-                res.send("Login Successful");
-            } else {
-                res.send("Invalid Password");
-            }
-        } else {
-            res.send("User not found");
+
+        const ispassword=await bcrypt.compare(pwd,userdata.pwd)
+
+
+        if(ispassword){
+            res.send("Login Successfull")
+        }else{
+            res.send("Invalid Password")
         }
+
+
+        // if (userdata) {
+        //     if (userdata.pwd === pwd) {
+        //         res.send("Login Successful");
+        //     } else {
+        //         res.send("Invalid Password");
+        //     }
+        // } else {
+        //     res.send("User not found");
+        // }
+
+        
     } catch (error) {
         console.log(error);
         res.status(500).send("Server error");
@@ -63,17 +77,27 @@ app.post('/register', [
     try {
         const { username, email, pwd } = req.body;
 
+        //to check if the email alredy exists in DB
+
         const userdata = await User.findOne({ email: email });
         if (userdata) {
             return res.send("Email Already Exists");
         }
 
-        const newUser = await User.create({ username, email, pwd });
+        //bcrypy hashing the password
+
+        const salt = await bcrypt.genSalt(10)
+        const hashedPassword = await bcrypt.hash(pwd, salt)
+
+
+        //adding to DB
+
+        const newUser = await User.create({ username, email, pwd:hashedPassword });
         await newUser.save();
 
-        console.log(username);
-        console.log(email);
-        console.log(pwd);
+        // console.log(username);
+        // console.log(email);
+        // console.log(pwd);
 
         res.status(201).send('User added successfully');
     } catch (error) {
