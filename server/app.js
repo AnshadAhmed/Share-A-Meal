@@ -23,11 +23,11 @@ app.get('/', (req, res) => {
 
 app.post("/login", [
     body('email').isEmail().withMessage('Enter a valid email address'),
-    body('pwd').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+    body('pwd').isLength({ min: 5 }).withMessage('Password must be at least 5 characters long')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(400).send({ errors: errors.array() });
     }
 
     try {
@@ -41,23 +41,13 @@ app.post("/login", [
 
 
         if(ispassword){
-            res.send("Login Successfull")
+            res.json({message:"Login Successfull"})
         }else{
-            res.send("Invalid Password")
+            res.json({message:"invalid Password"})
+
         }
 
 
-        // if (userdata) {
-        //     if (userdata.pwd === pwd) {
-        //         res.send("Login Successful");
-        //     } else {
-        //         res.send("Invalid Password");
-        //     }
-        // } else {
-        //     res.send("User not found");
-        // }
-
-        
     } catch (error) {
         console.log(error);
         res.status(500).send("Server error");
@@ -67,7 +57,7 @@ app.post("/login", [
 app.post('/register', [
     body('username').notEmpty().withMessage('Username is required'),
     body('email').isEmail().withMessage('Enter a valid email address'),
-    body('pwd').isLength({ min: 6 }).withMessage('Password must be at least 6 characters long')
+    body('pwd').isLength({ min: 5 }).withMessage('Password must be at least 6 characters long')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
