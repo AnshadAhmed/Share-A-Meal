@@ -44,17 +44,12 @@ app.post("/login", [
 
         if(ispassword){
 
-            const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-            console.log(`the jwt token= ${token}`);
+            // const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+            // console.log(`the jwt token= ${token}`);
 
-            window.localStorage.setItem(token, token);
-            console.log("token added");
+            // localStorage.setItem("token", token);
+            // console.log(localStorage.getItem("token"));
             
-
-            
-
-
-
             res.send("Login Successfull")
         }else{
             res.send("invalid Password")

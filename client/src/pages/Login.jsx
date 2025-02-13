@@ -104,6 +104,7 @@ function Login() {
                     
                 </Box>
             </div>
+            <div className='cen'>
             <div className="container">
                 <div className="community-panel">
                     <div className="Logo-title">
@@ -172,6 +173,7 @@ function Login() {
                         <a href="#">Forgot password?</a>
                     </div>
                 </div>
+            </div>
             </div>
             </div>
         </>
