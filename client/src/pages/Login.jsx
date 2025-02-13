@@ -2,12 +2,18 @@ import React from 'react'
 import './Login.css'
 import { useState } from 'react'
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+
 
 
 
 function Login() {
     const [email, setemail] = useState('')
     const [pass, setpass] = useState('')
+
+    const [error, seterror] = useState(false)
+    const [alertMsg, setalertMsg] = useState("")
+
 
 
     async function senddata() {
@@ -24,7 +30,12 @@ function Login() {
                 alert(response.data);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
-                    alert('Invalid username or password');
+                    console.log(error.response.data.errors[0].msg)
+
+                    setalertMsg(error.response.data.errors[0].msg)
+                    seterror(true)
+
+                    // alert(error.response.data.errors[0].msg);
                 } else if (error.response) {
                     alert(`Error ${error.response.status}: ${error.response.statusText}`);
                 } else {
@@ -40,7 +51,11 @@ function Login() {
 
     return (
         <>
+
             <div className='apx'>
+                <div className='Alert'>
+                    {error && <Alert variant='filled' severity="error" >{alertMsg}    </Alert>}
+                </div>
                 <div className="container">
                     <div className="community-panel">
                         <div className="Logo-title">
@@ -60,6 +75,7 @@ function Login() {
                         </p>
                     </div>
                     <div className="login-panel">
+
                         <div className="social-login">
                             <button className="social-btn">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">

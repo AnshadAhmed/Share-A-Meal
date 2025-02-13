@@ -26,7 +26,9 @@ function Register() {
         alert(response.data);
       } catch (error) {
         if (error.response && error.response.status === 401) {
-          alert('Invalid username or password');
+          console.log(error.response.data.errors[0].msg);
+          
+          alert(error.response.data.errors[0].msg);
         } else if (error.response) {
           alert(`Error ${error.response.status}: ${error.response.statusText}`);
         } else {

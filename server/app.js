@@ -3,16 +3,21 @@ require('dotenv').config()
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT
+
 const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+
 
 const { body, validationResult } = require('express-validator');
 
+
 const db = require('./model/db')
 db.connect()
-
 const User = require('./model/User')
 
+
 app.use(express.json())
+
 
 const cors = require('cors')
 app.use(cors())
@@ -27,7 +32,7 @@ app.post("/login", [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).send({ errors: errors.array() });
+        return res.status(401).send({ errors: errors.array() });
     }
 
     try {
@@ -41,9 +46,15 @@ app.post("/login", [
 
 
         if(ispassword){
-            res.json({message:"Login Successfull"})
+
+            const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+            console.log(`the jwt token= ${token}`);
+            
+
+
+            res.send("Login Successfull")
         }else{
-            res.json({message:"invalid Password"})
+            res.send("invalid Password")
 
         }
 
@@ -61,7 +72,7 @@ app.post('/register', [
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
+        return res.status(401).json({ errors: errors.array() });
     }
 
     try {
