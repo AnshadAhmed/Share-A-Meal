@@ -4,10 +4,8 @@ import { useState } from 'react'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
-// import Alert from '@mui/material/Alert';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
-// import Button from '@mui/material/Button';
 import CloseIcon from '@mui/icons-material/Close';
 
 function Login() {
@@ -16,8 +14,9 @@ function Login() {
 
     const [error, seterror] = useState(false)
     const [alertMsg, setalertMsg] = useState("")
+    const [alertType,setalertTupe]=useState("error")
 
-    const [open, setOpen] = React.useState(true);
+    const [open, setOpen] = useState(true);
 
     async function senddata() {
         if (!email || !pass) {
@@ -28,15 +27,43 @@ function Login() {
                     email: email,
                     pwd: pass
                 });
-                console.log(response.data);
+                
+                // console.log(`in try${response.data}`);
 
-                alert(response.data);
+
+                if(!response.data){console.log("no response posible error");
+                }
+                setalertMsg(response.data)
+
+                // if(response.status===401){
+                //     seterror(true)
+                //     setalertTupe("error") 
+                // }
+                // else{
+                //     setalertTupe("success")
+                // }
+                // seterror(true)
+                // setOpen(true)
+
+                if(response.data=="Login Successfull"){
+                    setalertTupe("success")                
+                }else{
+                    setalertTupe("error")
+                }
+               
+                seterror(true)
+                setOpen(true)
+
+
+                // alert(`con${response.data}`);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     console.log(error.response.data.errors[0].msg)
 
                     setalertMsg(error.response.data.errors[0].msg)
                     seterror(true)
+                    setOpen(true);
+                    setalertTupe("error")
 
                     // alert(error.response.data.errors[0].msg);
                 } else if (error.response) {
@@ -55,7 +82,7 @@ function Login() {
                 <div className='Alert'>
                 <Box sx={{ width: '100%' }}>
                     <Collapse in={open}>
-                        {error && <Alert severity="error"
+                        {alertMsg && <Alert severity={alertType}
                             action={
                                 <IconButton
                                     aria-label="close"

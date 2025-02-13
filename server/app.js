@@ -22,9 +22,6 @@ app.use(express.json())
 const cors = require('cors')
 app.use(cors())
 
-app.get('/', (req, res) => {
-    res.send('Hello World')
-})
 
 app.post("/login", [
     body('email').isEmail().withMessage('Enter a valid email address'),
@@ -39,7 +36,7 @@ app.post("/login", [
         const { email, pwd } = req.body;
         const userdata = await User.findOne({ email: email });
 
-        console.log(userdata);
+        // console.log(userdata);
 
 
         const ispassword=await bcrypt.compare(pwd,userdata.pwd)
@@ -49,7 +46,13 @@ app.post("/login", [
 
             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
             console.log(`the jwt token= ${token}`);
+
+            window.localStorage.setItem(token, token);
+            console.log("token added");
             
+
+            
+
 
 
             res.send("Login Successfull")
@@ -64,6 +67,7 @@ app.post("/login", [
         res.status(500).send("Server error");
     }
 });
+
 
 app.post('/register', [
     body('username').notEmpty().withMessage('Username is required'),
@@ -106,6 +110,11 @@ app.post('/register', [
         res.status(500).send("Server error");
     }
 });
+
+app.get('/home', (req, res) => {
+    
+    res.send('Hello World')
+})
 
 app.listen(PORT, () => {
     console.log(`Server is Running at:${PORT}`);

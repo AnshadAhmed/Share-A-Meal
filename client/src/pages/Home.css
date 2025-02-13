@@ -1,3 +1,236 @@
-/* *{
-    background-color: white;
-} */
+@import url('https://fonts.googleapis.com/css?family=Sora');
+@import url('https://fonts.googleapis.com/css?family=Sacramento');
+
+
+* {
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: #EFF3F6;
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: .2rem 2rem;
+    background: white;
+}
+
+.logo {
+    font-size: 3rem;
+    font-weight: bold;
+    font-family: 'Sacramento';
+    color: #000000;
+    /* border: 1px solid black; */
+
+}
+
+.nav-links {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    /* border: 1px solid black; */
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #000000;
+    /* border: 1px solid black; */
+    font-family: 'Sora';
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.nav-links a:hover {
+    color: #40d3f8;
+}
+
+.search-btn {
+    background: #4ade80;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+}
+
+.Spot {
+    padding: 1.1rem;
+    border-radius: 100%;
+    background-color: #4ade80;
+    border: none;
+    cursor: pointer;
+
+}
+
+.Profile {
+    padding: 1.1rem;
+    border-radius: 100%;
+    background-color: #4ade80;
+    background-image: url('../img/File4.png');
+    background-size: cover;
+    border: none;
+    cursor: pointer;
+
+}
+
+.cen {
+    display: flex;
+    justify-content: center;
+}
+
+.hero {
+    margin-top: 1.2em;
+    position: relative;
+    height: 400px;
+    width: 80%;
+    border-radius: 25px;
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5));
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+}
+
+.hero .img {
+    position: absolute;
+    border-radius: 25px;
+    background-image: url('../img/mpic.jpg');
+    background-size: cover;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    font-family: 'Sora';
+
+}
+
+.find-meal {
+    background: #7c3aed;
+    color: white;
+    padding: 0.75rem 2rem;
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: 'Sora';
+    position: absolute;
+    left: 87%;
+    top: 80%;
+
+}
+
+.how-it-works {
+    padding: 4rem 2rem;
+    text-align: center;
+    font-family: 'Sora';
+    color: #000000;
+
+
+}
+
+.steps {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 2rem;
+    padding: 0 4rem;
+    color: #000000;
+    font-family: 'Sora';
+    /* border: 1px solid black; */
+
+
+}
+h3 p{
+    font-family: 'Sora';
+}
+
+.step-card {
+    background: #f8fafc;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-family:'Sora';
+    /* border: 1px solid black; */
+    color: #000000;
+
+}
+
+.share-love {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: #f8fafc;
+    font-family: 'Sora';
+    /* border: 1px solid black; */
+    border-radius: 25px;
+    width: 80%;
+    margin-bottom: 3em;
+    color: #000000;
+
+}
+
+.more-info {
+    margin-top: 2em;
+    margin-bottom: 2em;
+    padding: 4rem 2rem;
+    background: white;
+    display: flex;
+    /* border: 1px solid black; */
+    border-radius: 25px;
+    width: 80%;
+    color: #000000;
+
+
+}
+
+.newsletter {
+    max-width: 600px;
+    margin: 0 auto;
+    font-family: 'Sora';
+    /* border: 1px solid black; */
+
+
+
+}
+
+.newsletter h2 {
+    margin-bottom: 1rem;
+    font-family: 'Sora';
+    /* border: 1px solid black; */
+
+}
+
+.email-form {
+    display: flex;
+    gap: 1rem;
+    /* border: 1px solid black; */
+}
+
+.email-form input {
+    flex: 1;
+    padding: 0.75rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Sora';
+
+}
+
+.join-btn {
+    background: #1f2937;
+    color: white;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-family: 'Sora';
+
+}
