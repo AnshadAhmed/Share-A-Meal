@@ -8,12 +8,17 @@
 }
 
 .apx {
-    display: flex;
-    min-height: 100vh;
-    min-width: 200vh;
-    background-color: #f5f5f5;
-    justify-content: center;
-}
+       /* display: flex; */
+       min-height: 100vh;
+       min-width: 100vw;
+       background-image: url("../img/1693384744886.jpg" );
+       background-size: cover;
+       background-repeat: no-repeat;
+       background-position: center ;
+       display: flex;
+       align-items: center;
+       justify-content: center;
+}   
 .Alert{
     position: absolute;
     left: 44%;
