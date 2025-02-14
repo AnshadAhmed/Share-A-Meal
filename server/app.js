@@ -67,7 +67,7 @@ app.post("/login", [
 app.post('/register', [
     body('username').notEmpty().withMessage('Username is required'),
     body('email').isEmail().withMessage('Enter a valid email address'),
-    body('pwd').isLength({ min: 5 }).withMessage('Password must be at least 6 characters long')
+    body('pwd').isLength({ min: 5 }).withMessage('Password must be at least 5 characters long')
 ], async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,6 +80,7 @@ app.post('/register', [
         //to check if the email alredy exists in DB
 
         const userdata = await User.findOne({ email: email });
+
         if (userdata) {
             return res.send("Email Already Exists");
         }
@@ -107,6 +108,7 @@ app.post('/register', [
 });
 
 app.get('/home', (req, res) => {
+    
     
     res.send('Hello World')
 })

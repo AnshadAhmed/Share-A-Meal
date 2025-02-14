@@ -1,12 +1,24 @@
 import React, { useState } from 'react'
 import './Register.css'
 import axios from 'axios'
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
 
 
 function Register() {
   const [userName, setuserName] = useState('')
   const [email, setemail] = useState('')
   const [pass, setpass] = useState('')
+
+  const [error, seterror] = useState(false)
+  const [alertMsg, setalertMsg] = useState("")
+  const [alertType, setalertTupe] = useState("error")
+
+
+  const [open, setOpen] = useState(true);
 
 
   async function senddata() {
@@ -15,7 +27,10 @@ function Register() {
     console.log(pass);
 
     if (!email || !pass || !userName) {
-      alert("Please fill all the fields");
+      seterror(true)
+      setalertMsg("Please fill all the fields")
+      setOpen(true)
+      // alert("Please fill all the fields");
     } else {
       try {
         const response = await axios.post('http://localhost:3006/register', {
@@ -23,12 +38,37 @@ function Register() {
           email: email,
           pwd: pass
         });
-        alert(response.data);
+
+
+
+        if (response.data == "User added successfully") {
+          setalertTupe("success")
+        } else {
+          setalertTupe("error")
+        }
+
+
+
+
+        seterror(true)
+        setalertMsg(response.data)
+        setOpen(true)
+
+
+
+
+        // alert(response.data);
+
       } catch (error) {
         if (error.response && error.response.status === 401) {
           console.log(error.response.data.errors[0].msg);
-          
-          alert(error.response.data.errors[0].msg);
+
+          seterror(true)
+          setalertMsg(error.response.data.errors[0].msg)
+          setalertTupe("error")
+          setOpen(true)
+
+          // alert(error.response.data.errors[0].msg);
         } else if (error.response) {
           alert(`Error ${error.response.status}: ${error.response.statusText}`);
         } else {
@@ -43,6 +83,31 @@ function Register() {
 
   return (
     < div className="register">
+      <div className='Alert'>
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={open}>
+            {alertMsg && <Alert severity={alertType}
+              action={
+                <IconButton
+                  aria-label="close"
+                  color="inherit"
+                  size="small"
+                  onClick={() => {
+                    setOpen(false);
+                  }}
+                >
+                  <CloseIcon fontSize="inherit" />
+                </IconButton>
+              }
+              sx={{ mb: 2 }}
+            >
+              {alertMsg}
+            </Alert>
+            }
+          </Collapse>
+
+        </Box>
+      </div>
       <div className="container">
         <div className="community-panel">
           <div className="Logo-title">
