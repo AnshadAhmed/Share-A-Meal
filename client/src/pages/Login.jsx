@@ -7,6 +7,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Login() {
     const [email, setemail] = useState('')
@@ -17,6 +18,8 @@ function Login() {
     const [alertType, setalertTupe] = useState("error")
 
     const [open, setOpen] = useState(true);
+
+    const navigate=useNavigate();
 
     async function senddata() {
         if (!email || !pass) {
@@ -40,20 +43,19 @@ function Login() {
                 if (!response.data) {
                     console.log("no response posible error");
                 }
-                setalertMsg(response.data)
 
-                // if(response.status===401){
-                //     seterror(true)
-                //     setalertTupe("error") 
-                // }
-                // else{
-                //     setalertTupe("success")
-                // }
-                // seterror(true)
-                // setOpen(true)
 
-                if (response.data == "Login Successfull") {
+                localStorage.setItem("token",response.data.token)
+
+                setalertMsg(response.data.msg)
+
+                if (response.data.msg == "Login Successfull") {
                     setalertTupe("success")
+
+                    setTimeout(()=>{console.log("intime");
+                        navigate("/home")}, 3000)
+                    
+
                 } else {
                     setalertTupe("error")
                 }
@@ -62,7 +64,7 @@ function Login() {
                 setOpen(true)
 
 
-                // alert(`con${response.data}`);
+                // alert(`con${response.data.msg}`);
             } catch (error) {
                 if (error.response && error.response.status === 401) {
                     console.log(error.response.data.errors[0].msg)
@@ -164,10 +166,10 @@ function Login() {
                             <div className="divider">or</div>
                             <form onSubmit={(e) => { e.preventDefault(); senddata() }}>
                                 <div className="form-group">
-                                    <input type="text" placeholder="Email" required="" onChange={(e) => { setemail(e.target.value) }} value={email} />
+                                    <input type="text" placeholder="Email"  onChange={(e) => { setemail(e.target.value) }} value={email}  />
                                 </div>
                                 <div className="form-group">
-                                    <input type="password" placeholder="Password" required="" onChange={(e) => { setpass(e.target.value) }} value={pass} />
+                                    <input type="password" placeholder="Password"   onChange={(e) => { setpass(e.target.value) }} value={pass} />
                                 </div>
                                 <div className="signup-link">
                                     No Account yet? <a href="/register"> SIGN UP</a>
@@ -177,7 +179,7 @@ function Login() {
                                 </button>
                             </form>
                             <div className="remember-forgot">
-                                <a href="#">Forgot password?</a>
+                                <a href="#">Forgot password?</a> 
                             </div>
                         </div>
                     </div>

@@ -16,11 +16,16 @@ db.connect()
 const User = require('./model/User')
 
 
+
 app.use(express.json())
 
 
 const cors = require('cors')
 app.use(cors())
+
+
+
+
 
 
 app.post("/login", [
@@ -43,16 +48,13 @@ app.post("/login", [
 
 
         if(ispassword){
+            const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
+            console.log(`the jwt token= ${token}`);
 
-            // const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
-            // console.log(`the jwt token= ${token}`);
-
-            // localStorage.setItem("token", token);
-            // console.log(localStorage.getItem("token"));
             
-            res.send("Login Successfull")
+            res.json({msg:"Login Successfull",token})
         }else{
-            res.send("invalid Password")
+            res.json({msg:"invalid Password"})
 
         }
 
@@ -62,6 +64,11 @@ app.post("/login", [
         res.status(500).send("Server error");
     }
 });
+
+
+
+
+
 
 
 app.post('/register', [

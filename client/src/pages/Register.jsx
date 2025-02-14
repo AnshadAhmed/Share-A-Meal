@@ -6,6 +6,7 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { useNavigate } from 'react-router-dom';
 
 
 function Register() {
@@ -19,6 +20,8 @@ function Register() {
 
 
   const [open, setOpen] = useState(true);
+
+  const navigate=useNavigate();
 
 
   async function senddata() {
@@ -43,6 +46,8 @@ function Register() {
 
         if (response.data == "User added successfully") {
           setalertTupe("success")
+          navigate('/login')
+
         } else {
           setalertTupe("error")
         }
