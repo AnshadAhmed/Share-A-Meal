@@ -24,7 +24,9 @@ function Register() {
   const navigate=useNavigate();
 
 
-  async function senddata() {
+  async function senddata(e) {
+    e.preventDefault()
+
     console.log(userName);
     console.log(email);
     console.log(pass);
@@ -46,7 +48,8 @@ function Register() {
 
         if (response.data == "User added successfully") {
           setalertTupe("success")
-          navigate('/login')
+          setTimeout(()=>navigate('/login'),2000)
+          
 
         } else {
           setalertTupe("error")
@@ -163,7 +166,7 @@ function Register() {
             </button>
           </div>
           <div className="divider">or</div>
-          <form onSubmit={(e) => { e.preventDefault(); senddata() }}>
+          <form onSubmit={(e) => {senddata(e) }}>
             <div className="form-group">
               <input type="text" placeholder="username" required="" onChange={(e) => { setuserName(e.target.value) }} value={userName} />
             </div>

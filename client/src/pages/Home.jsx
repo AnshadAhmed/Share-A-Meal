@@ -1,8 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
 import './Home.css'
 
 
 function Home() {
+  const[user,setUser]=useState('')
+  useEffect(() => {
+    setUser(localStorage.getItem('token'))
+  }, [])
+  
   return (
     <>
       <div>
@@ -67,6 +73,7 @@ function Home() {
             </div>
           </section>
         </div>
+        <h1>{user}</h1>
       </div>
 
     </>

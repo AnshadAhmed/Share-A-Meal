@@ -45,11 +45,13 @@ function Login() {
                 }
 
 
-                localStorage.setItem("token",response.data.token)
 
                 setalertMsg(response.data.msg)
 
                 if (response.data.msg == "Login Successfull") {
+                    
+                    localStorage.setItem("token",response.data.token)
+
                     setalertTupe("success")
 
                     setTimeout(()=>{console.log("intime");
