@@ -10,14 +10,14 @@
 .apx {
        /* display: flex; */
        min-height: 100vh;
-       min-width: 100vw;
-       background-image: url("../img/1693384744886.jpg" );
-       background-size: cover;
-       background-repeat: no-repeat;
-       background-position: center ;
-       display: flex;
-       align-items: center;
-       justify-content: center;
+    min-width: 100vw;
+    background-image: url("../img/pexels-karolina-grabowska-4963601.jpg" );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 20% 75%  ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }   
 .Alert{
     position: absolute;
@@ -55,7 +55,7 @@
     border-radius: 100px;
     height: 50px;
     width: 50px;
-    background-image: url("../img/Logo.jpg");
+    background-image: url("../img/lg.png");
     background-position: center;
     background-size: 50px 50px;
 }
