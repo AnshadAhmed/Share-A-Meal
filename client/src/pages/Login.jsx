@@ -1,5 +1,5 @@
 import React from 'react'
-import './Login.css'
+import '../App.css'
 import { useState } from 'react'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
