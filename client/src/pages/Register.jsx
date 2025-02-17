@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import './Register.css'
+import '../App.css'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -87,7 +87,7 @@ function Register() {
 
 
   return (
-    < div className="register">
+    < div className="apx">
       <div className='Alert'>
         <Box sx={{ width: '100%' }}>
           <Collapse in={open}>

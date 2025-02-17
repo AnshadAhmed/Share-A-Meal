@@ -1,0 +1,215 @@
+@import url('https://fonts.googleapis.com/css?family=Sora');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.apx {
+       /* display: flex; */
+       min-height: 100vh;
+    min-width: 100vw;
+    background-image: url("./img/pexels-karolina-grabowska-4963601.jpg" );
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 20% 75%  ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}   
+.Alert{
+    position: absolute;
+    left: 44%;
+    top: 10%;
+}
+
+.container {
+    display: flex;
+    margin: auto;
+    background: white;
+    box-shadow: 10px 10px 20px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.community-panel {
+    background-image: linear-gradient(to top right,rgb(180, 0, 251,0.6),rgb(21, 234, 241,0.4));
+    padding: 4rem;
+    color: white;
+    max-width: 400px;
+}
+.community-panel p{
+    font-size: 12px;
+    opacity: 70%;
+}
+.Logo-title{
+    display: flex;
+    /* border: 1px solid black; */
+    align-items: center;
+    justify-content:space-evenly ;
+}
+.Logo{
+    /* border: 1px solid black; */
+    border-radius: 100px;
+    height: 50px;
+    width: 50px;
+    background-image: url("./img/Logo.jpg");
+    background-position: center;
+    background-size: 50px 50px;
+}
+
+.login-panel {
+    padding: 4rem;
+    width: 400px;
+}
+
+h1 {
+    color: #000000;
+    font-family: 'Sora';
+    font-size: 1.4em;
+    /* border: 1px solid black; */
+}
+.Pic{
+    height: 200px;
+    width: 230px;
+    /* border: 1px solid black; */
+    background-image: url("./img/group.png");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 230px 200px;
+    margin:auto;
+    margin-top: 40px;
+    
+}
+
+.welcome {
+    /* border: 1px solid black; */
+    font-family: 'Sora';
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    
+}
+
+.social-login {
+    display: flex;
+    gap: 1rem;
+    margin: 2rem 0;
+}
+
+.social-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    background: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    color: #000000;
+}
+
+.social-btn svg {
+    width: 18px;
+    height: 18px;
+}
+
+.divider {
+    text-align: center;
+    color: #666;
+    margin: 2rem 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    top: 50%;
+    width: 45%;
+}
+
+.divider::before {
+    left: 0;
+}
+
+.divider::after {
+    right: 0;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+
+}
+
+input {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 0.5rem;
+    background-color:white;
+}
+
+.remember-forgot {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+    /* border:  1px solid black; */
+}
+.remember-forgot a{
+
+    font-weight: 200px;
+
+    /* border: 1px solid black; */
+
+}
+
+
+
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    /* background:#7B76F1; */
+    background: linear-gradient(135deg, #6e38e0, #b665ff);
+
+    color: white;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+.signup-link {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 10px;
+    /* opacity: 60%; */
+    color: rgba(0, 0, 0, 0.5);
+}
+
+
+a {
+    color: #2d3436;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 10px;
+}
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin: 10px 0;
+}
+.checkbox-container input {
+    width: auto;
+    margin-right: 10px;
+}
+
