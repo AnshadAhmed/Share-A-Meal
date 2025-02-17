@@ -117,7 +117,7 @@ function Register() {
         <div className="community-panel">
           <div className="Logo-title">
             <div className="Logo" />
-            {/* <h1></h1> */}
+            <h1>Share A Meal</h1>
           </div>
           <div className="Pic" />
           <div className="welcome">

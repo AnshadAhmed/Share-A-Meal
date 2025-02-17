@@ -49,12 +49,12 @@
 .Logo{
     /* border: 1px solid black; */
     border-radius: 100px;
-    height: 150px;
-    width: 150px;
-    background-image: url("../img/lg.png"); 
+    height: 50px;
+    width: 50px;
+    background-image: url("../img/Logo.jpg"); 
     background-repeat: no-repeat;
     background-position: center;
-    background-size: 150px 150px;
+    background-size: 50px 50px;
 }
 
 .login-panel {
