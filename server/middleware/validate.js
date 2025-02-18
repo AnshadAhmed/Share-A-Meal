@@ -18,6 +18,9 @@ const loginvalidation=[
     }
 ];
 
+
+
+
 const registervalidation=[
     body('email').isEmail().withMessage('Enter a valid email address'),
     body('pwd').isLength({ min: 8 })

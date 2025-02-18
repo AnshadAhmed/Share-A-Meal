@@ -1,12 +1,24 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
-import './Home.css'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import '../App.css'
 
 
 function Home() {
+
   const[user,setUser]=useState('')
+
+  const navigate=useNavigate();
+
+
   useEffect(() => {
     setUser(localStorage.getItem('token'))
+    if(!user){
+      navigate('/login')
+    }
+  
+    
   }, [])
   
   return (
@@ -73,7 +85,6 @@ function Home() {
             </div>
           </section>
         </div>
-        <h1>{user}</h1>
       </div>
 
     </>

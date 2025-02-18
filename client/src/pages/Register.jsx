@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import {useRef} from 'react'
+import { useEffect } from 'react'
 import '../App.css'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
@@ -22,6 +24,13 @@ function Register() {
   const [open, setOpen] = useState(true);
 
   const navigate=useNavigate();
+
+  const inputRef = useRef(null);
+
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
+  
 
 
   async function senddata(e) {
@@ -94,7 +103,7 @@ function Register() {
       <div className='Alert'>
         <Box sx={{ width: '100%' }}>
           <Collapse in={open}>
-            {alertMsg && <Alert severity={alertType}
+            {alertMsg && <Alert  variant='filled' severity={alertType}
               action={
                 <IconButton
                   aria-label="close"
@@ -168,7 +177,7 @@ function Register() {
           <div className="divider">or</div>
           <form onSubmit={(e) => {senddata(e) }}>
             <div className="form-group">
-              <input type="text" placeholder="username" required="" onChange={(e) => { setuserName(e.target.value) }} value={userName} />
+              <input type="text" placeholder="username" required="" onChange={(e) => { setuserName(e.target.value) }} value={userName} ref={inputRef}/>
             </div>
             <div className="form-group">
               <input type="text" placeholder="Email" required="" onChange={(e) => { setemail(e.target.value) }} value={email} />

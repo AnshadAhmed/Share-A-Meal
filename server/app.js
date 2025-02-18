@@ -8,9 +8,10 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 
-const { body, validationResult } = require('express-validator');
+// const { body, validationResult } = require('express-validator');
 
 const {loginvalidation,registervalidation}=require('./middleware/validate')
+
 const db = require('./model/db')
 db.connect()
 const User = require('./model/User')
@@ -22,7 +23,6 @@ app.use(express.json())
 
 const cors = require('cors')
 app.use(cors())
-
 
 
 
@@ -104,11 +104,13 @@ app.post('/register', registervalidation, async (req, res) => {
     }
 });
 
+
+
 app.get('/home', (req, res) => {
-    
-    
     res.send('Hello World')
 })
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is Running at:${PORT}`);

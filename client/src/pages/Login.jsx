@@ -1,6 +1,8 @@
 import React from 'react'
 import '../App.css'
 import { useState } from 'react'
+import {useRef} from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
 import Box from '@mui/material/Box';
@@ -21,11 +23,19 @@ function Login() {
 
     const navigate=useNavigate();
 
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        inputRef.current.focus();
+    }, [])
+    
+
+
     async function senddata() {
         if (!email || !pass) {
             seterror(true)
             setalertMsg("Please fill all the fields")
-            setalertTupe("error")
+            // setalertTupe("error")
             setOpen(true)
 
 
@@ -93,7 +103,7 @@ function Login() {
                 <div className='Alert'>
                     <Box sx={{ width: '100%' }}>
                         <Collapse in={open}>
-                            {alertMsg && <Alert severity={alertType}
+                            {alertMsg && <Alert variant="filled" severity={alertType}
                                 action={
                                     <IconButton
                                         aria-label="close"
@@ -168,7 +178,7 @@ function Login() {
                             <div className="divider">or</div>
                             <form onSubmit={(e) => { e.preventDefault(); senddata() }}>
                                 <div className="form-group">
-                                    <input type="text" placeholder="Email"  onChange={(e) => { setemail(e.target.value) }} value={email}  />
+                                    <input type="text" placeholder="Email"  onChange={(e) => { setemail(e.target.value) }} value={email} ref={inputRef} />
                                 </div>
                                 <div className="form-group">
                                     <input type="password" placeholder="Password"   onChange={(e) => { setpass(e.target.value) }} value={pass} />

@@ -18,6 +18,7 @@
 
 
 //         if (ispassword) {
+
 //             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
 //             console.log(`the jwt token= ${token}`);
 
