@@ -13,12 +13,9 @@ function Home() {
 
 
   useEffect(() => {
+
     setUser(localStorage.getItem('token'))
-    if(!user){
-      navigate('/login')
-    }
-  
-    
+
   }, [])
   
   return (
@@ -27,14 +24,14 @@ function Home() {
         <nav>
           <div className="logo">Share a meal</div>
           <div className="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Order</a>
-            <a href="#">Log out</a>
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+            <a href="">Order</a>
+            <a href="">Log out</a>
             <button className="search-btn">Donate</button>
             <button className="Spot" />
-            <button className="Profile" />
+            <button className="home-Profile" />
           </div>
         </nav>
         <div className="cen">

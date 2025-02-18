@@ -10,7 +10,7 @@ const jwt = require('jsonwebtoken')
 
 // const { body, validationResult } = require('express-validator');
 
-const {loginvalidation,registervalidation}=require('./middleware/validate')
+const { loginvalidation, registervalidation } = require('./middleware/validate')
 
 const db = require('./model/db')
 db.connect()
@@ -38,21 +38,20 @@ app.post("/login", loginvalidation, async (req, res) => {
         // console.log(userdata);
 
 
-        const ispassword=await bcrypt.compare(pwd,userdata.pwd)
+        const ispassword = await bcrypt.compare(pwd, userdata.pwd)
 
 
-        if(ispassword){
-            
+        if (ispassword) {
 
 
 
             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
             console.log(`the jwt token= ${token}`);
 
-            
-            res.json({msg:"Login Successfull",token})
-        }else{
-            res.json({msg:"invalid Password"})
+
+            res.json({ msg: "Login Successfull", token })
+        } else {
+            res.json({ msg: "invalid Password" })
 
         }
 
@@ -84,13 +83,14 @@ app.post('/register', registervalidation, async (req, res) => {
 
         //bcrypy hashing the password
 
+
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(pwd, salt)
 
 
         //adding to DB
 
-        const newUser = await User.create({ username, email, pwd:hashedPassword });
+        const newUser = await User.create({ username, email, pwd: hashedPassword });
         await newUser.save();
 
         // console.log(username);
@@ -108,6 +108,12 @@ app.post('/register', registervalidation, async (req, res) => {
 
 app.get('/home', (req, res) => {
     res.send('Hello World')
+})
+
+
+
+app.get('/userprofile', (req, res) => {
+    res.send('User Profile')
 })
 
 
