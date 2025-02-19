@@ -19,6 +19,10 @@ body {
     min-height: 100vh;
     min-width: 100vw;
     background-image: url("./img/pexels-karolina-grabowska-4963601.jpg");
+
+    box-shadow: inset 0 0 0 2000px rgba(0, 0, 0, 0.4);    
+
+
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 20% 75%;
@@ -34,6 +38,8 @@ body {
 }
 
 .container {
+    height: auto;
+    width: auto;
     display: flex;
     margin: auto;
     background: white;
