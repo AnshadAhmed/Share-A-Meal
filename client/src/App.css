@@ -11,7 +11,7 @@
        /* display: flex; */
        min-height: 100vh;
     min-width: 100vw;
-    background-image: url("./img/pexels-karolina-grabowska-4963601.jpg" );
+    background-image: url("./img/pexels-karolina-grabowska-4963601.jpg");
     background-size: cover;
     background-repeat: no-repeat;
     background-position: 20% 75%  ;
@@ -26,6 +26,8 @@
 }
 
 .container {
+    height: auto;
+    width: auto;
     display: flex;
     margin: auto;
     background: white;
