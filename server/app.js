@@ -8,8 +8,9 @@ const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 
-const { body, validationResult } = require('express-validator');
+// const { body, validationResult } = require('express-validator');
 
+const { loginvalidation, registervalidation } = require('./middleware/validate')
 
 const db = require('./model/db')
 db.connect()
@@ -27,20 +28,8 @@ app.use(cors())
 
 
 
+app.post("/login", loginvalidation, async (req, res) => {
 
-app.post("/login", [
-    body('email').isEmail().withMessage('Enter a valid email address'),
-    body('pwd').isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
-    .matches(/[0-9]/)
-    .withMessage('Password must contain at least one number')
-    .matches(/[!@#$%^&*]/)
-    .withMessage('Password must contain at least one special character')
-], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(401).send({ errors: errors.array() });
-    }
 
     try {
         const { email, pwd } = req.body;
@@ -49,17 +38,20 @@ app.post("/login", [
         // console.log(userdata);
 
 
-        const ispassword=await bcrypt.compare(pwd,userdata.pwd)
+        const ispassword = await bcrypt.compare(pwd, userdata.pwd)
 
 
-        if(ispassword){
+        if (ispassword) {
+
+
+
             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "1h" });
             console.log(`the jwt token= ${token}`);
 
-            
-            res.json({msg:"Login Successfull",token})
-        }else{
-            res.json({msg:"invalid Password"})
+
+            res.json({ msg: "Login Successfull", token })
+        } else {
+            res.json({ msg: "invalid Password" })
 
         }
 
@@ -76,21 +68,7 @@ app.post("/login", [
 
 
 
-app.post('/register', [
-    body('username').notEmpty().withMessage('Username is required'),
-    body('email').isEmail().withMessage('Enter a valid email address'),
-    body('pwd')
-    .isLength({ min: 8 })
-    .withMessage('Password must be at least 8 characters long')
-    .matches(/[0-9]/)
-    .withMessage('Password must contain at least one number')
-    .matches(/[!@#$%^&*]/)
-    .withMessage('Password must contain at least one special character')
-], async (req, res) => {
-    const errors = validationResult(req);
-    if (!errors.isEmpty()) {
-        return res.status(401).json({ errors: errors.array() });
-    }
+app.post('/register', registervalidation, async (req, res) => {
 
     try {
         const { username, email, pwd } = req.body;
@@ -105,13 +83,14 @@ app.post('/register', [
 
         //bcrypy hashing the password
 
+
         const salt = await bcrypt.genSalt(10)
         const hashedPassword = await bcrypt.hash(pwd, salt)
 
 
         //adding to DB
 
-        const newUser = await User.create({ username, email, pwd:hashedPassword });
+        const newUser = await User.create({ username, email, pwd: hashedPassword });
         await newUser.save();
 
         // console.log(username);
@@ -125,11 +104,19 @@ app.post('/register', [
     }
 });
 
+
+
 app.get('/home', (req, res) => {
-    
-    
     res.send('Hello World')
 })
+
+
+
+app.get('/userprofile', (req, res) => {
+    res.send('User Profile')
+})
+
+
 
 app.listen(PORT, () => {
     console.log(`Server is Running at:${PORT}`);

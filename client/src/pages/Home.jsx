@@ -1,22 +1,37 @@
-import React from 'react'
-import './Home.css'
+import React, { useState } from 'react'
+import { useEffect } from 'react'
+import { Navigate, useNavigate } from 'react-router-dom';
+
+import '../App.css'
 
 
 function Home() {
+
+  const[user,setUser]=useState('')
+
+  const navigate=useNavigate();
+
+
+  useEffect(() => {
+
+    setUser(localStorage.getItem('token'))
+
+  }, [])
+  
   return (
     <>
       <div>
         <nav>
           <div className="logo">Share a meal</div>
           <div className="nav-links">
-            <a href="#">Home</a>
-            <a href="#">About</a>
-            <a href="#">Contact</a>
-            <a href="#">Order</a>
-            <a href="#">Log out</a>
+            <a href="">Home</a>
+            <a href="">About</a>
+            <a href="">Contact</a>
+            <a href="">Order</a>
+            <a href="">Log out</a>
             <button className="search-btn">Donate</button>
             <button className="Spot" />
-            <button className="Profile" />
+            <button className="home-Profile" />
           </div>
         </nav>
         <div className="cen">

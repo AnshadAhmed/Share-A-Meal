@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import {useRef} from 'react'
+import { useEffect } from 'react'
 import '../App.css'
 import axios from 'axios'
 import Alert from '@mui/material/Alert';
@@ -23,8 +25,17 @@ function Register() {
 
   const navigate=useNavigate();
 
+  const inputRef = useRef(null);
 
-  async function senddata() {
+  useEffect(() => {
+    inputRef.current.focus();
+  }, [])
+  
+
+
+  async function senddata(e) {
+    e.preventDefault()
+
     console.log(userName);
     console.log(email);
     console.log(pass);
@@ -46,7 +57,8 @@ function Register() {
 
         if (response.data == "User added successfully") {
           setalertTupe("success")
-          navigate('/login')
+          setTimeout(()=>navigate('/login'),2000)
+          
 
         } else {
           setalertTupe("error")
@@ -91,7 +103,7 @@ function Register() {
       <div className='Alert'>
         <Box sx={{ width: '100%' }}>
           <Collapse in={open}>
-            {alertMsg && <Alert severity={alertType}
+            {alertMsg && <Alert  variant='filled' severity={alertType}
               action={
                 <IconButton
                   aria-label="close"
@@ -163,9 +175,9 @@ function Register() {
             </button> */}
           </div>
           <div className="divider">or</div>
-          <form onSubmit={(e) => { e.preventDefault(); senddata() }}>
+          <form onSubmit={(e) => {senddata(e) }}>
             <div className="form-group">
-              <input type="text" placeholder="username" required="" onChange={(e) => { setuserName(e.target.value) }} value={userName} />
+              <input type="text" placeholder="username" required="" onChange={(e) => { setuserName(e.target.value) }} value={userName} ref={inputRef}/>
             </div>
             <div className="form-group">
               <input type="text" placeholder="Email" required="" onChange={(e) => { setemail(e.target.value) }} value={email} />
