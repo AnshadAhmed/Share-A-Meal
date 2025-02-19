@@ -1,23 +1,34 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 import '../App.css'
 
 
 function Home() {
 
-  const[user,setUser]=useState('')
+  const [token, setToken] = useState('')
 
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
 
   useEffect(() => {
 
-    setUser(localStorage.getItem('token'))
+    // setUser(localStorage.getItem('token'))
+
+    setToken(localStorage.getItem("token"))
+
+    if (token) {
+      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
+    }
+    else{
+      navigate('/login')
+    }
+
 
   }, [])
-  
+
   return (
     <>
       <div>

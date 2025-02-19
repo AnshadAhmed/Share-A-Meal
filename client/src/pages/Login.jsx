@@ -64,8 +64,8 @@ function Login() {
 
                     setalertTupe("success")
 
-                    setTimeout(()=>{console.log("intime");
-                        navigate("/home")}, 3000)
+                    setTimeout(()=>{
+                        navigate("/home")}, 2000)
                     
 
                 } else {
