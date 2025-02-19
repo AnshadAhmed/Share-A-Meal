@@ -8,26 +8,26 @@ import '../App.css'
 
 function Home() {
 
-  const [token, setToken] = useState('')
 
   const navigate = useNavigate();
 
 
-  useEffect(() => {
-
-    // setUser(localStorage.getItem('token'))
-
-    setToken(localStorage.getItem("token"))
-
-    if (token) {
-      axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    }
-    else{
-      navigate('/login')
-    }
+  // useEffect(() => {
 
 
-  }, [])
+
+  //   axios.get("http://localhost:3006/home", {
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       "Authorization": `${localStorage.getItem("token")}`, // Add token from local storage
+  //     },
+  //   })
+  //     .then(response => console.log(response.data))
+  //     .catch(error => console.error("Error:", error));
+
+
+
+  // }, [])
 
   return (
     <>

@@ -1,13 +1,42 @@
 import React from 'react'
 import '../App.css'
+import axios from 'axios';
+import { useEffect } from 'react'
+import { useState } from 'react'
+
+
 
 function Userprofile() {
+    const [user, setUser] = useState({});
+
+    useEffect(() => {
+
+
+        axios.get("http://localhost:3006/userprofile", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("token")}`, // Add token from local storage
+            },
+        })
+            .then(response => {setUser(response.data);
+                console.log(response.data);
+                
+            })
+            .catch(error => console.error("Error:", error));
+
+
+    }, [])
+    
+    
+
+
+
     return (
         <>
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src=""
+                        src="lkjj"
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
@@ -35,11 +64,11 @@ function Userprofile() {
                         <div className="userprofile-details-grid">
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">First name</div>
-                                <div className="userprofile-details-value">adnan</div>
+                                <div className="userprofile-details-value">{user.username}</div>
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Email</div>
-                                <div className="userprofile-details-value">adnan@example.com</div>
+                                <div className="userprofile-details-value">{user.email}</div>
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Location</div>

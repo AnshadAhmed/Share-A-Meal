@@ -22,6 +22,7 @@ app.use(express.json())
 
 
 const cors = require('cors')
+const verifyToken = require('./middleware/authmiddleware')
 app.use(cors())
 
 
@@ -106,14 +107,32 @@ app.post('/register', registervalidation, async (req, res) => {
 
 
 
-app.get('/home', (req, res) => {
-    res.send('Hello World')
+app.get('/', (req, res) => {
+
+    res.send(req.userId)
 })
 
 
 
-app.get('/userprofile', (req, res) => {
-    res.send('User Profile')
+app.get('/userprofile', verifyToken, async (req, res) => {
+    try {
+        const user = await User.findById(req.userId)
+
+
+
+        console.log(`user profile${req.userId}`);
+        console.log(user);
+        
+    
+        res.send(user)
+
+    } catch (error) {
+        console.log(error);
+        
+        
+    }
+
+
 })
 
 
