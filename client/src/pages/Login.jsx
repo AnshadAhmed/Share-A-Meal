@@ -65,7 +65,7 @@ function Login() {
                     setalertTupe("success")
 
                     setTimeout(()=>{
-                        navigate("/home")}, 2000)
+                        navigate("/")}, 2000)
                     
 
                 } else {
