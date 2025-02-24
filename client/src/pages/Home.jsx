@@ -53,7 +53,7 @@ function Home() {
           </div>
         </div>
         <section className="how-it-works">
-          <h2>How it works</h2>
+          <h2>How it works</h2><br/><br/>
           <div className="steps">
             <div className="step-card">
               <h3>Create a Listing</h3>

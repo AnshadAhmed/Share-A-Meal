@@ -82,4 +82,27 @@
 
 
 
-// module.exports = { logincontroller, registercontroller }
+
+// const userprofile = async(req, res) => {
+//     try {
+//         const user = await User.findById(req.userId)
+
+
+
+//         console.log(`user profile${req.userId}`);
+//         console.log(user);
+
+
+//         res.send(user)
+
+//     } catch (error) {
+//         console.log(error);
+
+
+//     }
+// }
+
+
+
+
+// module.exports = { logincontroller, registercontroller, userprofile}

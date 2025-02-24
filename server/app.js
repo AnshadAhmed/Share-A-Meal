@@ -29,6 +29,8 @@ app.use(cors())
 
 
 
+
+
 app.post("/login", loginvalidation, async (req, res) => {
 
 
@@ -114,13 +116,18 @@ app.get('/', (req, res) => {
 
 
 
+
+
+
+
 app.get('/userprofile', verifyToken, async (req, res) => {
     try {
         const user = await User.findById(req.userId)
 
 
 
-        console.log(`user profile${req.userId}`);
+        console.log(`user profile is: ${req.userId}`);
+
         console.log(user);
         
     

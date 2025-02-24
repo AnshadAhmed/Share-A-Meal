@@ -36,7 +36,7 @@ function Userprofile() {
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src="lkjj"
+                        src="/File4.png"
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
