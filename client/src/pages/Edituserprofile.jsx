@@ -14,7 +14,7 @@ function Edituserprofile() {
     function senddata(e) {
         e.preventDefault();
 
-        axios.post("http://localhost:3006/edituserprofile",
+        axios.put("http://localhost:3006/edituserprofile",
             {
                 fullname: fullname,
                 phone: phone,
@@ -28,17 +28,33 @@ function Edituserprofile() {
             }
         )
             .then(response => {
-                console.log(response.data);
 
-                setalertMsg(response.data)
-                seterror(true)
+
+                console.log(response.data.msg);
+
+
+                setalertMsg(response.data.msg)
                 setalertTupe("success")
+                seterror(true)
                 setOpen(true)
 
 
-                alert(response.data)
+                // alert(response.data.msg)
             })
-            .catch(error => console.error(error));
+            .catch(error => {
+                // console.log(error);
+                if (error.response && error.response.status === 400) {
+                    setalertMsg(error.response.data.msg)
+                    seterror(true)
+                    setOpen(true)
+                }
+                else{
+                    console.log(error);
+                    
+                }
+
+
+            });
 
     }
 
