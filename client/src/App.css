@@ -882,3 +882,14 @@ h3 p {
         width: 100%;
     }
 }
+
+
+.profile-alert{
+    /* border: 1px solid black; */
+    /* width: 400px;
+    height: 100px; */
+    position: fixed;
+    bottom: 20px;
+    left: 35px;
+
+}

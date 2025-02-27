@@ -18,16 +18,22 @@ function Userprofile() {
                 "Authorization": `${localStorage.getItem("token")}`, // Add token from local storage
             },
         })
-            .then(response => {setUser(response.data);
+            .then(response => {
+                setUser(response.data);
                 console.log(response.data);
-                
+
             })
             .catch(error => console.error("Error:", error));
 
 
     }, [])
-    
-    
+
+
+
+    let text = `${user.createdAt}`;
+    let part = text.substring(0, 10); // Extracts "World"
+
+
 
 
 
@@ -40,8 +46,8 @@ function Userprofile() {
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
-                    <h1 className="userprofile-profile-name">@Adnan</h1>
-                    <p className="userprofile-profile-bio">Adnan | 938429808</p>
+                    <h1 className="userprofile-profile-name">@{user.username}</h1>
+                    {/* <p className="userprofile-profile-bio">Adnan | 938429808</p> */}
                     <button className='userprofile-button'>Edit</button>
                 </div>
                 <div className="userprofile-profile-stats">
@@ -64,7 +70,7 @@ function Userprofile() {
                         <div className="userprofile-details-grid">
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">First name</div>
-                                <div className="userprofile-details-value">{user.username}</div>
+                                <div className="userprofile-details-value">{user.fullname}</div>
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Email</div>
@@ -72,15 +78,15 @@ function Userprofile() {
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Location</div>
-                                <div className="userprofile-details-value">San Francisco, CA</div>
+                                <div className="userprofile-details-value">{user.location}</div>
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Joined</div>
-                                <div className="userprofile-details-value">January 2023</div>
+                                <div className="userprofile-details-value">{part}</div>
                             </div>
                             <div className="userprofile-details-item">
                                 <div className="userprofile-details-label">Phone no</div>
-                                <div className="userprofile-details-value">38491884098</div>
+                                <div className="userprofile-details-value">{user.phone}</div>
                             </div>
                         </div>
                     </div>

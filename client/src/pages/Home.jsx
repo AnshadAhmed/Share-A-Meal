@@ -39,7 +39,10 @@ function Home() {
             <a href="">About</a>
             <a href="">Contact</a>
             <a href="">Order</a>
+            <a href="/login">Log in</a>
             <a href="">Log out</a>
+
+            
             <button className="search-btn">Donate</button>
             <button className="Spot" />
             <button className="home-Profile" />

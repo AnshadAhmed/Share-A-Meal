@@ -50,11 +50,6 @@ function Login() {
                 // console.log(`in try${response.data}`);
 
 
-                if (!response.data) {
-                    console.log("no response posible error");
-                }
-
-
 
                 setalertMsg(response.data.msg)
 

@@ -1,14 +1,15 @@
 require('dotenv').config()
-// import {useform} from 'react-hook-form'
 const express = require('express')
 const app = express()
 const PORT = process.env.PORT
+
+const nodemailer = require('nodemailer');
+
 
 const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
 
 
-// const { body, validationResult } = require('express-validator');
 
 const { loginvalidation, registervalidation } = require('./middleware/validate')
 
@@ -22,7 +23,7 @@ app.use(express.json())
 
 
 const cors = require('cors')
-const verifyToken = require('./middleware/authmiddleware')
+const verifyToken = require('./middleware/authmiddleware');
 app.use(cors())
 
 
@@ -96,6 +97,36 @@ app.post('/register', registervalidation, async (req, res) => {
         const newUser = await User.create({ username, email, pwd: hashedPassword });
         await newUser.save();
 
+
+
+        // genate and send emaail to the correct user
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: 'anadn200@gmail.com',  // Replace with your email
+                pass: 'byxa agqx iwbz erld' // the appa password generated from google
+            }
+        });
+
+        const mailOptions = {
+            from: 'anadn200@gmail.com',
+            to: newUser.email,
+            subject: 'Welcome to share a meal community',
+            text: `your registerd email is: ${email} and password is: ${pwd}`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+
+
+
         // console.log(username);
         // console.log(email);
         // console.log(pwd);
@@ -139,6 +170,23 @@ app.get('/userprofile', verifyToken, async (req, res) => {
         
     }
 
+
+})
+
+app.post('/edituserprofile',verifyToken,async(req,res)=>{
+    try {
+        const{fullname,phone,location}=req.body;
+        
+        // const user = await User.findByIdAndUpdate(req.userId, { $set: { fullname, phone } },{ new: true });
+
+        const user = await User.findByIdAndUpdate(req.userId,{ fullname,phone,location},{ new: true });
+        res.send("user added")
+
+        
+    } catch (error) {
+        console.log(error);
+        
+    }
 
 })
 
