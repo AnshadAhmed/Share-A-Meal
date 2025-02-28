@@ -11,15 +11,9 @@ function Userprofile() {
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
-<<<<<<< Updated upstream
-                    <h1 className="userprofile-profile-name">@Adnan</h1>
-                    <p className="userprofile-profile-bio">Adnan | 938429808</p>
-                    <button className='userprofile-button'>Edit</button>
-=======
                     <h1 className="userprofile-profile-name">@{user.username}</h1>
                     {/* <p className="userprofile-profile-bio">Adnan | 938429808</p> */}
                     <button className='userprofile-button'><a href='/edituserprofile'>Edit</a></button>
->>>>>>> Stashed changes
                 </div>
                 <div className="userprofile-profile-stats">
                     <div className="userprofile-stat-card">
