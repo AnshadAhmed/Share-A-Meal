@@ -30,8 +30,8 @@ function Home() {
             <a href="">Order</a>
             <a href="">Log out</a>
             <button className="search-btn">Donate</button>
-            {/* <button className="Spot" /> */}
-            <button className="home-Profile"><a href='/userprofile'>Profile</a></button>
+            <button className="Spot" />
+            <button className="home-Profile" />
           </div>
         </nav>
         <div className="cen">
