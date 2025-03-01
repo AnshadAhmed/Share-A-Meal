@@ -47,11 +47,16 @@ function Register() {
       // alert("Please fill all the fields");
     } else {
       try {
-        const response = await axios.post('http://localhost:3006/register', {
+        const response = await axios.post('http://localhost:3006/auth/register', {
           username: userName,
           email: email,
           pwd: pass
-        });
+      });
+        // const response = await axios.post('http://localhost:3006/register', {
+        //   username: userName,
+        //   email: email,
+        //   pwd: pass
+        // });
 
 
 

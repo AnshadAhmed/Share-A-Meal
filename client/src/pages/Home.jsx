@@ -45,7 +45,7 @@ function Home() {
             
             <button className="search-btn">Donate</button>
             <button className="Spot" />
-            <button className="home-Profile" />
+            <button className="home-Profile"><a href="/userprofile">Profile</a></button>
           </div>
         </nav>
         <div className="cen">

@@ -14,7 +14,7 @@ function Edituserprofile() {
     function senddata(e) {
         e.preventDefault();
 
-        axios.put("http://localhost:3006/edituserprofile",
+        axios.put("http://localhost:3006/user/edituserprofile",
             {
                 fullname: fullname,
                 phone: phone,

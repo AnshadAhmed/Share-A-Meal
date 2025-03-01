@@ -1,7 +1,6 @@
 const { body, validationResult } = require('express-validator');
 
-
-const loginvalidation=[
+const loginvalidation = [
     body('email').isEmail().withMessage('Enter a valid email address'),
     body('pwd').isLength({ min: 8 })
         .withMessage('Password must be at least 8 characters long')
@@ -18,10 +17,7 @@ const loginvalidation=[
     }
 ];
 
-
-
-
-const registervalidation=[
+const registervalidation = [
     body('email').isEmail().withMessage('Enter a valid email address'),
     body('pwd').isLength({ min: 8 })
         .withMessage('Password must be at least 8 characters long')
@@ -38,4 +34,4 @@ const registervalidation=[
     }
 ];
 
-module.exports={loginvalidation,registervalidation}
+module.exports = { loginvalidation, registervalidation };
