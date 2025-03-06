@@ -29,19 +29,27 @@ function Forgotpassword() {
                 email: email
             });
 
-            seterror(true)
-            setalertMsg(response.data.msg)
-            setalertTupe('success')
-
-            alert(response.data.msg);
+            if (response.status === 200) {
+                seterror(true)
+                setalertMsg(response.data.msg)
+                setalertTupe('success')
+            } else {
+                setalertTupe("error")
+                seterror(true)
+                setalertMsg(response.data.msg)
+            }
 
         } catch (error) {
             console.log(error);
-            seterror(true)
-            setalertMsg(error.response.data.msg)
-
-
-            alert(error.response.data.msg)
+            if (error.response) {
+                setalertTupe("error")
+                seterror(true)
+                setalertMsg(error.response.data.msg)
+            } else {
+                setalertTupe("error")
+                seterror(true)
+                setalertMsg("An unknown error occurred")
+            }
         }
         setOpen(true)
 
