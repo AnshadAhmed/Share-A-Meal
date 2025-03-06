@@ -42,13 +42,18 @@ function Forgotpassword() {
         } catch (error) {
             console.log(error);
             if (error.response) {
-                setalertTupe("error")
-                seterror(true)
-                setalertMsg(error.response.data.msg)
+                if (error.response.status === 401) {
+                    setalertMsg(error.response.data.errors[0].msg);
+                } else {
+                    setalertMsg(error.response.data.msg);
+                }
+                seterror(true);
+                setalertTupe('error');
+                setOpen(true);
             } else {
-                setalertTupe("error")
-                seterror(true)
-                setalertMsg("An unknown error occurred")
+                setalertMsg("An unknown error occurred");
+                seterror(true);
+                setalertTupe('error');
             }
         }
         setOpen(true)
