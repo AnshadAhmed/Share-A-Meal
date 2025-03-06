@@ -4,6 +4,8 @@ const userSchema = mongoose.Schema({
     username: String,
     email: String,
     pwd: String,
+    resetToken: String,
+    resetTokenExpiry: Date,
     fullname: String,
     phone: String,
     location: String,

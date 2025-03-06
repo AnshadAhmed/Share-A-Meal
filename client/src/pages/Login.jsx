@@ -153,14 +153,14 @@ function Login() {
                                     <input type="password" placeholder="Password" onChange={(e) => { setpass(e.target.value) }} value={pass} />
                                 </div>
                                 <div className="signup-link">
-                                    No Account yet? <a href="/register"> SIGN UP</a>
+                                    No Account yet ? <a href="/register"> SIGN UP</a>
                                 </div>
                                 <button type="submit" className="login-btn">
                                     LOG IN
                                 </button>
                             </form>
                             <div className="remember-forgot">
-                                <a href="#">Forgot password?</a>
+                                <a href="/forgotpassword">Forgot password ?</a>
                             </div>
                         </div>
                     </div>

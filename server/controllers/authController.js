@@ -1,6 +1,9 @@
+require('dotenv').config();
+
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const nodemailer = require('nodemailer');
+const crypto = require("crypto");
 const User = require('../model/User');
 const { validationResult } = require('express-validator');
 
@@ -28,6 +31,11 @@ exports.login = async (req, res) => {
     }
 };
 
+
+
+
+
+
 exports.register = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -51,13 +59,13 @@ exports.register = async (req, res) => {
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
-                user: 'anadn200@gmail.com',
-                pass: 'byxa agqx iwbz erld'
+                user: process.env.GMAIL,
+                pass: process.env.APP_PASSWORD
             }
         });
 
         const mailOptions = {
-            from: 'anadn200@gmail.com',
+            from: process.env.GMAIL,
             to: newUser.email,
             subject: 'Welcome to share a meal community',
             text: `Your registered email is: ${email} and password is: ${pwd}`
@@ -75,5 +83,119 @@ exports.register = async (req, res) => {
     } catch (error) {
         console.error(error);
         res.status(500).send("Server error");
+    }
+};
+
+
+
+
+
+
+exports.forgotpassword = async (req, res) => {
+    try {
+        const { email } = req.body;
+
+        const user = await User.findOne({ email });
+        if (!user) return res.status(404).json({ msg: "User not found" });
+
+        // Generate token
+        const token = crypto.randomBytes(32).toString("hex");
+        user.resetToken = token;
+        user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry
+        await user.save();
+
+        // Nodemailer transporter
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL,
+                pass: process.env.APP_PASSWORD
+            }
+        });
+
+        // Send email with reset link
+
+
+        const resetLink = `http://localhost:5173/resetpassword/${token}`;
+        const mailOptions = {
+            from: process.env.GMAIL,
+            to: user.email,
+            subject: "Password Reset Request",
+            html: `
+                    <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6; text-align: center; padding: 20px; border: 2px solid black">
+                    <p style="font-size: 18px;">Hello ${user.email},</p>
+                    <p>We received a request to reset your password.</p>
+                    <p>Please click the button below to reset your password:</p>
+                    <a href="${resetLink}" style="
+                        display: inline-block; 
+                        padding: 12px 20px; 
+                        font-size: 16px; 
+                        font-weight: bold;
+                        color: #fff; 
+                        background-color: #007bff; 
+                        text-decoration: none; 
+                        border-radius: 15px;
+                        margin-top: 10px;
+                    ">
+                        Reset Password
+                    </a>
+                    <p style="margin-top: 20px;">If you did not request this, please ignore this email.</p>
+                    <p>Best regards,<br>Share a meal Team</p>
+                    </div>
+
+                    `,
+        };
+
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+
+
+
+        res.json({ msg: "Reset link sent to your email" });
+
+
+    } catch (error) {
+        console.log(error);
+
+    }
+
+};
+
+
+
+
+
+exports.resetpassword = async (req, res) => {
+    try {
+        const { token } = req.params;
+        const { newPassword,confirmnewpassword } = req.body;
+
+
+        const user = await User.findOne({
+            resetToken: token,
+            resetTokenExpiry: { $gt: Date.now() }, // Check expiry
+        });
+
+        if (!user) return res.status(400).json({ msg: "Invalid or expired token" });
+
+        // Hash new password
+        const hashedPassword = await bcrypt.hash(newPassword, 10);
+        user.pwd = hashedPassword;
+        user.resetToken = undefined;
+        user.resetTokenExpiry = undefined;
+        await user.save();
+
+        res.json({ msg: "Password updated successfully" });
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ msg: "Server error" });
+
     }
 };

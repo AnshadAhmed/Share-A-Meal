@@ -28,11 +28,6 @@ body {
     justify-content: center;
 }
 
-.Alert {
-    position: absolute;
-    left: 44%;
-    top: 10%;
-}
 
 .container {
     height: auto;
@@ -77,6 +72,16 @@ body {
 .login-panel {
     padding: 4rem;
     width: 400px;
+}
+.forgot-login-panel{
+    padding: 4rem;
+    width: 400px;
+    margin-top: 70px;
+}
+.reset-login-panel{
+    padding: 4rem;
+    width: 400px;
+    margin-top: 30px;
 }
 
 h1 {
@@ -182,12 +187,9 @@ input {
     /* border:  1px solid black; */
 }
 
-.remember-forgot a {
 
-    font-weight: 200px;
-
-    /* border: 1px solid black; */
-
+.remember-forgot a:hover{
+    color: #6624ff;
 }
 
 
@@ -212,6 +214,11 @@ input {
     font-size: 10px;
     /* opacity: 60%; */
     color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+}
+
+.signup-link a:hover{
+    color: #6624ff;
 }
 
 
@@ -235,8 +242,37 @@ a {
 }
 
 
+.forgot-divider {
+    text-align: center;
+    color: #000000;
+    margin: 2rem 0;
+    position: relative;
+}
 
+.forgot-divider::before,
+.forgot-divider::after {
+    content: '';
+    flex: 1;
+    border-top: 1px solid #ddd;
+    position: absolute;
+    top: 50%;
+    width: 23%;
+}
 
+.forgot-divider::before {
+    left: 0;
+}
+
+.forgot-divider::after {
+    right: 0;
+}
+
+.Alert{
+    position: fixed;
+    bottom: 20px;
+    left: 35px;
+
+}
 
 
 /* HOME */
@@ -626,6 +662,16 @@ h3 p {
 }
 
 
+.userprofile-button a{
+    text-decoration: none;
+    font-family: 'Sora';
+    font-weight: bold;
+    font-size: 15px;
+}
+
+
+
+
 
 @media (max-width: 768px) {
     .profile-stats {
@@ -893,3 +939,5 @@ h3 p {
     left: 35px;
 
 }
+
+
