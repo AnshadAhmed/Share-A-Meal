@@ -48,9 +48,9 @@ function Edituserprofile() {
                     seterror(true)
                     setOpen(true)
                 }
-                else{
+                else {
                     console.log(error);
-                    
+
                 }
 
 
@@ -79,19 +79,20 @@ function Edituserprofile() {
             <div className="edit-profile-container">
 
                 <div className="edit-profile-edit-header">
+
+                    <h1>Edit Profile</h1>
+                </div>
+                <form className="edit-profile-edit-form" onSubmit={(e) => { senddata(e) }} encType="multipart/form-data">
                     <div className="edit-profile-profile-picture-container">
                         <img
-                            src="/File4.png"
+                            src="/node"
                             alt="Profile Picture"
                             className="edit-profile-profile-picture"
                         />
                         <label className="edit-profile-picture-upload">
-                            <input type="file" accept="image/*" />+
+                            <input type="file" accept="image/*" name="profile-pic" />+
                         </label>
                     </div>
-                    <h1>Edit Profile</h1>
-                </div>
-                <form className="edit-profile-edit-form" onSubmit={(e) => { senddata(e) }}>
                     <div className="edit-profile-form-section">
                         <h2 className="edit-profile-section-title">Personal Information</h2>
                         <div className="edit-profile-form-grid">

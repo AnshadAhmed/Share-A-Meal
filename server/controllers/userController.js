@@ -1,5 +1,7 @@
 const User = require('../model/User');
 
+
+
 exports.getUserProfile = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
@@ -9,6 +11,8 @@ exports.getUserProfile = async (req, res) => {
         res.status(500).send("Server error");
     }
 };
+
+
 
 exports.editUserProfile = async (req, res) => {
     try {

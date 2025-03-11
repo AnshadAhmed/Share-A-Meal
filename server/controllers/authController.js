@@ -101,10 +101,10 @@ exports.forgotpassword = async (req, res) => {
         // Generate token
         const token = crypto.randomBytes(32).toString("hex");
         user.resetToken = token;
-        user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry
+        user.resetTokenExpiry = Date.now() + 3600000; // 1 hour expiry in log
         await user.save();
 
-        // Nodemailer transporter
+        // Nodemailer transporter initialisation
         const transporter = nodemailer.createTransport({
             service: 'gmail',
             auth: {
@@ -113,7 +113,7 @@ exports.forgotpassword = async (req, res) => {
             }
         });
 
-        // Send email with reset link
+        // Send email with reset link to the user 
 
 
         const resetLink = `http://localhost:5173/resetpassword/${token}`;
