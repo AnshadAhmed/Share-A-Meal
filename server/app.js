@@ -11,6 +11,7 @@ const PORT = process.env.PORT || 3006;
 db.connect();
 
 app.use(express.json());
+
 app.use(cors());
 app.use(express.static("my-upload"))
 
@@ -20,3 +21,4 @@ app.use('/user', userRoutes);
 app.listen(PORT, () => {
     console.log(`Server is Running at: ${PORT}`);
 });
+
