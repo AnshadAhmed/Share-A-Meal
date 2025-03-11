@@ -12,6 +12,7 @@ db.connect();
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static("my-upload"))
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);

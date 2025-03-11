@@ -7,6 +7,7 @@ import Userprofile from './pages/Userprofile'
 import Edituserprofile from './pages/Edituserprofile'
 import Forgotpassword from './pages/Forgotpassword'
 import Resetpassword from './pages/Resetpassword'
+import Addmeal from './pages/Addmeal'
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
       <Route path='/resetpassword/:token' element={<Resetpassword/>}></Route>
       <Route path="/userprofile" element={<Userprofile/>}></Route>
       <Route path="/edituserprofile" element={<Edituserprofile/>}></Route>
+      <Route path='/addmeal' element={<Addmeal/>}></Route>
     </Routes>
     
     </>

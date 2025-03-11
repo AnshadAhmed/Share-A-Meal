@@ -37,7 +37,7 @@ const registervalidation = [
 
 
 const forgotpassvalidation = [
-    body('email').isEmpty().withMessage('Enter a valid email address'),
+    body('email').isEmail().withMessage('Enter a valid email address'),
     (req, res, next) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

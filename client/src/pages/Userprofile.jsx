@@ -42,7 +42,7 @@ function Userprofile() {
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src="/File4.png"
+                        src={`locallhost:3006/${user.profilePicture}`}
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
