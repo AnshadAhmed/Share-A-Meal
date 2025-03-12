@@ -4,6 +4,7 @@ import { Navigate, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import '../App.css'
+import Navbar from './Navbar';
 
 
 function Home() {
@@ -32,22 +33,9 @@ function Home() {
   return (
     <>
       <div>
-        <nav>
-          <div className="logo">Share a meal</div>
-          <div className="nav-links">
-            <a href="">Home</a>
-            <a href="">About</a>
-            <a href="">Contact</a>
-            <a href="">Order</a>
-            <a href="/login">Log in</a>
-            <a href="">Log out</a>
+        
+        <Navbar/>
 
-            
-            <button className="search-btn">Donate</button>
-            <button className="Spot" ><img src="" alt="" /></button>
-            <button className="home-Profile" onClick={()=>{navigate('/userprofile')}}><img src="File4.png" alt="" /></button>
-          </div>
-        </nav>
         <div className="cen">
           <div className="hero">
             <div className='img'></div>
@@ -56,7 +44,7 @@ function Home() {
           </div>
         </div>
         <section className="how-it-works">
-          <h2>How it works</h2><br/><br/>
+          <h2>How it works</h2><br /><br />
           <div className="steps">
             <div className="step-card">
               <h3>Create a Listing</h3>
