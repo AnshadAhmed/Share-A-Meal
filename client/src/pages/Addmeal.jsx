@@ -41,8 +41,8 @@ function Addmeal() {
                                     defaultValue={9879875474}
                                 />
                             </div>
-                            <div className="add-form-group">
-                                <label>
+                            <div className="add-edit-profile-form-group">
+                                <label className="add-form-label">
                                     Category <span className="required" />
                                 </label>
                                 <select name="meal" required="">

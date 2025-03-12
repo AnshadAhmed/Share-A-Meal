@@ -44,8 +44,8 @@ function Home() {
 
             
             <button className="search-btn">Donate</button>
-            <button className="Spot" />
-            <button className="home-Profile"><a href="/userprofile">Profile</a></button>
+            <button className="Spot" ><img src="" alt="" /></button>
+            <button className="home-Profile" onClick={()=>{navigate('/userprofile')}}><img src="File4.png" alt="" /></button>
           </div>
         </nav>
         <div className="cen">
