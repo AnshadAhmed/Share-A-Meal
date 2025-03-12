@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 import axios from 'axios';
 import '../App.css';
 
@@ -10,24 +9,47 @@ import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
-function Edituserprofile() {
-    const [error, seterror] = useState(false);
-    const [alertMsg, setalertMsg] = useState("");
-    const [alertType, setalertTupe] = useState("error");
+function EditUserProfile() {
+    const [user, setUser] = useState({});
+
+    
+    const [error, setError] = useState(false);
+    const [alertMsg, setAlertMsg] = useState("");
+    const [alertType, setAlertType] = useState("error");
+
+
     const [open, setOpen] = useState(true);
 
-
-    const navigate = useNavigate();
 
 
     const [fullname, setFullname] = useState("");
     const [email, setEmail] = useState("");
     const [location, setLocation] = useState("");
     const [phone, setPhone] = useState("");
-    const [profilePic, setProfilePic] = useState(null); // State for image file
+    const [profilePic, setProfilePic] = useState(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        axios.get("http://localhost:3006/user/userprofile", {
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${localStorage.getItem("token")}`,
+            },
+        })
+            .then(response => {
+                setUser(response.data);
+                setFullname(response.data.fullname);
+                setEmail(response.data.email);
+                setLocation(response.data.location);
+                setPhone(response.data.phone);
+                console.log(response.data);
+            })
+            .catch(error => console.error("Error:", error));
+    }, []);
 
     function handleFileChange(e) {
-        setProfilePic(e.target.files[0]); // Store selected file
+        setProfilePic(e.target.files[0]);
     }
 
     async function senddata(e) {
@@ -35,30 +57,31 @@ function Edituserprofile() {
 
         const formData = new FormData();
         formData.append("fullname", fullname);
+        formData.append("email", email);
         formData.append("phone", phone);
         formData.append("location", location);
         if (profilePic) {
-            formData.append("profile-pic", profilePic); // Append the image file
+            formData.append("profile-pic", profilePic);
         }
 
         try {
             const response = await axios.put("http://localhost:3006/user/edituserprofile", formData, {
                 headers: {
                     'Authorization': `${localStorage.getItem("token")}`,
-                    'Content-Type': 'multipart/form-data', // Important for file upload
+                    'Content-Type': 'multipart/form-data',
                 },
             });
 
             console.log(response.data.msg);
-            setalertMsg(response.data.msg);
-            setalertTupe("success");
-            seterror(true);
+            setAlertMsg(response.data.msg);
+            setAlertType("success");
+            setError(true);
             setOpen(true);
-            setTimeout(()=>navigate('/userprofile'),2000)
+            setTimeout(() => navigate('/userprofile'), 2000)
         } catch (error) {
             if (error.response && error.response.status === 400) {
-                setalertMsg(error.response.data.msg);
-                seterror(true);
+                setAlertMsg(error.response.data.msg);
+                setError(true);
                 setOpen(true);
             } else {
                 console.log(error);
@@ -75,7 +98,7 @@ function Edituserprofile() {
                 <form className="edit-profile-edit-form" onSubmit={senddata} encType="multipart/form-data">
                     <div className="edit-profile-profile-picture-container">
                         <img
-                            src={profilePic ? URL.createObjectURL(profilePic) : "/node"}
+                            src={profilePic ? URL.createObjectURL(profilePic) : `http://localhost:3006/my-upload/${user.profilePicture}`}
                             alt="Profile"
                             className="edit-profile-profile-picture"
                         />
@@ -89,19 +112,19 @@ function Edituserprofile() {
                         <div className="edit-profile-form-grid">
                             <div className="edit-profile-form-group">
                                 <label className="edit-profile-form-label">Full Name</label>
-                                <input type="text" className="edit-profile-form-input" onChange={(e) => setFullname(e.target.value)} />
+                                <input type="text" className="edit-profile-form-input" value={fullname} onChange={(e) => setFullname(e.target.value)} />
                             </div>
                             <div className="edit-profile-form-group">
                                 <label className="edit-profile-form-label">Email</label>
-                                <input type="email" className="edit-profile-form-input" onChange={(e) => setEmail(e.target.value)} />
+                                <input type="email" className="edit-profile-form-input" value={email} onChange={(e) => setEmail(e.target.value)} />
                             </div>
                             <div className="edit-profile-form-group">
                                 <label className="edit-profile-form-label">Location</label>
-                                <input type="text" className="edit-profile-form-input" onChange={(e) => setLocation(e.target.value)} />
+                                <input type="text" className="edit-profile-form-input" value={location} onChange={(e) => setLocation(e.target.value)} />
                             </div>
                             <div className="edit-profile-form-group">
                                 <label className="edit-profile-form-label">Phone no</label>
-                                <input type="text" className="edit-profile-form-input" onChange={(e) => setPhone(e.target.value)} />
+                                <input type="text" className="edit-profile-form-input" value={phone} onChange={(e) => setPhone(e.target.value)} />
                             </div>
                         </div>
                     </div>
@@ -137,4 +160,4 @@ function Edituserprofile() {
     );
 }
 
-export default Edituserprofile;
+export default EditUserProfile;

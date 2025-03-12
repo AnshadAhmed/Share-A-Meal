@@ -9,7 +9,8 @@ const path = require("path")
 const app = express();
 const PORT = process.env.PORT || 3006;
 app.use(cors());
-app.use(express.static(path.join(__dirname,"my-upload")))
+
+app.use('/my-upload',express.static(path.join(__dirname,"my-upload")))
 
 db.connect();
 

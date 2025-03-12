@@ -3,11 +3,19 @@ import '../App.css'
 import axios from 'axios';
 import { useEffect } from 'react'
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 
 
 
 function Userprofile() {
+
+    const navigate = useNavigate();
+
+
     const [user, setUser] = useState({});
+
+
 
     useEffect(() => {
 
@@ -42,13 +50,19 @@ function Userprofile() {
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src={`./server/my-upload/${user.profilePicture}`}
+                        src={`http://localhost:3006/my-upload/${user.profilePicture}`}
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
                     <h1 className="userprofile-profile-name">@{user.username}</h1>
                     {/* <p className="userprofile-profile-bio">Adnan | 938429808</p> */}
-                    <button className='userprofile-button'><a href="/edituserprofile">Edit</a></button>
+                    <button className='userprofile-button' onClick={() => {navigate('/edituserprofile')
+
+                    }}>
+                        {/* <a href="/edituserprofile"> */}
+                        Edit
+                        {/* </a> */}
+                    </button>
                 </div>
                 <div className="userprofile-profile-stats">
                     <div className="userprofile-stat-card">
@@ -57,7 +71,7 @@ function Userprofile() {
                     </div>
                     <div className="userprofile-stat-card">
                         <div className="userprofile-stat-value">348</div>
-                        <div className="userprofile-stat-label">{user.profilePicture}</div>
+                        <div className="userprofile-stat-label">Order</div>
                     </div>
                     <div className="userprofile-stat-card">
                         <div className="userprofile-stat-value">42</div>
