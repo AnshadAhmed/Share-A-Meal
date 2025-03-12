@@ -1,10 +1,17 @@
-import React from 'react'
+import React, { use, useState } from 'react'
 import '../App.css';
 
 
 function Addmeal() {
 
-    
+    const[foodName,setfoodName]=useState("")
+    const[phone,setPhone]=useState("")
+    const[category,setCategory]=useState("")
+    const[quantity,setQuantity]=useState(1)
+    const[pickupAddress,setpickupAddress]=useState("")
+    const[discription,setDiscription]=useState("")
+
+
     return (
         <>
             <div className="add-edit-profile-container">
@@ -16,6 +23,13 @@ function Addmeal() {
                             {/* Image Upload Section */}
                             <div className="add-image-upload-container">
                                 <p>Upload a picture of your own food</p>
+                                <br/>
+                                <img
+                                    src=""
+                                    // {profilePic ? URL.createObjectURL(profilePic) : "/node"}
+                                    alt=""
+                                    className="add-food-meal-picture"
+                                />
                                 <label className="add-custom-file-upload">
                                     <input type="file" accept="image/*" name="food-image" />
                                     Choose File
@@ -89,6 +103,8 @@ function Addmeal() {
                                 />
                             </div>
                         </div>
+                        <br />
+                        <br></br>
                         <button type="submit" className="submit-btn">
                             Add Order
                         </button>

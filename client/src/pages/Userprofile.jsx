@@ -42,7 +42,7 @@ function Userprofile() {
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src={`${user.profilePicture}`}
+                        src={`./server/my-upload/${user.profilePicture}`}
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
@@ -57,7 +57,7 @@ function Userprofile() {
                     </div>
                     <div className="userprofile-stat-card">
                         <div className="userprofile-stat-value">348</div>
-                        <div className="userprofile-stat-label">Following</div>
+                        <div className="userprofile-stat-label">{user.profilePicture}</div>
                     </div>
                     <div className="userprofile-stat-card">
                         <div className="userprofile-stat-value">42</div>

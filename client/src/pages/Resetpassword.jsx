@@ -1,4 +1,6 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom';
+
 import '../App.css';
 import { useParams } from "react-router-dom";
 import axios from 'axios';
@@ -28,58 +30,64 @@ function Resetpassword() {
 
     const [open, setOpen] = useState(true);
 
+    const navigate = useNavigate();
+
+
 
 
     async function senddata() {
 
 
-        if(newpassword!=confirmnewpassword){
+        if (newpassword != confirmnewpassword) {
             seterror(true);
             setalertMsg('Passwords do not match');
             setalertTupe('error');
             setOpen(true);
 
-        }else{
+        } else {
 
 
-        try {
-            const response = await axios.post(`http://localhost:3006/auth/resetpassword/${token}`, {
-                newPassword: newpassword,
-                confirmnewpassword: confirmnewpassword
-            });
+            try {
+                const response = await axios.post(`http://localhost:3006/auth/resetpassword/${token}`, {
+                    newPassword: newpassword,
+                    confirmnewpassword: confirmnewpassword
+                });
 
-            if (response.status === 200) {
-                seterror(true)
-                setalertMsg(response.data.msg)
-                setalertTupe('success')
-            } else {
-                setalertTupe("error")
-                seterror(true)
-                setalertMsg(response.data.msg)
-            }
+                if (response.status === 200) {
+                    seterror(true)
+                    setalertMsg(response.data.msg)
+                    setalertTupe('success')
+                    setTimeout(() => navigate('/login'), 2000)
 
-            // alert(response.data.msg);
 
-        } catch (error) {
-            console.log(error);
-             if (error.response) {
-                if (error.response.status === 401) {
-                    setalertMsg(error.response.data.errors[0].msg);
                 } else {
-                    setalertMsg(error.response.data.msg);
+                    setalertTupe("error")
+                    seterror(true)
+                    setalertMsg(response.data.msg)
                 }
-                seterror(true);
-                setalertTupe('error');
-                setOpen(true);
-            } else {
-                setalertMsg("An unknown error occurred");
-                seterror(true);
-                setalertTupe('error');
+
+                // alert(response.data.msg);
+
+            } catch (error) {
+                console.log(error);
+                if (error.response) {
+                    if (error.response.status === 401) {
+                        setalertMsg(error.response.data.errors[0].msg);
+                    } else {
+                        setalertMsg(error.response.data.msg);
+                    }
+                    seterror(true);
+                    setalertTupe('error');
+                    setOpen(true);
+                } else {
+                    setalertMsg("An unknown error occurred");
+                    seterror(true);
+                    setalertTupe('error');
+                }
+                // alert(error.response.data.msg)
             }
-            // alert(error.response.data.msg)
+            setOpen(true)
         }
-        setOpen(true)
-    }
 
 
     }
@@ -89,7 +97,7 @@ function Resetpassword() {
     return (
         <>
             <div className='apx'>
-            <div className='Alert'>
+                <div className='Alert'>
                     <Box sx={{ width: '100%' }}>
                         <Collapse in={open}>
                             {alertMsg && (
