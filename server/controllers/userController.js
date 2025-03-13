@@ -1,4 +1,5 @@
 const User = require('../model/User');
+const Food = require('../model/Food');
 
 
 
@@ -41,12 +42,18 @@ exports.editUserProfile = async (req, res) => {
 
 exports.addmeal = async (req, res) => {
     try {
-        
 
+        const { mealname, price, location, category, quantity, pickupAddress, description, option } = req.body
+
+        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, description, option, photo: req.file.filename, user_id: req.userId })
+        await newFood.save()
+
+        // console.log(req.userId);
 
         res.status(200).send({ msg: "meal added successfully" });
     } catch (error) {
         console.log(error);
+        res.status(500).send("Server error");
 
 
     }

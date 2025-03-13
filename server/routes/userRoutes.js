@@ -8,6 +8,6 @@ const router = express.Router();
 
 router.get('/userprofile', verifyToken, getUserProfile);
 router.put('/edituserprofile', verifyToken,uploade.single("profile-pic"), editUserProfile);
-router.post('/addmeal',addmeal)
+router.post('/addmeal',verifyToken,uploade.single("food-image"),addmeal)
 
 module.exports = router;

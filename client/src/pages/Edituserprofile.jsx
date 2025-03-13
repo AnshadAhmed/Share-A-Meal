@@ -26,6 +26,7 @@ function EditUserProfile() {
     const [email, setEmail] = useState("");
     const [location, setLocation] = useState("");
     const [phone, setPhone] = useState("");
+    
     const [profilePic, setProfilePic] = useState(null);
 
     const navigate = useNavigate();
@@ -60,6 +61,7 @@ function EditUserProfile() {
         formData.append("email", email);
         formData.append("phone", phone);
         formData.append("location", location);
+        
         if (profilePic) {
             formData.append("profile-pic", profilePic);
         }

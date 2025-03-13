@@ -66,4 +66,7 @@ const resetpassvalidation = [
 ]
 
 
+
+
+
 module.exports = { loginvalidation, registervalidation, forgotpassvalidation, resetpassvalidation};

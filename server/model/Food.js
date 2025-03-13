@@ -1,13 +1,17 @@
 const mongoose = require('mongoose');
 
 const foodSchema = mongoose.Schema({
-    name: String,
-    quantity: String,
-    phone: String,
-    address: String,
-    discription:String,
-    picture: String,
-    createdAt: { type: Date, default: Date.now }
+    mealname: String,
+    price:String,
+    description:String,
+    category:String,
+    location:String,
+    pickupAddress:String,
+    quantity:String,
+    photo: String,
+    option:String,
+    user_id:String,
+    createdAt: { type: Date, default: Date.now, },
 });
 
 module.exports = mongoose.model('Food', foodSchema);

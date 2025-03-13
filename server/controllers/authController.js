@@ -7,6 +7,8 @@ const crypto = require("crypto");
 const User = require('../model/User');
 const { validationResult } = require('express-validator');
 
+
+
 exports.login = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
