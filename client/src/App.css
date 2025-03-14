@@ -313,10 +313,12 @@ nav {
     font-family: 'Sora';
     font-weight: bolder;
     font-size: 15px;
+    opacity: 50%;
 }
 
 .nav-links a:hover {
-    color: #40d3f8;
+    color: #a217f3;
+    opacity: 100%;
 }
 
 .search-btn {
@@ -340,6 +342,9 @@ nav {
 
 .Spot:hover {
     transform: scale(1.1);
+    outline: 2px dashed #a217f3;
+    outline-offset: 3px;
+
 }
 
 .Spot img {
@@ -362,6 +367,9 @@ nav {
 
 .home-Profile:hover {
     transform: scale(1.1);
+    outline: 2px dashed #a217f3;
+    outline-offset: 3px;
+
 }
 
 .home-Profile img {
