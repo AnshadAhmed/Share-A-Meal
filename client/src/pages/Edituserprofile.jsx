@@ -65,6 +65,7 @@ function EditUserProfile() {
         if (profilePic) {
             formData.append("profile-pic", profilePic);
         }
+    
 
         try {
             const response = await axios.put("http://localhost:3006/user/edituserprofile", formData, {

@@ -56,7 +56,7 @@ function Navbar() {
 
 
                     <button className="search-btn">Donate</button>
-                    <button className="Spot" ><img src="/view-food.jpg" alt="" /></button>
+                    <button className="Spot" onClick={() => { navigate('/viewmeal') }}><img src="/view-food.jpg" alt="" /></button>
                     <button className="home-Profile" onClick={() => { navigate('/userprofile') }}><img src={`http://localhost:3006/my-upload/${user.profilePicture}`} alt="" /></button>
                 </div>
             </nav>

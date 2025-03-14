@@ -27,7 +27,14 @@ exports.editUserProfile = async (req, res) => {
             return res.status(400).send({ msg: "Please provide all fields" });
         }
 
+        if (!req.file) {
+            return res.status(400).send({ msg: "Please provide Profile image" });
+
+        }
+
         // console.log(req.body);
+
+
 
 
         const user = await User.findByIdAndUpdate(req.userId, { fullname, phone, location, profilePicture: req.file.filename }, { new: true });
@@ -42,19 +49,28 @@ exports.editUserProfile = async (req, res) => {
 
 exports.addmeal = async (req, res) => {
     try {
+        const { mealname, price, location, category, quantity, pickupAddress, discription, option } = req.body;
 
-        const { mealname, price, location, category, quantity, pickupAddress, description, option } = req.body
+        if (!req.file) {
+            return res.status(400).send({ msg: "Please provide Meal Image To continue" });
+        }
 
-        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, description, option, photo: req.file.filename, user_id: req.userId })
-        await newFood.save()
+        // console.log("Received Data:", req.body);
+        // console.log("File Data (if any):", req.file);
 
-        // console.log(req.userId);
+        // console.log(mealname, price, location, category, quantity, pickupAddress, discription, option);
 
-        res.status(200).send({ msg: "meal added successfully" });
+
+        if (!mealname || !price || !location || !category || !quantity || !pickupAddress || !discription || !option) {
+            return res.status(400).send({ msg: "Please provide all fields" });
+        }
+
+        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, discription, option, photo: req.file.filename, user_id: req.userId });
+        await newFood.save();
+
+        res.status(201).send({ msg: "meal added successfully", data: newFood });
     } catch (error) {
         console.log(error);
-        res.status(500).send("Server error");
-
-
+        res.status(500).send({ msg: "Server error", error: error.message });
     }
 }

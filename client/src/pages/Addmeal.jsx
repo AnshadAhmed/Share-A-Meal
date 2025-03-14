@@ -1,6 +1,8 @@
 import React, { use, useState } from 'react'
 import axios from 'axios';
 import '../App.css';
+import { useNavigate } from 'react-router-dom';
+
 
 
 import Alert from '@mui/material/Alert';
@@ -26,6 +28,9 @@ function Addmeal() {
     function handleFileChange(e) {
         setProfilePic(e.target.files[0]);
     }
+
+    const navigate = useNavigate();
+
 
 
 
@@ -53,6 +58,7 @@ function Addmeal() {
             formData.append("food-image", profilePic);
         }
 
+
         try {
             const response = await axios.post("http://localhost:3006/user/addmeal", formData, {
                 headers: {
@@ -63,16 +69,40 @@ function Addmeal() {
 
             console.log(response.data.msg);
 
-            if(response.status==200){
-                setAlertType("success");
-            }
-
+            setAlertType("success");
             setAlertMsg(response.data.msg);
             setError(true);
             setOpen(true);
-            alert(response.data.msg);
+
+            setTimeout(()=>navigate('/'),2000)
+
+            // alert(response.data.msg);
         } catch (error) {
-            console.log(error);
+            if (error.response && error.response.status === 401) {
+                setAlertMsg(error.response.data.errors[0].msg);
+                setError(true);
+                setOpen(true);
+                setAlertType('error');
+
+                console.log(error);
+
+            }
+            else if (error.response && error.response.status === 400) {
+                setAlertType('error');
+                setAlertMsg(error.response.data.msg);
+                setError(true);
+                setOpen(true);
+            }
+
+
+            else if (error.response) {
+                console.log(error.response);
+
+                alert(`Error ${error.response.status}: ${error.response.statusText}`);
+            } else {
+                console.error(error);
+                alert('An unexpected error occurred');
+            }
         }
 
     }
@@ -118,7 +148,7 @@ function Addmeal() {
                                     className="edit-profile-form-input"
                                     defaultValue=""
                                     onChange={(e) => setmealName(e.target.value)}
-                                    
+
                                 />
                             </div>
                             <div className="add-edit-profile-form-group">
@@ -128,7 +158,7 @@ function Addmeal() {
                                     className="edit-profile-form-input"
                                     defaultValue=""
                                     onChange={(e) => setPrice(e.target.value)}
-                                    
+
                                 />
                             </div>
 
@@ -139,7 +169,7 @@ function Addmeal() {
                                     className="edit-profile-form-input"
                                     defaultValue=""
                                     onChange={(e) => setLocation(e.target.value)}
-                                    
+
 
                                 />
                             </div>
@@ -151,7 +181,7 @@ function Addmeal() {
                                     className="edit-profile-form-input"
                                     defaultValue=""
                                     onChange={(e) => setQuantity(e.target.value)}
-                                    
+
                                 />
                             </div>
                             <div className="add-form-group">
@@ -162,17 +192,18 @@ function Addmeal() {
                                     id="add-delivery-address"
                                     name="delivery-address"
                                     placeholder="Enter you'r Location..."
-                                    defaultValue={""}
+                                    defaultValue=""
                                     onChange={(e) => setpickupAddress(e.target.value)}
                                 />
                             </div>
+
                             <div className="add-form-group">
                                 <label htmlFor="add-special-instructions">Discription</label>
                                 <textarea
                                     id="add-special-instructions"
                                     name="special-instructions"
                                     placeholder="Allergies, preferences, or special requests..."
-                                    defaultValue={""}
+                                    defaultValue=""
                                     onChange={(e) => setDiscription(e.target.value)}
                                 />
                             </div>
