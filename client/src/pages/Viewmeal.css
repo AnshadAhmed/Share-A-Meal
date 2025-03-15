@@ -1,0 +1,126 @@
+.food-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+  }
+  
+  .food-card {
+    width: 1100px;
+    height: 250px;
+    background: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    gap:2.5rem;
+    position: relative;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    /* border: 1px solid black; */
+  }
+  
+  .food-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  
+  .food-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 9999px;
+    border: 1px solid;
+  }
+  
+  .veg {
+    background-color: #dcfce7;
+    color: #15803d;
+    border-color: #22c55e;
+  }
+  
+  .non-veg {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #ef4444;
+  }
+  
+  .food-image {
+    width: 208px;
+    height: 208px;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    object-fit:cover;
+  }
+  
+  .food-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .food-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+  }
+  
+  .food-price {
+    font-size: 1.125rem;
+    margin-top: 8px;
+    font-weight: 600;
+    color: #4b5563;
+  }
+  
+  .food-description {
+    font-size: 0.875rem;
+    width: 60%;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+  
+  .food-quantity {
+    font-size: 0.875rem;
+    color: #374151;
+    margin-top: 0.5rem;
+  }
+  
+  .add-to-cart-btn {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    background: #3b82f6;
+    color: white;
+    font-size: 1rem;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+  }
+  
+  .add-to-cart-btn:hover {
+    background: #25eb77;
+    transform: scale(1.05);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .add-to-cart-btn:hover .cart-icon {
+    opacity: 1;
+    margin-left: 0.5rem;
+  }
+  
+  .cart-icon {
+    opacity: 0;
+    transition: all 0.3s ease;
+    margin-left: -0.5rem;
+  }

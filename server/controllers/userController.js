@@ -74,3 +74,21 @@ exports.addmeal = async (req, res) => {
         res.status(500).send({ msg: "Server error", error: error.message });
     }
 }
+
+
+
+
+exports.viewmeal = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.userId);
+        // const meal = await Food.find({ location: user.location }).select('-__v -_id');
+        const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v -_id');
+
+        res.status(200).send(meal);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: "Server error", error: error.message });
+    }
+}
