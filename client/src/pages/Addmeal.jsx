@@ -25,12 +25,23 @@ function Addmeal() {
     const [discription, setDiscription] = useState("")
     const [category, setCategory] = useState("")
     const [option, setOption] = useState("")
+    const [node,setNode]=useState(false)
 
     const [profilePic, setProfilePic] = useState(null);
 
     function handleFileChange(e) {
         setProfilePic(e.target.files[0]);
     }
+
+
+   const handleOptionChange = (e) => {
+    const isDonate = e.target.value === "Donate";
+    setOption(isDonate ? "Donate" : "Sell");
+    setPrice(isDonate ? "0" : ""); 
+    setNode(isDonate);
+};
+
+
 
     const navigate = useNavigate();
 
@@ -77,7 +88,7 @@ function Addmeal() {
             setError(true);
             setOpen(true);
 
-            setTimeout(()=>navigate('/'),2000)
+            setTimeout(() => navigate('/'), 2000)
 
             // alert(response.data.msg);
         } catch (error) {
@@ -159,7 +170,8 @@ function Addmeal() {
                                 <input
                                     type="text"
                                     className="edit-profile-form-input"
-                                    defaultValue=""
+                                    disabled={node}
+                                    value={price}
                                     onChange={(e) => setPrice(e.target.value)}
 
                                 />
@@ -225,7 +237,10 @@ function Addmeal() {
                                 <label className="add-form-label">
                                     Option <span className="required" />
                                 </label>
-                                <select name="meal" required="" className="edit-profile-form-input" onChange={(e) => setOption(e.target.value)}>
+                                <select name="meal" required className="edit-profile-form-input" 
+                                // onChange={(e) => setOption(e.target.value)}
+                                onChange={handleOptionChange}
+                                >
                                     <option value="">Choose ...</option>
                                     <option value="Sell">Sell</option>
                                     <option value="Donate">Donate</option>
