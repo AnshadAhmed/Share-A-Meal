@@ -1,6 +1,9 @@
 import React, { use, useState } from 'react'
 import axios from 'axios';
-import '../App.css';
+// import '../App.css';
+import './Addmeal.css';
+
+
 import { useNavigate } from 'react-router-dom';
 
 
@@ -128,7 +131,7 @@ function Addmeal() {
                                 <p>Upload a picture of your own food</p>
                                 <br />
                                 <img
-                                    src={profilePic ? URL.createObjectURL(profilePic) : "/node"}
+                                    src={profilePic ? URL.createObjectURL(profilePic) : "/OIP.jpeg"}
                                     alt="Meal"
                                     className="add-food-meal-picture"
                                 />

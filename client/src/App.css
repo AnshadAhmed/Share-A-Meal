@@ -980,7 +980,7 @@ h3 p {
 
 /* ADD-MEAL */
 
-.add-edit-profile-container {
+/* .add-edit-profile-container {
     max-width: 1000px;
     margin: 2rem auto;
     padding: 0 1rem;
@@ -1063,7 +1063,7 @@ h3 p {
     margin-top: 2rem;
 }
 
-/* From Uiverse.io by BHARGAVPATEL1244 */
+//From Uiverse.io by BHARGAVPATEL1244 //
 .add-edit-profile-button {
     outline: none;
     cursor: pointer;
@@ -1185,7 +1185,7 @@ textarea {
     padding: 12px;
     border: 1px solid #ddd;
     border-radius: 4px;
-    /* font-size: 16px; */
+    font-size: 16px;
 }
 
 input[type="text"]:focus,
@@ -1246,4 +1246,4 @@ textarea {
     object-fit: cover;
 
 
-}
+} */

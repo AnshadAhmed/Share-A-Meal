@@ -50,13 +50,16 @@ function Userprofile() {
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">
                     <img
-                        src={`http://localhost:3006/my-upload/${user.profilePicture}`}
+                        src={user.profilePicture ? `http://localhost:3006/my-upload/${user.profilePicture}` : "/user.png"}
+
+                        // src={`http://localhost:3006/my-upload/${user.profilePicture}`}
                         alt="Profile Picture"
                         className="userprofile-profile-picture"
                     />
                     <h1 className="userprofile-profile-name">@{user.username}</h1>
                     {/* <p className="userprofile-profile-bio">Adnan | 938429808</p> */}
-                    <button className='userprofile-button' onClick={() => {navigate('/edituserprofile')
+                    <button className='userprofile-button' onClick={() => {
+                        navigate('/edituserprofile')
 
                     }}>
                         {/* <a href="/edituserprofile"> */}
