@@ -25,7 +25,7 @@ function Addmeal() {
     const [discription, setDiscription] = useState("")
     const [category, setCategory] = useState("")
     const [option, setOption] = useState("")
-    const [node,setNode]=useState(false)
+    const [node, setNode] = useState(false)
 
     const [profilePic, setProfilePic] = useState(null);
 
@@ -34,12 +34,12 @@ function Addmeal() {
     }
 
 
-   const handleOptionChange = (e) => {
-    const isDonate = e.target.value === "Donate";
-    setOption(isDonate ? "Donate" : "Sell");
-    setPrice(isDonate ? "0" : ""); 
-    setNode(isDonate);
-};
+    const handleOptionChange = (e) => {
+        const isDonate = e.target.value === "Donate";
+        setOption(isDonate ? "Donate" : "Sell");
+        setPrice(isDonate ? "0" : "");
+        setNode(isDonate);
+    };
 
 
 
@@ -237,9 +237,9 @@ function Addmeal() {
                                 <label className="add-form-label">
                                     Option <span className="required" />
                                 </label>
-                                <select name="meal" required className="edit-profile-form-input" 
-                                // onChange={(e) => setOption(e.target.value)}
-                                onChange={handleOptionChange}
+                                <select name="meal" required className="edit-profile-form-input"
+                                    // onChange={(e) => setOption(e.target.value)}
+                                    onChange={handleOptionChange}
                                 >
                                     <option value="">Choose ...</option>
                                     <option value="Sell">Sell</option>
