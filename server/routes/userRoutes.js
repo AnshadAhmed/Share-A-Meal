@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserProfile, editUserProfile, addmeal, viewmeal } = require('../controllers/userController');
+const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals } = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware');
 
 const uploade=require('../middleware/fileupload');
@@ -11,5 +11,6 @@ router.get('/userprofile', verifyToken, getUserProfile);
 router.put('/edituserprofile', verifyToken,uploade.single("profile-pic"), editUserProfile);
 router.post('/addmeal',verifyToken,uploade.single("food-image"),addmealvalidation,addmeal)
 router.get('/viewmeal',verifyToken,viewmeal)
+router.get('/mymeal',verifyToken,mymeals)
 
 module.exports = router;

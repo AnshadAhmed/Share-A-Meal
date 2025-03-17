@@ -160,7 +160,7 @@ function Login() {
                                 </button>
                             </form>
                             <div className="remember-forgot">
-                                <a href="/forgotpassword">Forgot password ?</a>
+                                <a href="/forgotpassword" style={{fontSize:11}}>Forgot password ?</a>
                             </div>
                         </div>
                     </div>

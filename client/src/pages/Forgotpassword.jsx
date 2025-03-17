@@ -7,10 +7,15 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 
 
 function Forgotpassword() {
+
+
+    const navigate = useNavigate();
+
 
     const [email, setEmail] = useState("")
 
@@ -37,6 +42,10 @@ function Forgotpassword() {
                 setalertTupe("error")
                 seterror(true)
                 setalertMsg(response.data.msg)
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
+
             }
 
         } catch (error) {

@@ -92,3 +92,20 @@ exports.viewmeal = async (req, res) => {
         res.status(500).send({ msg: "Server error", error: error.message });
     }
 }
+
+
+
+
+exports.mymeals = async (req, res) => {
+    try {
+        
+        const meal = await Food.find({ user_id: req.userId }).select('-__v');
+        res.status(200).send(meal);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: "Server error", error: error.message });
+
+    }
+}
+

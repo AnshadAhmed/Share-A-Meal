@@ -76,7 +76,7 @@ const addmealvalidation = [
 
     body("price")
         .notEmpty().withMessage("Price is required")
-        .isFloat({ min: 0, max: 1000 }).withMessage("Price must be a positive number between 0 and 1000"),
+        .isFloat({ min: 0, max: 100 }).withMessage("Price must be a positive number between 0 and 100"),
 
     body("location")
         .trim()

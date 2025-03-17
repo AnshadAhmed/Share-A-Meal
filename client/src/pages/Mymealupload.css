@@ -1,0 +1,152 @@
+.edit-del-food-page-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    padding: 2.5rem;
+  }
+  .edit-del-food-card {
+    width: 1100px;
+    height: 250px;
+    background: white;
+    border-radius: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    display: flex;
+    gap:2.5rem;
+    position: relative;
+    border: 1px solid #e5e7eb;
+    transition: all 0.3s ease;
+    margin-top: 20px;
+    /* border: 1px solid black; */
+  }
+  
+  .edit-del-food-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+  }
+  .edit-del-food-image {
+    width: 208px;
+    height: 208px;
+    border-radius: 0.5rem;
+    border: 2px solid #d1d5db;
+    object-fit:cover;
+  }
+
+  .edit-del-food-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .edit-del-food-name {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #1f2937;
+  }
+  
+  .edit-del-food-price {
+    font-size: 1.125rem;
+    margin-top: 8px;
+    font-weight: 600;
+    color: #4b5563;
+  }
+  
+  
+  .edit-del-food-description {
+    font-size: 0.875rem;
+    width: 60%;
+    color: #6b7280;
+    margin-top: 0.5rem;
+  }
+  
+  .edit-del-food-quantity {
+    font-size: 0.875rem;
+    color: #374151;
+    margin-top: 0.5rem;
+  }
+
+
+
+
+
+
+  .edit-del-food-type {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    padding: 0.25rem 0.75rem;
+    font-size: 0.875rem;
+    font-weight: bold;
+    border-radius: 9999px;
+    border: 1px solid;
+  }
+  
+  .veg {
+    background-color: #dcfce7;
+    color: #15803d;
+    border-color: #22c55e;
+  }
+  
+  .non-veg {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    border-color: #ef4444;
+  }
+  
+
+
+
+.food-actions {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: row; /* Align buttons in a row */
+    gap: 20px;
+}
+
+/* Ensure buttons have consistent size */
+.edit-btn,
+.remove-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    padding: 8px 12px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: box-shadow 0.3s ease-in-out, transform 0.2s ease;
+    box-sizing: border-box;
+    height: 50px;
+    min-width: 100px;
+    text-align: center;
+}
+
+/* Edit Button */
+.edit-btn {
+    background-color: #07a4ff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background-color: #123dff;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 15px rgba(66, 18, 236, 0.9); /* Yellow glow */
+}
+
+/* Remove Button */
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.remove-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.1);
+    box-shadow: 0px 4px 15px rgba(220, 53, 69, 0.9); /* Red glow */
+}
