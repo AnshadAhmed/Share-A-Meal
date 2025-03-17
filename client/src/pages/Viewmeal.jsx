@@ -39,7 +39,7 @@ const Viewmeal = () => {
     })
       .then(response => {
         setmealItem(response.data);
-        // console.log(response.data);
+        console.log(response.data);
 
       })
       .catch(error => console.error("Error:", error));
@@ -54,8 +54,8 @@ const Viewmeal = () => {
     <>
       {/* <Navbar/> */}
       <div className="food-page-container">
-        {mealItem.map((food,) => (
-          <div key={food.createdAt} className="food-card">
+        {mealItem.map((food) => (
+          <div key={food._id} className="food-card">
             <div className={`food-type ${food.category === "Veg" ? "veg" : "non-veg"}`}>
               {food.category}
             </div>

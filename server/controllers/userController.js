@@ -83,7 +83,7 @@ exports.viewmeal = async (req, res) => {
 
         const user = await User.findById(req.userId);
         // const meal = await Food.find({ location: user.location }).select('-__v -_id');
-        const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v -_id');
+        const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v');
 
         res.status(200).send(meal);
 

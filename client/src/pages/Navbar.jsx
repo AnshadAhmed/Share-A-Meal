@@ -3,6 +3,7 @@ import '../App.css'
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
+import Dropdown from './Dropdown';
 
 
 
@@ -47,17 +48,18 @@ function Navbar() {
             <nav>
                 <div className="logo">Share a meal</div>
                 <div className="nav-links">
-                    <a href="">Home</a>
-                    <a href="">About</a>
-                    <a href="">Contact</a>
-                    <a href="">Order</a>
-                    <a href="/login">Log in</a>
-                    <a href="" onClick={handleLogout}>Log out</a>
+                    <a href="" className='links'>Home</a>
+                    <a href="" className='links'>About</a>
+                    <a href="" className='links'>Contact</a>
+                    <a href="" className='links'>Order</a>
+                    <a href="/login" className='links'>Log in</a>
+                    {/* <a href=""  className='links' onClick={handleLogout}>Log out</a> */}
 
 
                     <button className="search-btn">Donate</button>
                     <button className="Spot" onClick={() => { navigate('/viewmeal') }}><img src="/view-food.jpg" alt="" /></button>
-                    <button className="home-Profile" onClick={() => { navigate('/userprofile') }}><img src={`http://localhost:3006/my-upload/${user.profilePicture}`} alt="" /></button>
+                    {/* <button className="home-Profile" onClick={() => { navigate('/userprofile') }}><img src={`http://localhost:3006/my-upload/${user.profilePicture}`} alt="" /></button> */}
+                    <Dropdown userData={user}/>
                 </div>
             </nav>
 
