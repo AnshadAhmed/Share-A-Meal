@@ -92,39 +92,66 @@ function Mymealupload() {
 
 
   return (
-     <>
-    <div className="edit-del-food-page-container">
-      {foods.length === 0 ? (
-        <div className="no-items-message">
-          <h2>No items available</h2>
-          <p>Your uploaded meals will appear here.</p>
-        </div>
-      ) : (
-        foods.map((food) => (
-          <div key={food._id} className="edit-del-food-card">
-            <div className={`edit-del-food-type ${food.type === "Veg" ? "veg" : "non-veg"}`}>
-              {food.category}
-            </div>
-            <img src={`http://localhost:3006/my-upload/${food.photo}`} alt={food.name} className="edit-del-food-image" />
-            <div className="edit-del-food-details">
-              <h2 className="edit-del-food-name">{food.mealname}</h2>
-              <p className="edit-del-food-price">{food.price}</p>
-              <p className="edit-del-food-description">{food.discription}</p>
-              <p className="edit-del-food-quantity">Quantity: {food.quantity}</p>
-            </div>
-            <div className="food-actions">
-              <button className="edit-btn">
-                <FaEdit /> Edit
-              </button>
-              <button className="remove-btn" onClick={() => deleteItem(food._id)}>
-                <FaTrash /> Remove
-              </button>
-            </div>
+    <>
+      <div className="edit-del-food-page-container">
+        {foods.length === 0 ? (
+          <div className="no-items-message">
+            <h2>No items available</h2>
+            <p>Your uploaded meals will appear here.</p>
           </div>
-        ))
-      )}
-    </div>
-  </>
+        ) : (
+          foods.map((food) => (
+            <div key={food._id} className="edit-del-food-card">
+              <div className={`edit-del-food-type ${food.type === "Veg" ? "veg" : "non-veg"}`}>
+                {food.category}
+              </div>
+              <img src={`http://localhost:3006/my-upload/${food.photo}`} alt={food.name} className="edit-del-food-image" />
+              <div className="edit-del-food-details">
+                <h2 className="edit-del-food-name">{food.mealname}</h2>
+                <p className="edit-del-food-price">{food.price}</p>
+                <p className="edit-del-food-description">{food.discription}</p>
+                <p className="edit-del-food-quantity">Quantity: {food.quantity}</p>
+              </div>
+              <div className="food-actions">
+                <button className="edit-btn">
+                  <FaEdit /> Edit
+                </button>
+                <button className="remove-btn" onClick={() => deleteItem(food._id)}>
+                  <FaTrash /> Remove
+                </button>
+              </div>
+            </div>
+          ))
+        )}
+      </div>
+      <div className='Alert'>
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={open}>
+            {alertMsg && (
+              <Alert
+                variant="filled"
+                severity={alertType}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {alertMsg}
+              </Alert>
+            )}
+          </Collapse>
+        </Box>
+      </div>
+    </>
   )
 }
 

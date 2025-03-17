@@ -13,6 +13,7 @@ function Navbar() {
 
 
     const [user, setUser] = useState({});
+    const [isAuthenticated, setIsAuthenticated] = useState(false)
 
 
     useEffect(() => {
@@ -26,6 +27,8 @@ function Navbar() {
             .then(response => {
                 setUser(response.data);
                 console.log(response.data);
+                setIsAuthenticated(true);
+
 
             })
             .catch(error => console.error("Error:", error));
@@ -52,7 +55,7 @@ function Navbar() {
                     <a href="" className='links'>About</a>
                     <a href="" className='links'>Contact</a>
                     <a href="" className='links'>Order</a>
-                    <a href="/login" className='links'>Log in</a>
+                    <a href="/login" className='links' style={{pointerEvents: isAuthenticated ? 'none' : 'auto',visibility: isAuthenticated ? 'hidden' : 'auto',}}>Log in</a>
                     {/* <a href=""  className='links' onClick={handleLogout}>Log out</a> */}
 
 
