@@ -38,14 +38,13 @@ function Forgotpassword() {
                 seterror(true)
                 setalertMsg(response.data.msg)
                 setalertTupe('success')
+                setTimeout(() => {
+                    navigate('/login');
+                }, 2000);
             } else {
                 setalertTupe("error")
                 seterror(true)
                 setalertMsg(response.data.msg)
-                setTimeout(() => {
-                    navigate('/login');
-                }, 2000);
-
             }
 
         } catch (error) {
