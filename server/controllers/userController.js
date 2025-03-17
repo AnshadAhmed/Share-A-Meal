@@ -98,7 +98,7 @@ exports.viewmeal = async (req, res) => {
 
 exports.mymeals = async (req, res) => {
     try {
-        
+
         const meal = await Food.find({ user_id: req.userId }).select('-__v');
         res.status(200).send(meal);
 
@@ -107,5 +107,23 @@ exports.mymeals = async (req, res) => {
         res.status(500).send({ msg: "Server error", error: error.message });
 
     }
+}
+
+
+
+exports.deletemeal = async (req, res) => {
+try {
+    const deletedMeal = await Food.findByIdAndDelete(req.params.id);
+
+
+    if (!deletedMeal) {
+        return res.status(404).json({ msg: "Meal not found" });
+    }
+    
+    res.status(200).json({ msg: "Deleted successfully" });
+} catch (error) {
+    console.log(error);
+    res.status(500).json({ msg: "Server error", error: error.message });
+}
 }
 

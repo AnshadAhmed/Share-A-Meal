@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals } = require('../controllers/userController');
+const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal } = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware');
 
 const uploade=require('../middleware/fileupload');
@@ -12,5 +12,6 @@ router.put('/edituserprofile', verifyToken,uploade.single("profile-pic"), editUs
 router.post('/addmeal',verifyToken,uploade.single("food-image"),addmealvalidation,addmeal)
 router.get('/viewmeal',verifyToken,viewmeal)
 router.get('/mymeal',verifyToken,mymeals)
+router.delete('/mymeal/del/:id',deletemeal)
 
 module.exports = router;
