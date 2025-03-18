@@ -10,7 +10,13 @@ const userSchema = mongoose.Schema({
     phone: String,
     location: String,
     profilePicture: String,
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    cart: [{
+        type: {
+            mealId:String,
+            quantity: { type: Number, default: 1 }
+        }
+    }]
 });
 
 module.exports = mongoose.model('User', userSchema);

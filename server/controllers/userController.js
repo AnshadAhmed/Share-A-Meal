@@ -96,6 +96,36 @@ exports.viewmeal = async (req, res) => {
 
 
 
+
+exports.addtocart = async (req, res) => {
+    try {
+        const { mealId, quantity } = req.body;
+
+        const user = await User.findById(req.userId);
+        if (!user) return res.status(404).json({ msg: "User not found" });
+
+
+        const existingItemIndex = user.cart.findIndex(item => item.mealId === mealId);
+
+
+        if (existingItemIndex !== -1) {
+            user.cart[existingItemIndex].quantity = Math.max(1, user.cart[existingItemIndex].quantity + quantity);
+        } else {
+            user.cart.push({ mealId, quantity });
+        }
+
+        
+        await user.save();
+        res.json({ message: "Item added to cart" });
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+
+
+
 exports.mymeals = async (req, res) => {
     try {
 
@@ -112,18 +142,18 @@ exports.mymeals = async (req, res) => {
 
 
 exports.deletemeal = async (req, res) => {
-try {
-    const deletedMeal = await Food.findByIdAndDelete(req.params.id);
+    try {
+        const deletedMeal = await Food.findByIdAndDelete(req.params.id);
 
 
-    if (!deletedMeal) {
-        return res.status(404).json({ msg: "Meal not found" });
+        if (!deletedMeal) {
+            return res.status(404).json({ msg: "Meal not found" });
+        }
+
+        res.status(200).json({ msg: "Deleted successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: "Server error", error: error.message });
     }
-    
-    res.status(200).json({ msg: "Deleted successfully" });
-} catch (error) {
-    console.log(error);
-    res.status(500).json({ msg: "Server error", error: error.message });
-}
 }
 

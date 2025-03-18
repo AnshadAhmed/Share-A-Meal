@@ -124,33 +124,6 @@ function Mymealupload() {
           ))
         )}
       </div>
-      <div className='Alert'>
-        <Box sx={{ width: '100%' }}>
-          <Collapse in={open}>
-            {alertMsg && (
-              <Alert
-                variant="filled"
-                severity={alertType}
-                action={
-                  <IconButton
-                    aria-label="close"
-                    color="inherit"
-                    size="small"
-                    onClick={() => {
-                      setOpen(false);
-                    }}
-                  >
-                    <CloseIcon fontSize="inherit" />
-                  </IconButton>
-                }
-                sx={{ mb: 2 }}
-              >
-                {alertMsg}
-              </Alert>
-            )}
-          </Collapse>
-        </Box>
-      </div>
     </>
   )
 }

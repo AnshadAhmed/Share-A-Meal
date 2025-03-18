@@ -5,6 +5,12 @@ import Navbar from './Navbar';
 import { useEffect } from "react";
 import axios from 'axios';
 
+import Alert from '@mui/material/Alert';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import CloseIcon from '@mui/icons-material/Close';
+
 
 
 
@@ -22,6 +28,14 @@ const CartIcon = () => (
 const Viewmeal = () => {
 
   const [mealItem, setmealItem] = useState([])
+
+
+
+  const [error, seterror] = useState(false);
+  const [alertMsg, setalertMsg] = useState('');
+  const [alertType, setalertTupe] = useState('error');
+
+  const [open, setOpen] = useState(true);
 
   // console.log(mealItem);
 
@@ -47,6 +61,41 @@ const Viewmeal = () => {
   }, [])
 
 
+  // Function to add item to cart
+  const addToCart = async (food) => {
+    try {
+      const response = await axios.post("http://localhost:3006/user/addtocart",
+        { mealId: food._id, quantity: 1 },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "Authorization": `${localStorage.getItem("token")}`, // Ensure user authentication
+          },
+        }
+      );
+
+      // Update cart state with the new cart data
+      console.log(response.data);
+
+      seterror(true)
+      setalertMsg(`${food.mealname} added to cart!`)
+      setalertTupe('success')
+      setOpen(true)
+
+
+      // alert(`${food.mealname} added to cart!`);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      seterror(true)
+      setalertMsg('Failed to add to cart')
+      setalertTupe('error')
+      setOpen(true)
+
+      // alert("Failed to add item to cart");
+    }
+  };
+
+
 
 
 
@@ -66,12 +115,39 @@ const Viewmeal = () => {
               <p className="food-description">{food.discription}</p>
               <p className="food-quantity">Quantity: {food.quantity}</p>
             </div>
-            <button className="add-to-cart-btn">
+            <button className="add-to-cart-btn" onClick={() => addToCart(food)}>
               <span>Add to Cart</span>
               <FaShoppingCart className="cart-icon" />
             </button>
           </div>
         ))}
+      </div>
+      <div className='Alert'>
+        <Box sx={{ width: '100%' }}>
+          <Collapse in={open}>
+            {alertMsg && (
+              <Alert
+                variant="filled"
+                severity={alertType}
+                action={
+                  <IconButton
+                    aria-label="close"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      setOpen(false);
+                    }}
+                  >
+                    <CloseIcon fontSize="inherit" />
+                  </IconButton>
+                }
+                sx={{ mb: 2 }}
+              >
+                {alertMsg}
+              </Alert>
+            )}
+          </Collapse>
+        </Box>
       </div>
     </>
   );
