@@ -51,7 +51,7 @@ function Navbar() {
             <nav>
                 <div className="logo">Share a meal</div>
                 <div className="nav-links">
-                    <a href="" className='links'>Home</a>
+                    <a href="/" className='links'>Home</a>
                     <a href="" className='links'>About</a>
                     <a href="" className='links'>Contact</a>
                     <a href="" className='links'>Order</a>
