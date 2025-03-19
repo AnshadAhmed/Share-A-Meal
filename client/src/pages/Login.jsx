@@ -48,7 +48,7 @@ function Login() {
                     setTimeout(() => {
                         navigate('/');
                     }, 2000);
-                } 
+                }
 
                 else {
                     setalertTupe('error');
@@ -62,14 +62,14 @@ function Login() {
                     seterror(true);
                     setOpen(true);
                     setalertTupe('error');
-                } 
-                else if(error.response && error.response.status === 404) {
+                }
+                else if (error.response && error.response.status === 404) {
                     seterror(true)
                     setalertMsg('User not found')
                     setalertTupe('error')
                     setOpen(true)
                 }
-                
+
                 else if (error.response) {
                     alert(`Error ${error.response.status}: ${error.response.statusText}`);
                 } else {
@@ -170,7 +170,7 @@ function Login() {
                                 </button>
                             </form>
                             <div className="remember-forgot">
-                                <a href="/forgotpassword" style={{fontSize:11}}>Forgot password ?</a>
+                                <a href="/forgotpassword" style={{ fontSize: 11 }}>Forgot password ?</a>
                             </div>
                         </div>
                     </div>
