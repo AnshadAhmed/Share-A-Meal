@@ -20,8 +20,7 @@ function Dropdown({ userData }) {
         <>
             <div className="dropdown-container">
                 <button onClick={() => setIsOpen(!isOpen)} className="home-Profile">
-                    <img src={`http://localhost:3006/my-upload/${userData.profilePicture}`} alt="" className="profile-img" />
-                </button>
+                    <img src={userData?.profilePicture ? `http://localhost:3006/my-upload/${userData.profilePicture}` : "/user.png"} className="profile-img" />                </button>
                 {isOpen && (
                     <div className="dropdown-menu">
                         <div className="dropdown-header">
