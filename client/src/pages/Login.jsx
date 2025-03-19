@@ -48,7 +48,9 @@ function Login() {
                     setTimeout(() => {
                         navigate('/');
                     }, 2000);
-                } else {
+                } 
+
+                else {
                     setalertTupe('error');
                 }
 
@@ -60,7 +62,15 @@ function Login() {
                     seterror(true);
                     setOpen(true);
                     setalertTupe('error');
-                } else if (error.response) {
+                } 
+                else if(error.response && error.response.status === 404) {
+                    seterror(true)
+                    setalertMsg('User not found')
+                    setalertTupe('error')
+                    setOpen(true)
+                }
+                
+                else if (error.response) {
                     alert(`Error ${error.response.status}: ${error.response.statusText}`);
                 } else {
                     console.error(error);

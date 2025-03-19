@@ -19,7 +19,11 @@ exports.login = async (req, res) => {
         const { email, pwd } = req.body;
         const userdata = await User.findOne({ email: email });
 
+        if (!userdata) {
+            return res.status(404).json({ msg: "User not found" });
+        }
         const ispassword = await bcrypt.compare(pwd, userdata.pwd);
+
 
         if (ispassword) {
             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "8h" });
@@ -46,6 +50,8 @@ exports.register = async (req, res) => {
 
     try {
         const { username, email, pwd } = req.body;
+        console.log(req.body);
+        
         const userdata = await User.findOne({ email: email });
 
         if (userdata) {
