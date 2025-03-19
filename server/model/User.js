@@ -13,7 +13,12 @@ const userSchema = mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     cart: [{
         type: {
-            mealId:String,
+            mealId: String,
+            name: String,
+            price: Number,
+            image: String,
+            inquantity:String,
+            prdiscription:String,
             quantity: { type: Number, default: 1 }
         }
     }]

@@ -65,7 +65,7 @@ const Viewmeal = () => {
   const addToCart = async (food) => {
     try {
       const response = await axios.post("http://localhost:3006/user/addtocart",
-        { mealId: food._id, quantity: 1 },
+        { mealId: food._id, quantity: 1, price: food.price, image: food.photo, name: food.mealname, inquantity: food.quantity, prdiscription: food.discription },
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,7 +75,7 @@ const Viewmeal = () => {
       );
 
       // Update cart state with the new cart data
-      console.log(response.data);
+      console.log(response.data); 0
 
       seterror(true)
       setalertMsg(`${food.mealname} added to cart!`)
@@ -101,7 +101,7 @@ const Viewmeal = () => {
 
   return (
     <>
-      {/* <Navbar/> */}
+      <Navbar/>
       <div className="food-page-container">
         {mealItem.map((food) => (
           <div key={food._id} className="food-card">

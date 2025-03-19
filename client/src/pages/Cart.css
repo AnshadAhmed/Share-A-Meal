@@ -1,0 +1,443 @@
+
+.alpha-cart-container {
+    display: flex;
+    max-width: 1600px;
+    margin: 20px auto;
+    margin-top: 50px;
+    gap: 20px;
+}
+
+.alpha-cart-left {
+    flex: 7;
+}
+
+.alpha-cart-right {
+    /* border: 1px solid black; */
+    /* max-width: 400px; */
+
+    flex: 3;
+}
+
+.alpha-cart-bag {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.alpha-cart-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.alpha-cart-items-count {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.alpha-cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.alpha-cart-table th {
+    text-align: left;
+    padding: 10px 0;
+    font-size: 14px;
+    color: #333;
+    font-weight: 600;
+    padding: 2em;
+
+}
+
+.alpha-cart-product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.alpha-cart-product-img {
+    min-width: 80px;
+    height: 80px;
+    object-fit:cover;
+    background-color: #f8f8f8;
+    border-radius: 8px;
+}
+
+.alpha-cart-product-info {
+    flex-grow: 1;
+}
+
+.alpha-cart-product-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 4px;
+    margin-left: 10px;
+
+}
+
+.alpha-cart-product-description {
+    font-size: 12px;
+    color: #666;
+    margin-bottom: 4px;
+    width: 90%;
+    margin-left: 10px;
+}
+
+.alpha-cart-product-available {
+    font-size: 12px;
+    color: #1aa04b;
+    font-weight: 500;
+    margin-left: 10px;
+
+}
+
+.alpha-cart-price, .alpha-cart-total-price {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 3em;
+
+}
+
+.alpha-cart-quantity {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* border: 1px solid black; */
+    box-shadow: none;
+}
+
+.alpha-cart-quantity-btn {
+    width: 24px;
+    height: 24px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    cursor: pointer;
+    /* border: 1px solid black; */
+}
+
+.alpha-cart-quantity .alpha-cart-quantity-input {
+    width: 50px;
+    text-align: center;
+    border: none;
+    font-size: 14px;
+    font-weight: 500;
+    outline: none;
+    font-weight: bolder;
+    /* border: 1px solid black; */
+    margin-bottom: 9px;
+}
+
+.alpha-cart-delete {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.alpha-cart-delete:hover {
+    color: #ff5c5c;
+}
+
+.alpha-cart-item-divider {
+    height: 1px;
+    background-color: #eee;
+    margin: 10px 0;
+}
+
+.alpha-cart-shipping {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    /* border: 1px solid black; */
+}
+
+.alpha-cart-shipping-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.alpha-cart-form-row {
+    margin-bottom: 15px;
+}
+
+.alpha-cart-dropdown {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    appearance: none;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E") no-repeat;
+    background-position: right 10px center;
+    background-color: white;
+}
+
+.alpha-cart-input-group {
+    display: flex;
+    gap: 10px;
+}
+
+.alpha-cart-input-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+}
+
+.alpha-cart-pin-code {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+    background-color: white;
+}
+
+.alpha-cart-update-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1a0536;
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.alpha-cart-update-btn:hover {
+    background-color: #2a0a4e;
+}
+
+.alpha-cart-total {
+    background-color: #f2ebff;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.alpha-cart-total-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.alpha-cart-total-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.alpha-cart-total-label {
+    color: #666;
+}
+
+.alpha-cart-total-value {
+    font-weight: 500;
+}
+
+.alpha-cart-total-divider {
+    height: 1px;
+    background-color: #ddd;
+    margin: 15px 0;
+}
+
+.alpha-cart-apply-btn {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    background-color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+.alpha-cart-total-price-green {
+    color: #3dd598;
+}
+
+
+
+
+
+
+
+
+
+
+/* Payment Method Styles */
+.alpha-cart-payment {
+    background-color: white;
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.alpha-cart-payment-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.alpha-cart-payment-options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.alpha-cart-payment-option {
+    border: 2px solid #eee;
+    border-radius: 10px;
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.alpha-cart-payment-option:hover {
+    border-color: #d4c5f9;
+    background-color: #f9f7ff;
+}
+
+.alpha-cart-payment-option.selected {
+    border-color: #8a57de;
+    background-color: #f5f0ff;
+}
+
+.alpha-cart-payment-radio {
+    position: relative;
+    width: 22px;
+    height: 22px;
+    border: 2px solid #ddd;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.alpha-cart-payment-option.selected .alpha-cart-payment-radio {
+    border-color: #8a57de;
+}
+
+.alpha-cart-payment-option.selected .alpha-cart-payment-radio::after {
+    content: "";
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #8a57de;
+}
+
+.alpha-cart-payment-icon {
+    width: 32px;
+    height: 32px;
+    background-color: #f0f0f0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+}
+
+.alpha-cart-payment-details {
+    flex-grow: 1;
+}
+
+.alpha-cart-payment-name {
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+
+.alpha-cart-payment-description {
+    font-size: 12px;
+    color: #666;
+}
+
+.alpha-cart-upi-form {
+    margin-top: 12px;
+    padding: 12px;
+    background-color: #f9f7ff;
+    border-radius: 8px;
+    display: none;
+    animation: fadeIn 0.3s ease;
+}
+
+.alpha-cart-upi-form.active {
+    display: block;
+}
+
+.alpha-cart-upi-input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d4c5f9;
+    border-radius: 6px;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.alpha-cart-upi-verify-btn {
+    background-color: #8a57de;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.alpha-cart-upi-verify-btn:hover {
+    background-color: #7442c8;
+}
+
+.alpha-cart-checkout-btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 8px;
+    background-color: #8a57de;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: all 0.3s ease;
+}
+
+.alpha-cart-checkout-btn:hover {
+    background-color: #7442c8;
+    transform: scale(1.03);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .alpha-cart-container {
+        flex-direction: column;
+        padding: 10px;
+    }
+}

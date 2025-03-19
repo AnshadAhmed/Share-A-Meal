@@ -54,7 +54,7 @@
   .food-image {
     width: 208px;
     height: 208px;
-    border-radius: 0.5rem;
+    border-radius: 1.5rem;
     border: 2px solid #d1d5db;
     object-fit:cover;
   }

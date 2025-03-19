@@ -10,6 +10,7 @@ import Resetpassword from './pages/Resetpassword'
 import Addmeal from './pages/Addmeal'
 import Viewmeal from './pages/Viewmeal'
 import Mymealupload from './pages/Mymealupload'
+import Cart from './pages/Cart'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
       <Route path="/edituserprofile" element={<Edituserprofile/>}></Route>
       <Route path='/addmeal' element={<Addmeal/>}></Route>
       <Route path='/viewmeal' element={<Viewmeal/>}></Route>
+      <Route path='/viewcart' element={<Cart/>}></Route>
       <Route path='/mymeal' element={<Mymealupload/>}></Route>
     </Routes>
     

@@ -29,8 +29,11 @@ function Dropdown({ userData }) {
                             <p className="email">{userData.email}</p>
                         </div>
                         <a href="/userprofile" className="dropdown-item">Profile</a>
+                        <a href="/viewcart" className="dropdown-item">My cart</a>
+
                         <a href="/addmeal" className="dropdown-item">Add meal</a>
                         <a href="/mymeal" className="dropdown-item">My uploads</a>
+
                         <a href="#" className="dropdown-item">Notification</a>
                         {/* <a href="#" className="dropdown-item">MAL Import / Export</a> */}
                         {/* <a href="#" className="dropdown-item border-bottom">Settings</a> */}

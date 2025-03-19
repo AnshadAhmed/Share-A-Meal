@@ -99,7 +99,7 @@ exports.viewmeal = async (req, res) => {
 
 exports.addtocart = async (req, res) => {
     try {
-        const { mealId, quantity } = req.body;
+        const { mealId, quantity, price, image, name, inquantity, prdiscription } = req.body;
 
         const user = await User.findById(req.userId);
         if (!user) return res.status(404).json({ msg: "User not found" });
@@ -111,10 +111,10 @@ exports.addtocart = async (req, res) => {
         if (existingItemIndex !== -1) {
             user.cart[existingItemIndex].quantity = Math.max(1, user.cart[existingItemIndex].quantity + quantity);
         } else {
-            user.cart.push({ mealId, quantity });
+            user.cart.push({ mealId, quantity, price, image, name, inquantity, prdiscription });
         }
 
-        
+
         await user.save();
         res.json({ message: "Item added to cart" });
 
@@ -123,6 +123,52 @@ exports.addtocart = async (req, res) => {
     }
 }
 
+
+
+exports.viewcart = async (req, res) => {
+    try {
+        const user = await User.findById(req.userId);
+
+        const meal = await Food.find({ _id: { $in: user.cart.map(item => item.mealId) } })
+
+
+
+        res.status(200).send(user.cart);
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).send({ msg: "Server error", error: error.message });
+    }
+}
+
+
+
+
+
+
+exports.deletecart = async (req, res) => {
+    try {
+
+        const user = await User.findById(req.userId);
+
+        const cart_id = req.params.id;
+
+        const existingItemIndex = user.cart.findIndex(item => item._id.toString() === cart_id);
+
+        if (existingItemIndex !== -1) {
+            user.cart.splice(existingItemIndex, 1);
+            await user.save();
+            res.json({ msg: "Item removed from cart", success: true });
+        } else {
+            res.status(404).json({ msg: "Item not found in cart", success: false });
+        }
+
+
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 
