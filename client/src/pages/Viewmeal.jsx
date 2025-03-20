@@ -12,6 +12,10 @@ import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
 
 
+import Swal from 'sweetalert2';
+
+
+
 
 
 
@@ -66,6 +70,7 @@ const Viewmeal = () => {
     try {
       const response = await axios.post("http://localhost:3006/user/addtocart",
         { mealId: food._id, quantity: 1, price: food.price, image: food.photo, name: food.mealname, inquantity: food.quantity, prdiscription: food.discription },
+        
         {
           headers: {
             "Content-Type": "application/json",
@@ -75,12 +80,20 @@ const Viewmeal = () => {
       );
 
       // Update cart state with the new cart data
-      console.log(response.data); 0
 
-      seterror(true)
-      setalertMsg(`${food.mealname} added to cart!`)
-      setalertTupe('success')
-      setOpen(true)
+      
+      console.log(response.data); 
+      Swal.fire({
+        title: `${food.mealname} added to cart!`,
+        icon: "success",
+        draggable: true
+      });
+
+
+      // seterror(true)
+      // setalertMsg(`${food.mealname} added to cart!`)
+      // setalertTupe('success')
+      // setOpen(true)
 
 
       // alert(`${food.mealname} added to cart!`);

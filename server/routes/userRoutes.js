@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart } = require('../controllers/userController');
+const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart, placeorder } = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware');
 
 const uploade=require('../middleware/fileupload');
@@ -20,8 +20,10 @@ router.get('/viewcart',verifyToken,viewcart)
 router.delete('/viewcart/del/:id',verifyToken,deletecart)
 
 
-
 router.get('/mymeal',verifyToken,mymeals)
 router.delete('/mymeal/del/:id',deletemeal)
+
+
+router.post('/placeorder',verifyToken,placeorder)
 
 module.exports = router;

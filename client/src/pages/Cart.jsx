@@ -18,6 +18,11 @@ const Cart = () => {
     const [upiValue, setUpiValue] = useState('');
     const [checkoutProcessing, setCheckoutProcessing] = useState(false);
     const [subtotal, setSubtotal] = useState(0);
+    const [finalQuant, setfinalQuant] = useState(1);
+
+
+
+
 
     // Fetch cart items from the backend
     useEffect(() => {
@@ -58,7 +63,9 @@ const Cart = () => {
                     let newQuantity = item.quantity;
                     if (increment && newQuantity < item.inquantity) newQuantity += 1;
                     else if (!increment && newQuantity > 1) newQuantity -= 1;
+                    setfinalQuant(newQuantity)
                     return { ...item, quantity: newQuantity };
+
                 }
 
                 return item;
@@ -112,7 +119,45 @@ const Cart = () => {
 
 
 
-
+    const placeOrder = async () => {
+        if (cartItems.length === 0) {
+            Swal.fire("Your cart is empty!", "Add items to checkout.", "warning");
+        } else {
+            Swal.fire({
+                title: "Are you sure?",
+                text: "You won't be able to revert this!",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#22c55e",
+                cancelButtonColor: "#e00000",
+                confirmButtonText: "Yes, place order!"
+            }).then(async (result) => {
+                if (result.isConfirmed) {
+                    try {
+                        const response = await axios.post('http://localhost:3006/user/placeorder', {cartItems,paymentMethod}, {
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `${localStorage.getItem("token")}`,
+                            },
+                        });
+                        if (response.status === 200) {
+                            setCartItems([]);
+                            Swal.fire(
+                                "Order Placed!",
+                                "Your order has been placed successfully.",
+                                "success"
+                            );
+                        } else {
+                            Swal.fire("Error!", "Failed to place order.", "error");
+                        }
+                    } catch (error) {
+                        Swal.fire("Error!", "Something went wrong.", "error");
+                        console.log(error);
+                    }
+                }
+            });
+        }
+    };
 
 
 
@@ -136,11 +181,21 @@ const Cart = () => {
         }
     };
 
+
+
+
+
+
+
     const handleCheckout = () => {
         if (paymentMethod === 'upi' && !upiVerified) {
             alert('Please verify your UPI ID before proceeding to checkout');
             return;
         }
+
+
+
+
 
         setCheckoutProcessing(true);
         setTimeout(() => {
@@ -170,6 +225,9 @@ const Cart = () => {
                                     <th></th>
                                 </tr>
                             </thead>
+
+
+
                             <tbody>
                                 {cartItems.map((item, index) => (
                                     <React.Fragment key={item._id}>
@@ -205,6 +263,8 @@ const Cart = () => {
                                     </React.Fragment>
                                 ))}
                             </tbody>
+
+
                         </table>
                     </div>
                 </div>
@@ -257,11 +317,17 @@ const Cart = () => {
                         </div>
                     </div>
 
+                    
+                    {/* <h3>{paymentMethod}</h3>
+                    <h4>{finalQuant}</h4> */}
+
 
                     <div className="alpha-cart-total">
                         <h2 className="alpha-cart-total-title">Cart Total</h2>
+                        <div className="alpha-cart-total-row"><span>Platform Fee:</span><span>{}</span></div>
+
                         <div className="alpha-cart-total-row"><span>Subtotal:</span><span>{subtotal}</span></div>
-                        <button className="alpha-cart-checkout-btn" onClick={handleCheckout}>
+                        <button className="alpha-cart-checkout-btn" onClick={placeOrder}>
                             {checkoutProcessing ? 'Processing...' : 'Proceed to Checkout'}
                         </button>
                     </div>

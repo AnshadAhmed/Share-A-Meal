@@ -1,5 +1,6 @@
 const User = require('../model/User');
 const Food = require('../model/Food');
+const { body } = require('express-validator');
 
 
 
@@ -131,8 +132,7 @@ exports.viewcart = async (req, res) => {
 
         const meal = await Food.find({ _id: { $in: user.cart.map(item => item.mealId) } })
 
-
-
+        
         res.status(200).send(user.cart);
 
     } catch (error) {
@@ -172,6 +172,12 @@ exports.deletecart = async (req, res) => {
 
 
 
+
+
+
+
+
+
 exports.mymeals = async (req, res) => {
     try {
 
@@ -203,3 +209,17 @@ exports.deletemeal = async (req, res) => {
     }
 }
 
+
+
+
+exports.placeorder=async(req,res)=>{
+    try {
+
+        console.log(req.body);
+        
+    } catch (error) {
+    console.log(error);
+    
+        
+    }
+}
