@@ -6,9 +6,9 @@ const userSchema = mongoose.Schema({
     pwd: String,
     resetToken: String,
     resetTokenExpiry: Date,
+    location:String,
     fullname: String,
-    phone: String,
-    location: String,
+    role: { type: String, enum: ['user', 'admin'], default: 'user' },
     profilePicture: String,
     createdAt: { type: Date, default: Date.now },
     cart: [{
@@ -17,8 +17,8 @@ const userSchema = mongoose.Schema({
             name: String,
             price: Number,
             image: String,
-            inquantity:String,
-            prdiscription:String,
+            inquantity: String,
+            prdiscription: String,
             quantity: { type: Number, default: 1 }
         }
     }]

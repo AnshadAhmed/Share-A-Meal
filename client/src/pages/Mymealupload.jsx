@@ -68,27 +68,6 @@ function Mymealupload() {
 
 
 
-  // const deleteItem = async (id) => {
-  //   const confirmDelete = window.confirm("Are you sure you want to delete this item?");
-  //   if (confirmDelete) {
-  //     try {
-
-  //       const response = await axios.delete(`http://localhost:3006/user/mymeal/del/${id}`)
-
-  //       console.log(response.data);
-
-  //       if (response.status === 200) {
-  //         setFoods(foods.filter((item) => item._id !== id)); // Remove from UI
-  //       } else {
-  //         console.error("Failed to delete item");
-  //       }
-
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-
-  // }
 
 
   return (

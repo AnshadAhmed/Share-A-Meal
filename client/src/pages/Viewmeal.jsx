@@ -70,7 +70,7 @@ const Viewmeal = () => {
     try {
       const response = await axios.post("http://localhost:3006/user/addtocart",
         { mealId: food._id, quantity: 1, price: food.price, image: food.photo, name: food.mealname, inquantity: food.quantity, prdiscription: food.discription },
-        
+
         {
           headers: {
             "Content-Type": "application/json",
@@ -81,8 +81,8 @@ const Viewmeal = () => {
 
       // Update cart state with the new cart data
 
-      
-      console.log(response.data); 
+
+      console.log(response.data);
       Swal.fire({
         title: `${food.mealname} added to cart!`,
         icon: "success",
@@ -111,11 +111,48 @@ const Viewmeal = () => {
 
 
 
-
   return (
     <>
-      <Navbar/>
-      <div className="food-page-container">
+      <Navbar />
+
+
+      {
+        mealItem.length === 0 ? (
+          <div className="no-items-message">
+            <h2>No items available</h2>
+            <p>currently no meal is available🥺.</p>
+          </div>
+        ) : (
+
+          <div className="food-page-container">
+            {mealItem.map((food) => (
+              <div key={food._id} className="food-card">
+                <div className={`food-type ${food.category === "Veg" ? "veg" : "non-veg"}`}>
+                  {food.category}
+                </div>
+                <img src={`http://localhost:3006/my-upload/${food.photo}`} alt={food.name} className="food-image" />
+                <div className="food-details">
+                  <h2 className="food-name">{food.mealname}</h2>
+                  <p className="food-price">Rs {food.price}</p>
+                  <p className="food-description">{food.discription}</p>
+                  <p className="food-quantity">Quantity: {food.quantity}</p>
+                </div>
+                <button className="add-to-cart-btn" onClick={() => addToCart(food)}>
+                  <span>Add to Cart</span>
+                  <FaShoppingCart className="cart-icon" />
+                </button>
+              </div>
+            ))}
+          </div>
+
+        )
+      }
+
+
+
+
+
+      {/* <div className="food-page-container">
         {mealItem.map((food) => (
           <div key={food._id} className="food-card">
             <div className={`food-type ${food.category === "Veg" ? "veg" : "non-veg"}`}>
@@ -134,7 +171,7 @@ const Viewmeal = () => {
             </button>
           </div>
         ))}
-      </div>
+      </div> */}
       <div className='Alert'>
         <Box sx={{ width: '100%' }}>
           <Collapse in={open}>

@@ -122,42 +122,42 @@ const Cart = () => {
     const placeOrder = async () => {
         if (cartItems.length === 0) {
             Swal.fire("Your cart is empty!", "Add items to checkout.", "warning");
-        } else {
-            Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
-                icon: "warning",
-                showCancelButton: true,
-                confirmButtonColor: "#22c55e",
-                cancelButtonColor: "#e00000",
-                confirmButtonText: "Yes, place order!"
-            }).then(async (result) => {
-                if (result.isConfirmed) {
-                    try {
-                        const response = await axios.post('http://localhost:3006/user/placeorder', {cartItems,paymentMethod}, {
-                            headers: {
-                                "Content-Type": "application/json",
-                                "Authorization": `${localStorage.getItem("token")}`,
-                            },
-                        });
-                        if (response.status === 200) {
-                            setCartItems([]);
-                            Swal.fire(
-                                "Order Placed!",
-                                "Your order has been placed successfully.",
-                                "success"
-                            );
-                        } else {
-                            Swal.fire("Error!", "Failed to place order.", "error");
-                        }
-                    } catch (error) {
-                        Swal.fire("Error!", "Something went wrong.", "error");
-                        console.log(error);
-                    }
-                }
+            return;
+        }
+
+        // Ensure each item has productId
+        const formattedItems = cartItems.map(item => ({
+            productId: item._id,  // Ensure this matches the schema
+            name: item.name,
+            mealId: item.mealId,
+            price: item.price,
+            quantity: item.quantity,
+            image: item.image
+        }));
+
+        try {
+            const response = await axios.post('http://localhost:3006/user/placeorder', {
+                cartItems: formattedItems,  // Send the correct data structure
+                paymentMethod
+            }, {
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `${localStorage.getItem("token")}`,
+                },
             });
+
+            if (response.status === 200) {
+                setCartItems([]);
+                Swal.fire("Order Placed!", "Your order has been placed successfully.", "success");
+            } else {
+                Swal.fire("Error!", "Failed to place order.", "error");
+            }
+        } catch (error) {
+            Swal.fire("Error!", "Something went wrong.", "error");
+            console.log(error);
         }
     };
+
 
 
 
@@ -317,14 +317,14 @@ const Cart = () => {
                         </div>
                     </div>
 
-                    
+
                     {/* <h3>{paymentMethod}</h3>
                     <h4>{finalQuant}</h4> */}
 
 
                     <div className="alpha-cart-total">
                         <h2 className="alpha-cart-total-title">Cart Total</h2>
-                        <div className="alpha-cart-total-row"><span>Platform Fee:</span><span>{}</span></div>
+                        <div className="alpha-cart-total-row"><span>Platform Fee:</span><span>{ }</span></div>
 
                         <div className="alpha-cart-total-row"><span>Subtotal:</span><span>{subtotal}</span></div>
                         <button className="alpha-cart-checkout-btn" onClick={placeOrder}>

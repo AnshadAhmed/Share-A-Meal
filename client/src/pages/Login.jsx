@@ -45,9 +45,18 @@ function Login() {
                 if (response.data.msg === 'Login Successful') {
                     localStorage.setItem('token', response.data.token);
                     setalertTupe('success');
-                    setTimeout(() => {
-                        navigate('/');
-                    }, 2000);
+
+
+                    if (response.data.userdata.role === "user") {
+                        setTimeout(() => {
+                            navigate('/');
+                        }, 2000);
+                    }
+                    else {
+                        setTimeout(() => {
+                            navigate('/admin-dashboard');
+                        }, 2000);
+                    }
                 }
 
                 else {

@@ -1,6 +1,6 @@
 const User = require('../model/User');
 const Food = require('../model/Food');
-const { body } = require('express-validator');
+const Order = require('../model/Order');
 
 
 
@@ -83,7 +83,9 @@ exports.viewmeal = async (req, res) => {
     try {
 
         const user = await User.findById(req.userId);
-        // const meal = await Food.find({ location: user.location }).select('-__v -_id');
+
+        
+
         const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v');
 
         res.status(200).send(meal);
@@ -126,13 +128,16 @@ exports.addtocart = async (req, res) => {
 
 
 
+
+
+
 exports.viewcart = async (req, res) => {
     try {
         const user = await User.findById(req.userId);
 
         const meal = await Food.find({ _id: { $in: user.cart.map(item => item.mealId) } })
 
-        
+
         res.status(200).send(user.cart);
 
     } catch (error) {
@@ -212,14 +217,131 @@ exports.deletemeal = async (req, res) => {
 
 
 
-exports.placeorder=async(req,res)=>{
-    try {
+exports.placeorder = async (req, res) => {
 
-        console.log(req.body);
+
+
+
+    try {
+        const { cartItems, paymentMethod } = req.body;
+
+        // console.log(cartItems);
         
+        const userId = req.userId;
+
+        if (!cartItems || cartItems.length === 0) {
+            return res.status(400).json({ msg: "Cart is empty!" });
+        }
+
+        const formattedItems = [];
+
+        for (const item of cartItems) {
+            // Find the product in the database
+            
+            const product = await Food.findById(item.mealId);
+
+            console.log(product);
+            console.log(item);
+            
+            
+            
+            if (!product) {
+                return res.status(404).json({ msg: `Product not found: ${item.name}` });
+            }
+
+            // Check if enough stock is available
+            if (product.quantity < item.quantity) {
+
+                return res.status(400).json({ msg: `Insufficient stock for: ${item.name}` });
+            }
+
+            // Reduce stock quantity
+            product.quantity -= item.quantity;
+
+
+            await product.save(); // Save updated stock
+
+            // Add to order items
+            formattedItems.push({
+                productId: product._id,
+                name: product.name,
+                price: product.price,
+                quantity: item.quantity,
+                image: product.image
+            });
+        }
+
+        const totalAmount = formattedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+        // Create the order
+        const newOrder = new Order({
+            userId,
+            items: formattedItems,
+            paymentMethod,
+            totalAmount,
+            status: "Pending"
+        });
+
+        await newOrder.save();
+
+        // Clear the user's cart after placing the order
+        await User.findByIdAndUpdate(userId, { cart: [] });
+
+        res.status(200).json({ msg: "Order placed successfully!", order: newOrder });
+
     } catch (error) {
-    console.log(error);
-    
-        
+        console.error(error);
+        res.status(500).json({ msg: "Server error", error: error.message });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    // try {
+    //     const userId = req.userId;
+
+
+    //     const { cartItems, paymentMethod } = req.body;
+
+    //     if (!cartItems || cartItems.length === 0) {
+    //         return res.status(400).json({ message: "Cart is empty" });
+    //     }
+
+    //     // Move cart items to Order schema
+
+
+    //     const newOrder = new Order({
+    //         userId,
+    //         items: cartItems,
+    //         paymentMethod,
+    //         status: "Pending", // Initial status
+    //         totalAmount: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
+    //         createdAt: new Date()
+    //     });
+
+    //     await newOrder.save();
+
+
+
+    //     // Clear cart after order is placed
+
+    //     await User.findByIdAndUpdate(userId, { cart: [] });
+
+
+    //     res.status(200).json({ message: "Order placed successfully", order: newOrder });
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ message: "Internal Server Error" });
+    // }
+
+
+
 }
