@@ -66,7 +66,7 @@ exports.addmeal = async (req, res) => {
             return res.status(400).send({ msg: "Please provide all fields" });
         }
 
-        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, discription, option, photo: req.file.filename, user_id: req.userId });
+        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, discription, option, photo: req.file.filename, user_id: req.userId, owner: req.userId });
         await newFood.save();
 
         res.status(201).send({ msg: "meal added successfully", data: newFood });
@@ -84,9 +84,13 @@ exports.viewmeal = async (req, res) => {
 
         const user = await User.findById(req.userId);
 
-        
+
+        await Food.deleteMany({ quantity: 0 });
+
 
         const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v');
+
+
 
         res.status(200).send(meal);
 
@@ -220,13 +224,11 @@ exports.deletemeal = async (req, res) => {
 exports.placeorder = async (req, res) => {
 
 
-
-
     try {
         const { cartItems, paymentMethod } = req.body;
 
         // console.log(cartItems);
-        
+
         const userId = req.userId;
 
         if (!cartItems || cartItems.length === 0) {
@@ -237,14 +239,14 @@ exports.placeorder = async (req, res) => {
 
         for (const item of cartItems) {
             // Find the product in the database
-            
+
             const product = await Food.findById(item.mealId);
 
             console.log(product);
             console.log(item);
-            
-            
-            
+
+
+
             if (!product) {
                 return res.status(404).json({ msg: `Product not found: ${item.name}` });
             }
@@ -296,52 +298,54 @@ exports.placeorder = async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-    // try {
-    //     const userId = req.userId;
-
-
-    //     const { cartItems, paymentMethod } = req.body;
-
-    //     if (!cartItems || cartItems.length === 0) {
-    //         return res.status(400).json({ message: "Cart is empty" });
-    //     }
-
-    //     // Move cart items to Order schema
-
-
-    //     const newOrder = new Order({
-    //         userId,
-    //         items: cartItems,
-    //         paymentMethod,
-    //         status: "Pending", // Initial status
-    //         totalAmount: cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0),
-    //         createdAt: new Date()
-    //     });
-
-    //     await newOrder.save();
-
-
-
-    //     // Clear cart after order is placed
-
-    //     await User.findByIdAndUpdate(userId, { cart: [] });
-
-
-    //     res.status(200).json({ message: "Order placed successfully", order: newOrder });
-    // } catch (error) {
-    //     console.error(error);
-    //     res.status(500).json({ message: "Internal Server Error" });
-    // }
-
-
-
 }
+
+
+
+exports.vieworder = async (req, res) => {
+    try {
+        const userId = req.userId;
+
+        const orders = await Order.find({ userId })
+            .populate({
+                path: "items.productId", // Ensure this matches your schema
+                populate: {
+                    path: "owner", // Fetch owner details
+                    model: "User", // Explicitly tell Mongoose to use "User" model
+                    select: "phone username email "
+                }
+            });
+
+        if (!orders.length) {
+            return res.status(404).json({ msg: "No pending orders found" });
+        }
+
+        res.status(200).json({
+            success: true,
+            count: orders.length,
+            orders: orders.map(order => ({
+                id: order._id,
+                items: order.items.map(item => ({
+                    price: item.price,
+                    quantity: item.quantity,
+                    owner: item.productId.owner ? { // Ensure owner exists
+                        id: item.productId.owner._id,
+                        name: item.productId.owner.username,
+                        email: item.productId.owner.email,
+                        phone: item.productId.owner.phone
+                    } : null
+                })),
+                totalAmount: order.totalAmount,
+                status: order.status,
+                paymentMethod: order.paymentMethod,
+                createdAt: order.createdAt
+            }))
+        });
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+        res.status(500).json({ success: false, msg: "Internal Server Error" });
+    }
+};
+
+
+

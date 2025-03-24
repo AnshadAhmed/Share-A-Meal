@@ -7,6 +7,7 @@ const userSchema = mongoose.Schema({
     resetToken: String,
     resetTokenExpiry: Date,
     location:String,
+    phone:String,
     fullname: String,
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
     profilePicture: String,
