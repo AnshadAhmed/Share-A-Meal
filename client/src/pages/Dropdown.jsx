@@ -34,7 +34,7 @@ function Dropdown({ userData }) {
                         <a href="/mymeal" className="dropdown-item">My uploads</a>
 
                         <a href="#" className="dropdown-item">Notification</a>
-                        {/* <a href="#" className="dropdown-item">MAL Import / Export</a> */}
+                        <a href="/vieworder" className="dropdown-item">My order</a>
                         {/* <a href="#" className="dropdown-item border-bottom">Settings</a> */}
                         <a href="" className="dropdown-item logout" onClick={handleLogout}>Logout →</a>
                     </div>

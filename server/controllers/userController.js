@@ -85,10 +85,10 @@ exports.viewmeal = async (req, res) => {
         const user = await User.findById(req.userId);
 
 
-        await Food.deleteMany({ quantity: 0 });
+        await Food.updateMany({ quantity: 0 }, { status: "Sold-Out" });
 
 
-        const meal = await Food.find({ location: user.location, user_id: { $ne: req.userId } }).select('-__v');
+        const meal = await Food.find({ location: user.location, status: "Available", user_id: { $ne: req.userId } }).select('-__v');
 
 
 
@@ -242,8 +242,10 @@ exports.placeorder = async (req, res) => {
 
             const product = await Food.findById(item.mealId);
 
-            console.log(product);
-            console.log(item);
+            // console.log(product);
+            // console.log(item);
+
+            // console.log(`the product is ${product} and the item is ${item}`)
 
 
 
@@ -266,10 +268,10 @@ exports.placeorder = async (req, res) => {
             // Add to order items
             formattedItems.push({
                 productId: product._id,
-                name: product.name,
+                name: product.mealname,
                 price: product.price,
                 quantity: item.quantity,
-                image: product.image
+                image: product.photo
             });
         }
 
@@ -281,7 +283,7 @@ exports.placeorder = async (req, res) => {
             items: formattedItems,
             paymentMethod,
             totalAmount,
-            status: "Pending"
+            status: "Confirmed"
         });
 
         await newOrder.save();
@@ -326,13 +328,16 @@ exports.vieworder = async (req, res) => {
             orders: orders.map(order => ({
                 id: order._id,
                 items: order.items.map(item => ({
+                    name: item.name,
+                    image: item.image,
                     price: item.price,
                     quantity: item.quantity,
                     owner: item.productId.owner ? { // Ensure owner exists
                         id: item.productId.owner._id,
                         name: item.productId.owner.username,
                         email: item.productId.owner.email,
-                        phone: item.productId.owner.phone
+                        phone: item.productId.owner.phone,
+                        address:item.productId.pickupAddress
                     } : null
                 })),
                 totalAmount: order.totalAmount,

@@ -153,7 +153,7 @@ const Cart = () => {
                 Swal.fire("Error!", "Failed to place order.", "error");
             }
         } catch (error) {
-            Swal.fire("Error!", "Something went wrong.", "error");
+            Swal.fire("Error!", "Something went wrong or the item no longer available", "error");
             console.log(error);
         }
     };
