@@ -238,14 +238,10 @@ exports.placeorder = async (req, res) => {
         const formattedItems = [];
 
         for (const item of cartItems) {
+            
             // Find the product in the database
 
             const product = await Food.findById(item.mealId);
-
-            // console.log(product);
-            // console.log(item);
-
-            // console.log(`the product is ${product} and the item is ${item}`)
 
 
 
@@ -258,6 +254,14 @@ exports.placeorder = async (req, res) => {
 
                 return res.status(400).json({ msg: `Insufficient stock for: ${item.name}` });
             }
+
+            // to check if it it is been sold out
+            if(product.status==="Sold-Out"){
+                return res.status(400).json({ msg: `Product is sold out: ${item.name}` });
+            }
+
+            console.log(product);
+            
 
             // Reduce stock quantity
             product.quantity -= item.quantity;
