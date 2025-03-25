@@ -139,12 +139,12 @@ const Vieworder = () => {
                             <div className="grid-column">
 
                                 <div className="detail-item">
-                                    <span className="detail-label">Customer:</span>
+                                    <span className="detail-label">Supplier:</span>
                                     <span className="detail-value">{selectedOrder.items[0]?.owner.name}</span>
                                 </div>
 
                                 <div className="detail-item">
-                                    <span className="detail-label">Contact:</span>
+                                    <span className="detail-label">Phone no:</span>
                                     <span className="detail-value">{selectedOrder.items[0]?.owner.phone}</span>
                                 </div>
 

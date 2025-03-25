@@ -201,6 +201,8 @@
   color: #2d3436;
   font-weight: 400;
   text-align: right;
+  font-size: 15px;
+  margin-left: 15px;
 }
 
 .detail-value-address {
