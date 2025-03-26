@@ -511,7 +511,31 @@ exports.supplierorderupdation = async (req, res) => {
             return res.status(400).json({ msg: "Order is already collected" });
         }
 
+
+
+
+        if (bt_status === "Cancelled") {
+
+            for (let item of order.items) {
+                const product = await Food.findById(item.productId);
+                product.quantity += item.quantity;
+                // product.status="Available"
+                await product.save();
+
+                if (!product) {
+                    console.log(`Product not found: ${item.productId}`);
+                }
+
+                // console.log(product);
+
+            }
+
+        }
+
+
+
         order.status = bt_status;
+
         await order.save();
 
         res.status(200).send({ msg: "Order updated successfully" });
