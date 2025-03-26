@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart, placeorder, vieworder } = require('../controllers/userController');
+const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart, placeorder, vieworder, cancelorder, getsupplierorder, supplierorderupdation } = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware');
 
 const uploade=require('../middleware/fileupload');
@@ -26,5 +26,10 @@ router.delete('/mymeal/del/:id',deletemeal)
 
 router.post('/placeorder',verifyToken,placeorder)
 router.get('/vieworder',verifyToken,vieworder)
+router.post('/vieworder/cancel/:id',cancelorder)
+
+
+router.get('/supplier-order',verifyToken,getsupplierorder)
+router.patch('/update-collector-order/:id',supplierorderupdation)
 
 module.exports = router;

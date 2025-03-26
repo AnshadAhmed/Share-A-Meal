@@ -32,6 +32,8 @@ function Dropdown({ userData }) {
 
                         <a href="/addmeal" className="dropdown-item">Add meal</a>
                         <a href="/mymeal" className="dropdown-item">My uploads</a>
+                        <a href="/view-collector" className="dropdown-item">View Customer</a>
+
 
                         <a href="#" className="dropdown-item">Notification</a>
                         <a href="/vieworder" className="dropdown-item">My order</a>

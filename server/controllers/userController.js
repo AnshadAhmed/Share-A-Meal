@@ -85,7 +85,28 @@ exports.viewmeal = async (req, res) => {
         const user = await User.findById(req.userId);
 
 
-        await Food.updateMany({ quantity: 0 }, { status: "Sold-Out" });
+        // await Food.updateMany({ quantity: 0 }, { status: "Sold-Out" });
+
+
+        await Food.updateMany({}, [
+            {
+                $set: {
+                    status: {
+                        $cond: {
+                            if: { $eq: ["$quantity", 0] },
+                            then: "Sold-Out",
+                            else: {
+                                $cond: {
+                                    if: { $gt: ["$quantity", 0] },
+                                    then: "Available",
+                                    else: "Unknown"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        ]);
 
 
         const meal = await Food.find({ location: user.location, status: "Available", user_id: { $ne: req.userId } }).select('-__v');
@@ -238,7 +259,7 @@ exports.placeorder = async (req, res) => {
         const formattedItems = [];
 
         for (const item of cartItems) {
-            
+
             // Find the product in the database
 
             const product = await Food.findById(item.mealId);
@@ -256,12 +277,12 @@ exports.placeorder = async (req, res) => {
             }
 
             // to check if it it is been sold out
-            if(product.status==="Sold-Out"){
+            if (product.status === "Sold-Out") {
                 return res.status(400).json({ msg: `Product is sold out: ${item.name}` });
             }
 
-            console.log(product);
-            
+            // console.log(product);
+
 
             // Reduce stock quantity
             product.quantity -= item.quantity;
@@ -341,7 +362,7 @@ exports.vieworder = async (req, res) => {
                         name: item.productId.owner.username,
                         email: item.productId.owner.email,
                         phone: item.productId.owner.phone,
-                        address:item.productId.pickupAddress
+                        address: item.productId.pickupAddress
                     } : null
                 })),
                 totalAmount: order.totalAmount,
@@ -358,3 +379,144 @@ exports.vieworder = async (req, res) => {
 
 
 
+exports.cancelorder = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+
+        // console.log(orderId);
+
+        const order = await Order.findById(orderId)
+
+        if (!order) {
+            return res.status(400).json({ msg: 'Order not found' });
+        }
+
+        if (order.status === 'Cancelled') {
+            return res.status(400).json({ msg: 'Order is already cancelled' });
+        }
+        if (order.status === 'Collected') {
+            return res.status(400).json({ msg: 'Order is already collected' });
+        }
+
+
+
+        order.status = "Cancelled";
+        await order.save();
+
+        // console.log(order);
+
+
+        for (let item of order.items) {
+            const product = await Food.findById(item.productId);
+            product.quantity += item.quantity;
+            // product.status="Available"
+            await product.save();
+
+            if (!product) {
+                console.log(`Product not found: ${item.productId}`);
+            }
+
+            // console.log(product);
+
+        }
+
+        res.status(200).send({ msg: "order cancelled" })
+
+    } catch (error) {
+        console.log(error);
+    }
+
+}
+
+
+
+
+
+
+exports.getsupplierorder = async (req, res) => {
+    try {
+        const supplierId = req.userId;
+
+        // Fetch orders and populate product details including owner info
+        const orders = await Order.find()
+            .populate({
+                path: "items.productId",
+                model: "Food",
+                populate: {
+                    path: "owner", // Owner information
+                    model: "User",
+                    select: "name email phone", // Selecting only relevant details
+                },
+            })
+            .populate("userId", "username email phone"); // Customer details
+
+        // Filter out items that don't belong to the requested supplier
+        const filteredOrders = orders
+            .map(order => {
+                const supplierItems = order.items.filter(
+                    item => item.productId && item.productId.owner && item.productId.owner._id.toString() === supplierId
+                );
+
+                if (supplierItems.length > 0) {
+                    return {
+                        _id: order._id,
+                        customer: order.userId, // Customer details
+                        items: supplierItems, // Only relevant products
+                        totalAmount: order.totalAmount,
+                        status: order.status,
+                        mode: order.paymentMethod,
+                        createdAt: order.createdAt,
+                    };
+                }
+                return null;
+            })
+            .filter(order => order !== null);
+
+        // console.log(filteredOrders);
+
+
+        res.status(200).json(filteredOrders);
+    } catch (error) {
+        res.status(500).json({ message: "Server Error", error: error.message });
+    }
+
+}
+
+
+
+
+
+
+
+exports.supplierorderupdation = async (req, res) => {
+    try {
+        const orderId = req.params.id;
+        const bt_status = req.body.status;
+
+        if (!bt_status) {
+            return res.status(400).json({ msg: "Please provide a status" });
+        }
+
+        const order = await Order.findById(orderId);
+
+        if (!order) {
+            return res.status(404).json({ msg: "Order not found" });
+        }
+
+        if (order.status === 'Cancelled') {
+            return res.status(400).json({ msg: "Order is already cancelled" });
+        }
+
+        if (order.status === 'Collected') {
+            return res.status(400).json({ msg: "Order is already collected" });
+        }
+
+        order.status = bt_status;
+        await order.save();
+
+        res.status(200).send({ msg: "Order updated successfully" });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ msg: "Server error", error: error.message });
+    }
+}

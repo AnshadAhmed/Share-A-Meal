@@ -13,6 +13,7 @@ import Mymealupload from './pages/Mymealupload'
 import Cart from './pages/Cart'
 import AdminDashboard from './pages/AdminDashboard'
 import Vieworder from './pages/Vieworder'
+import Viewcollector from './pages/Viewcollector'
 
 
 function App() {
@@ -20,27 +21,29 @@ function App() {
   return (
     <>
 
-    <Routes>
-      <Route path="/" element={<Home/>}></Route>
-      <Route path="/login" element={<Login/>}></Route>
-      <Route path="/register" element={<Register/>}></Route>
-      <Route path='/forgotpassword' element={<Forgotpassword/>}></Route>
-      <Route path='/resetpassword/:token' element={<Resetpassword/>}></Route>
-      <Route path="/userprofile" element={<Userprofile/>}></Route>
-      <Route path="/edituserprofile" element={<Edituserprofile/>}></Route>
-      <Route path='/addmeal' element={<Addmeal/>}></Route>
-      <Route path='/viewmeal' element={<Viewmeal/>}></Route>
-      <Route path='/viewcart' element={<Cart/>}></Route>
-      <Route path='/mymeal' element={<Mymealupload/>}></Route>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/login" element={<Login />}></Route>
+        <Route path="/register" element={<Register />}></Route>
+        <Route path='/forgotpassword' element={<Forgotpassword />}></Route>
+        <Route path='/resetpassword/:token' element={<Resetpassword />}></Route>
+        <Route path="/userprofile" element={<Userprofile />}></Route>
+        <Route path="/edituserprofile" element={<Edituserprofile />}></Route>
+        <Route path='/addmeal' element={<Addmeal />}></Route>
+        <Route path='/viewmeal' element={<Viewmeal />}></Route>
+        <Route path='/viewcart' element={<Cart />}></Route>
+        <Route path='/mymeal' element={<Mymealupload />}></Route>
 
-      <Route path='/vieworder' element={<Vieworder/>}></Route>
+        <Route path='/vieworder' element={<Vieworder />}></Route>
+
+        <Route path='/view-collector' element={<Viewcollector />}></Route>
 
 
-      <Route path='/admin-dashboard' element={<AdminDashboard/>}></Route>
+        <Route path='/admin-dashboard' element={<AdminDashboard />}></Route>
 
 
-    </Routes>
-    
+      </Routes>
+
     </>
   )
 }

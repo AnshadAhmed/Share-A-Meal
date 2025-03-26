@@ -248,17 +248,27 @@ overflow-wrap: break-word;
 }
 
 .detail-valuestatusconfirmed {
-  background: #f1f1f0;
+  background: #e8e9f5;
   padding: 0.25rem 0.5rem;
   border-radius: 10px;
-
+  font-size: 13px;
+  color: #4704e2;
+}
+.detail-valuestatuscollected {
+  background: #e8f5e9;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
   font-size: 13px;
   color: #13d172;
 }
 
-.status.completed {
-  background: #dddddd;
-  color: #2e7d32;
+.detail-valuestatuscancelled {
+  background: #ffebee;
+  padding: 0.25rem 0.5rem;
+  border-radius: 10px;
+  font-size: 13px;
+  color: #fd1010;
+
 }
 
 .status.delivered {

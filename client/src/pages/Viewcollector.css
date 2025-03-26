@@ -1,0 +1,225 @@
+/* Root Container */
+.collector-container {
+    max-width: 90%;
+    margin: 30px auto;
+    padding: 20px;
+    background: linear-gradient(135deg, #f8f9fa, #ffffff);
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Title */
+.collector-title {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Order List */
+.collector-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 10px;
+}
+
+/* Order Card - Long Rectangular Layout */
+.order-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+}
+
+/* Hover Effect */
+.order-card:hover {
+    transform: scale(1.02);
+}
+
+/* Order Header */
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+}
+
+/* Status Badge */
+.status-badge {
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: bold;
+    border-radius: 20px;
+    color: white;
+    position: absolute;
+    right: 1em;
+    
+}
+
+.status-badge.confirmed {
+    background: #ffc107;
+    color: #333;
+}
+
+.status-badge.collected {
+    background: #28a745;
+}
+
+.status-badge.cancelled {
+    background: #dc3545;
+}
+
+.status-badge.pending {
+    background: #ffc107;
+    color: #333;
+}
+
+/* Order Content - Horizontal Structure */
+.order-content {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+    padding: 10px 0;
+}
+
+/* Order Sections */
+.order-section {
+    flex: 1;
+    border-right: 1px solid #ddd;
+    padding: 0 15px;
+}
+
+.order-section:last-child {
+    border-right: none;
+}
+
+/* Section Headings */
+.order-section h4 {
+    font-size: 16px;
+    font-weight: bold;
+    color: #007bff;
+    margin-bottom: 5px;
+}
+
+/* Product Name */
+.product-name {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Product Description */
+.product-description {
+    font-size: 14px;
+    color: #777;
+}
+
+
+
+
+
+
+.collector-button-container {
+    display: flex;
+    gap: 20px;
+    margin-top: 10px;
+    /* border: 1px solid black; */
+    position: absolute;
+    right: 1em;
+    bottom: 1em;
+
+}
+
+.collector-button {
+    padding: 10px 15px;
+    font-size: 13px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+.collector-button-confirm {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.collector-button-confirm:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.collector-button-cancel {
+    background-color: #f44336;
+    color: white;
+}
+
+.collector-button-cancel:hover {
+    background-color: #d32f2f;
+    transform: scale(1.05);
+}
+
+.collector-button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+    transform: none;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .order-content {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .order-section {
+        border-right: none;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .order-section:last-child {
+        border-bottom: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .collector-container {
+        padding: 15px;
+    }
+
+    .order-card {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .order-header h3 {
+        font-size: 16px;
+    }
+}

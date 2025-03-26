@@ -7,11 +7,10 @@ const foodSchema = mongoose.Schema({
     category: String,
     location: String,
     pickupAddress: String,
-    quantity: String,
-    photo: String,
+    quantity: { type: Number, min: 0, default: 0 },
     option: String,
-    user_id:String,
-    status: {type: String,enum: ["Available", "Sold-Out"],default: "Available"},
+    user_id: String,
+    status: { type: String, enum: ["Available", "Sold-Out"], default: "Available" },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Ensure this reference exists
     createdAt: { type: Date, default: Date.now, },
 });
