@@ -60,7 +60,21 @@ const Viewmeal = () => {
         console.log(response.data);
 
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => {
+        console.error("Error:", error)
+        if (error.response.status === 401) {
+          Swal.fire({
+            title: 'Unauthorized',
+            text: 'Please login to upload your meal',
+            icon: 'error',
+            allowOutsideClick: false,
+            confirmButtonText: 'Login',
+            preConfirm: () => {
+              window.location.href = '/login';
+            }
+          });
+        }
+      });
 
   }, [])
 
@@ -103,6 +117,9 @@ const Viewmeal = () => {
       setalertMsg('Failed to add to cart')
       setalertTupe('error')
       setOpen(true)
+
+
+
 
       // alert("Failed to add item to cart");
     }

@@ -6,6 +6,9 @@ import './Addmeal.css';
 
 import { useNavigate } from 'react-router-dom';
 
+import Navbar from './Navbar';
+
+
 
 
 import Alert from '@mui/material/Alert';
@@ -131,6 +134,8 @@ function Addmeal() {
 
     return (
         <>
+            <Navbar />
+
             <div className="add-edit-profile-container">
                 <form className="add-edit-profile-edit-form" onSubmit={senddata} encType="multipart/form-data">
                     <div className="add-edit-profile-form-section">

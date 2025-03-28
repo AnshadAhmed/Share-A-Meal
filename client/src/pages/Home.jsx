@@ -41,6 +41,7 @@ function Home() {
             <div className='img'></div>
             <h1>Sharing is caring</h1>
             <button className="find-meal">Find a Meal</button>
+            
           </div>
         </div>
         <section className="how-it-works">

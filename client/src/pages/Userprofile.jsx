@@ -5,6 +5,9 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom';
 
+import Navbar from './Navbar';
+
+
 
 
 
@@ -46,6 +49,7 @@ function Userprofile() {
 
     return (
         <>
+        <Navbar/>
 
             <div className="userprofile-container">
                 <div className="userprofile-profile-header">

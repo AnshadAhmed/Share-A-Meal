@@ -5,6 +5,9 @@ import axios from 'axios';
 
 import Swal from 'sweetalert2';
 
+import Navbar from './Navbar';
+
+
 
 
 function Mymealupload() {
@@ -25,7 +28,24 @@ function Mymealupload() {
         console.log(response.data);
 
       })
-      .catch(error => console.error("Error:", error));
+      .catch(error => {
+        console.error("Error:", error)
+        if (error.response.status === 401) {
+          Swal.fire({
+            title: 'Unauthorized',
+            text: 'Please login to upload your meal',
+            icon: 'error',
+            allowOutsideClick: false,
+            confirmButtonText: 'Login',
+            preConfirm: () => {
+              window.location.href = '/login';
+            }
+          });
+        }
+
+      });
+
+
 
 
   }, [])
@@ -72,6 +92,7 @@ function Mymealupload() {
 
   return (
     <>
+      <Navbar />
       <div className="edit-del-food-page-container">
         {foods.length === 0 ? (
           <div className="no-items-message">

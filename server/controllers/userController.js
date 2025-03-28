@@ -409,7 +409,9 @@ exports.cancelorder = async (req, res) => {
         for (let item of order.items) {
             const product = await Food.findById(item.productId);
             product.quantity += item.quantity;
+
             // product.status="Available"
+            
             await product.save();
 
             if (!product) {
@@ -519,7 +521,9 @@ exports.supplierorderupdation = async (req, res) => {
             for (let item of order.items) {
                 const product = await Food.findById(item.productId);
                 product.quantity += item.quantity;
+
                 // product.status="Available"
+
                 await product.save();
 
                 if (!product) {
