@@ -40,7 +40,9 @@ function Home() {
           <div className="hero">
             <div className='img'></div>
             <h1>Sharing is caring</h1>
-            <button className="find-meal">Find a Meal</button>
+            <button className="find-meal" onClick={()=>{
+              navigate("/viewmeal")
+            }}>Find a Meal</button>
             
           </div>
         </div>

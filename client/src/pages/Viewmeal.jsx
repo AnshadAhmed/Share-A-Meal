@@ -65,7 +65,7 @@ const Viewmeal = () => {
         if (error.response.status === 401) {
           Swal.fire({
             title: 'Unauthorized',
-            text: 'Please login to upload your meal',
+            text: 'Please login to use this option',
             icon: 'error',
             allowOutsideClick: false,
             confirmButtonText: 'Login',

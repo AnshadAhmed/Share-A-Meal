@@ -57,7 +57,7 @@ exports.addmeal = async (req, res) => {
         }
 
         // console.log("Received Data:", req.body);
-        // console.log("File Data (if any):", req.file);
+        console.log("File Data (if any):", req.file);
 
         // console.log(mealname, price, location, category, quantity, pickupAddress, discription, option);
 
