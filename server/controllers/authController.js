@@ -17,17 +17,31 @@ exports.login = async (req, res) => {
 
     try {
         const { email, pwd } = req.body;
+
+        console.log(req.body);
+        
+
         const userdata = await User.findOne({ email: email });
+
+        console.log(userdata);
+        
 
         if (!userdata) {
             return res.status(404).json({ msg: "User not found" });
         }
+
+        if(userdata.status==="Blocked"){
+            return res.status(404).json({ msg: "User has been BLOCKED" });
+        }
+
+
+
         const ispassword = await bcrypt.compare(pwd, userdata.pwd);
 
 
         if (ispassword) {
             const token = jwt.sign({ userId: userdata._id }, process.env.SECRET_KEY, { expiresIn: "8h" });
-            res.json({ msg: "Login Successful", token,userdata });
+            res.json({ msg: "Login Successful", token, userdata });
         } else {
             res.json({ msg: "Invalid Password" });
         }
@@ -51,7 +65,7 @@ exports.register = async (req, res) => {
     try {
         const { username, email, pwd } = req.body;
         console.log(req.body);
-        
+
         const userdata = await User.findOne({ email: email });
 
         if (userdata) {
@@ -75,9 +89,16 @@ exports.register = async (req, res) => {
         const mailOptions = {
             from: process.env.GMAIL,
             to: newUser.email,
-            subject: 'Welcome to share a meal community',
-            text: `Your registered email is: ${email} and password is: ${pwd}`
+            subject: 'Welcome to Share A Meal!',
+            text: `Hello ${newUser.username},\n\nWelcome to Share A Meal! We’re delighted to have you join our community, where kindness and generosity bring people together.  
+            \n\nAt Share A Meal, our mission is to connect individuals who want to share meals with those in need, fostering a culture of care and support. Whether you’re here to donate or receive meals, you are now part of a movement that makes a real difference.  
+            \n\nFeel free to explore our platform, connect with others, and start sharing! If you have any questions or need assistance, don’t hesitate to reach out or visit our website for more details.  
+            \n\nThank you for being part of this wonderful journey!  
+            \n\nBest regards,  
+            \nShare A Meal Team`
         };
+
+
 
         transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
@@ -182,7 +203,7 @@ exports.forgotpassword = async (req, res) => {
 exports.resetpassword = async (req, res) => {
     try {
         const { token } = req.params;
-        const { newPassword,confirmnewpassword } = req.body;
+        const { newPassword, confirmnewpassword } = req.body;
 
 
         const user = await User.findOne({
@@ -193,7 +214,7 @@ exports.resetpassword = async (req, res) => {
         if (!user) return res.status(400).json({ msg: "Invalid or expired token" });
 
         // Hash new password
-        
+
         const hashedPassword = await bcrypt.hash(newPassword, 10);
         user.pwd = hashedPassword;
         user.resetToken = undefined;

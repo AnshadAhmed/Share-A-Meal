@@ -89,7 +89,7 @@ const Viewcollector = () => {
                                 <div className="order-card" key={item._id}>
                                     {/* Order Header with Status */}
                                     <div className="order-header">
-                                        <h3>Order #{order._id.slice(-6)}</h3>
+                                        <h3>Order ID : {order._id.slice(-7)}</h3>
 
                                     </div>
 

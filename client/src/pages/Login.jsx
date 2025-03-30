@@ -74,7 +74,7 @@ function Login() {
                 }
                 else if (error.response && error.response.status === 404) {
                     seterror(true)
-                    setalertMsg('User not found')
+                    setalertMsg(`${error.response.data.msg}`)
                     setalertTupe('error')
                     setOpen(true)
                 }

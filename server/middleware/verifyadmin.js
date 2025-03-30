@@ -5,7 +5,7 @@ const User = require('../model/User');
 
 
 
-const verifyToken = async (req, res, next) => {
+const verifyadmin = async (req, res, next) => {
     const token = req.header('Authorization');
 
     if (!token) {
@@ -21,8 +21,9 @@ const verifyToken = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });
         }
-        if(user.status==="Blocked"){
-            return res.status(404).json({ error: "user has been blocked" });
+
+        if(user.role==="user"){
+            return res.status(401).json({ error: "Access Denied" });
         }
 
         next();
@@ -31,4 +32,4 @@ const verifyToken = async (req, res, next) => {
     }
 }
 
-module.exports = verifyToken;
+module.exports = verifyadmin;

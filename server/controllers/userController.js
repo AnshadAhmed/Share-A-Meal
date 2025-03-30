@@ -1,6 +1,11 @@
 const User = require('../model/User');
 const Food = require('../model/Food');
 const Order = require('../model/Order');
+const Notification=require('../model/Notification')
+
+
+const nodemailer = require('nodemailer');
+
 
 
 
@@ -252,6 +257,9 @@ exports.placeorder = async (req, res) => {
 
         const userId = req.userId;
 
+        const userdata = await User.findById(userId);
+
+
         if (!cartItems || cartItems.length === 0) {
             return res.status(400).json({ msg: "Cart is empty!" });
         }
@@ -315,6 +323,46 @@ exports.placeorder = async (req, res) => {
 
         // Clear the user's cart after placing the order
         await User.findByIdAndUpdate(userId, { cart: [] });
+
+
+
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL,
+                pass: process.env.APP_PASSWORD
+            }
+        });
+
+
+        const mailOptions = {
+            from: process.env.GMAIL,
+            to: userdata.email,
+            subject: 'Order Confirmation - Share A Meal',
+            text: `Hello ${userdata.fullname},\n\nThank you for your order! Your order has been successfully placed.
+            \nPlease contact the respective user within 3 hours of order placement or collect the order. Otherwise, the supplier may cancel the order from their end.
+            \nWe appreciate your support in sharing meals with the community.
+            \nFor more information visit our website.
+            \nBest regards,
+            \nShare A Meal Team`
+        };
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+
+
+
+
+
+
+
 
         res.status(200).json({ msg: "Order placed successfully!", order: newOrder });
 
@@ -411,7 +459,7 @@ exports.cancelorder = async (req, res) => {
             product.quantity += item.quantity;
 
             // product.status="Available"
-            
+
             await product.save();
 
             if (!product) {
@@ -499,7 +547,13 @@ exports.supplierorderupdation = async (req, res) => {
             return res.status(400).json({ msg: "Please provide a status" });
         }
 
-        const order = await Order.findById(orderId);
+        const order = await Order.findById(orderId).populate('userId');
+
+        console.log(order);
+
+        console.log(order.userId.email);
+
+
 
         if (!order) {
             return res.status(404).json({ msg: "Order not found" });
@@ -534,17 +588,109 @@ exports.supplierorderupdation = async (req, res) => {
 
             }
 
+
+
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL,
+                    pass: process.env.APP_PASSWORD
+                }
+            });
+
+
+            const mailOptions = {
+                from: process.env.GMAIL,
+                to: order.userId.email,
+                subject: 'Order Cancellation - Share A Meal',
+                text: `Hello ${order.userId.username},\n\nWe regret to inform you that your order has been canceled by the supplier. 
+                \nIf you have any questions or need further assistance, please reach out to us or visit our website for more details.
+                \nWe appreciate your understanding and support in sharing meals with the community.
+                \nBest regards,
+                \nShare A Meal Team`
+            };
+
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.log('Error:', error);
+                } else {
+                    console.log('Email sent:', info.response);
+                }
+            });
+
+            order.status = bt_status;
+
+            await order.save();
+
+
+            return res.status(200).send({ msg: "Order updated successfully" })
+
+
         }
-
-
 
         order.status = bt_status;
 
         await order.save();
+
+
+
+        const transporter = nodemailer.createTransport({
+            service: 'gmail',
+            auth: {
+                user: process.env.GMAIL,
+                pass: process.env.APP_PASSWORD
+            }
+        });
+
+
+        const mailOptions = {
+            from: process.env.GMAIL,
+            to: order.userId.email,
+            subject: 'Thank You for Being a Valued Member - Share A Meal',
+            text: `Hello ${order.userId.username},\n\nWe sincerely appreciate you for collecting your order and being an active member of the Share A Meal community. Your participation helps us create a more caring and connected world, one meal at a time.  
+            \nYour support makes a real difference, and we’re grateful to have you as part of our journey. If you have any feedback or need assistance, feel free to reach out to us or visit our website.  
+            \nThank you for being a valued member of Share A Meal! We look forward to continuing this journey with you.  
+            \nBest regards,  
+            \nThe Share A Meal Team`
+        };
+
+
+
+        transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+                console.log('Error:', error);
+            } else {
+                console.log('Email sent:', info.response);
+            }
+        });
+
+
+
+
+
 
         res.status(200).send({ msg: "Order updated successfully" });
     } catch (error) {
         console.log(error);
         res.status(500).json({ msg: "Server error", error: error.message });
     }
+}
+
+
+
+
+
+
+
+exports.viewnotification = async (req, res) => {
+
+    try {
+        const notification = await Notification.find() 
+        
+        res.status(200).send(notification)
+
+    } catch (error) {
+        console.log(error);
+    }
+
 }

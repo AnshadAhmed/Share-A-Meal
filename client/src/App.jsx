@@ -14,6 +14,7 @@ import Cart from './pages/Cart'
 import AdminDashboard from './pages/AdminDashboard'
 import Vieworder from './pages/Vieworder'
 import Viewcollector from './pages/Viewcollector'
+import Viewnotification from './pages/Viewnotification'
 
 
 function App() {
@@ -37,6 +38,9 @@ function App() {
         <Route path='/vieworder' element={<Vieworder />}></Route>
 
         <Route path='/view-collector' element={<Viewcollector />}></Route>
+
+        <Route path='/view-notification' element={<Viewnotification />}></Route>
+
 
 
         <Route path='/admin-dashboard' element={<AdminDashboard />}></Route>

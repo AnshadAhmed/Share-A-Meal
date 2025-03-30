@@ -6,10 +6,11 @@ const userSchema = mongoose.Schema({
     pwd: String,
     resetToken: String,
     resetTokenExpiry: Date,
-    location:String,
-    phone:String,
+    location: String,
+    phone: String,
     fullname: String,
     role: { type: String, enum: ['user', 'admin'], default: 'user' },
+    status: { type: String, enum: ['Active', 'Blocked'], default: 'Active' },
     profilePicture: String,
     createdAt: { type: Date, default: Date.now },
     cart: [{

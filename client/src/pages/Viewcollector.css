@@ -51,6 +51,8 @@
     border-bottom: 2px solid #ddd;
     padding-bottom: 10px;
     margin-bottom: 10px;
+    opacity: 60%;
+    font-size: 13px;
 }
 
 /* Status Badge */
@@ -66,20 +68,30 @@
 }
 
 .status-badge.confirmed {
-    background: #ffc107;
-    color: #333;
+    color: #4704e2;
+    font-size: 13px;
+    background: #e8e9f5;
+
+
 }
 
 .status-badge.collected {
-    background: #28a745;
+    color: #13d172;
+    background: #e8f5e9;
+    font-size: 13px;
+
+
 }
 
 .status-badge.cancelled {
-    background: #dc3545;
+    background: #ffebee;
+    color: #fd1010;
+    font-size: 13px;
+
 }
 
 .status-badge.pending {
-    background: #ffc107;
+    background: #e5d6a6;
     color: #333;
 }
 

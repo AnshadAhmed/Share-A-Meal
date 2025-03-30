@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart, placeorder, vieworder, cancelorder, getsupplierorder, supplierorderupdation } = require('../controllers/userController');
+const { getUserProfile, editUserProfile, addmeal, viewmeal, mymeals, deletemeal, addtocart, viewcart, deletecart, placeorder, vieworder, cancelorder, getsupplierorder, supplierorderupdation, viewnotification } = require('../controllers/userController');
 const verifyToken = require('../middleware/authMiddleware');
 
 const uploade=require('../middleware/fileupload');
@@ -31,5 +31,8 @@ router.post('/vieworder/cancel/:id',cancelorder)
 
 router.get('/supplier-order',verifyToken,getsupplierorder)
 router.patch('/update-collector-order/:id',supplierorderupdation)
+
+
+router.get('/view-notification',viewnotification)
 
 module.exports = router;

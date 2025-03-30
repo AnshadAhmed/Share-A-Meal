@@ -4,6 +4,7 @@ const cors = require('cors');
 const db = require('./model/db');
 const authRoutes = require('./routes/authRoutes');
 const userRoutes = require('./routes/userRoutes');
+const adminRoutes=require('./routes/adminRoutes')
 const path = require("path")
 
 const app = express();
@@ -21,6 +22,7 @@ app.use(express.json());
 
 app.use('/auth', authRoutes);
 app.use('/user', userRoutes);
+app.use('/admin',adminRoutes)
 
 app.listen(PORT, () => {
     console.log(`Server is Running at: ${PORT}`);
