@@ -361,9 +361,6 @@ exports.placeorder = async (req, res) => {
 
 
 
-
-
-
         res.status(200).json({ msg: "Order placed successfully!", order: newOrder });
 
     } catch (error) {

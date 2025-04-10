@@ -21,8 +21,11 @@ const verifyToken = async (req, res, next) => {
         if (!user) {
             return res.status(404).json({ error: "User Not Found" });
         }
-        if(user.status==="Blocked"){
+        if (user.status === "Blocked") {
             return res.status(404).json({ error: "user has been blocked" });
+        }
+        if (user.role === "admin") {
+            return res.status(404).json({ error: "Admin have no access to this part" });
         }
 
         next();

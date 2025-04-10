@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react";
-import { Bell, Users, Utensils, AlertTriangle, Search, Plus, Filter } from "lucide-react";
+import { useNavigate } from 'react-router-dom';
+
+import { Bell, Users, Utensils, AlertTriangle, Search, Plus, Filter, Blocks } from "lucide-react";
 import axios from 'axios';
+
+import Swal from 'sweetalert2';
+
 
 import "./AdminDashboard.css";
 
@@ -11,10 +16,15 @@ export default function AdminDashboard() {
 
   const [foodItems, setFoodItems] = useState([]);
 
+  const [admin, setAdmin] = useState([])
+
+  const navigate = useNavigate();
+
+
   const [complaints, setComplaints] = useState([
-    { id: 1, user: "Jane Doe", issue: "Food quality issue", status: "Open", date: "2025-03-25" },
-    { id: 2, user: "Michael Brown", issue: "Delivery delay", status: "Resolved", date: "2025-03-22" },
-    { id: 3, user: "Sarah Wilson", issue: "Missing items", status: "In Progress", date: "2025-03-28" }
+    // { id: 1, user: "Jane Doe", issue: "Food quality issue", status: "Open", date: "2025-03-25" },
+    // { id: 2, user: "Michael Brown", issue: "Delivery delay", status: "Resolved", date: "2025-03-22" },
+    // { id: 3, user: "Sarah Wilson", issue: "Missing items", status: "In Progress", date: "2025-03-28" }
   ]);
 
 
@@ -25,28 +35,66 @@ export default function AdminDashboard() {
   const toggleUserStatus = async (_id, currentStatus) => {
     const newStatus = currentStatus === "Active" ? "Blocked" : "Active";
 
-    try {
-      await axios.put(`http://localhost:3006/admin/update-user-status`, {
-        userId: _id,
-        status: newStatus
-      }, {
-        headers: {
-          "Content-Type": "application/json",
-          "Authorization": `${localStorage.getItem("token")}`,
-        },
-      });
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#d33",
+      cancelButtonColor: "#3085d6",
+      confirmButtonText: `Yes, ${newStatus} it!`
+    }).then(async (result) => {
+      if (result.isConfirmed) {
 
-      // Update UI after successful API call
-      setUsers(users.map(user =>
-        user._id === _id ? { ...user, status: newStatus } : user
-      ));
 
-    } catch (error) {
-      console.error("Error updating user status:", error);
-      alert("Failed to update user status. Please try again.");
-    }
+        try {
+          await axios.put(`http://localhost:3006/admin/update-user-status`, {
+            userId: _id,
+            status: newStatus
+          }, {
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": `${localStorage.getItem("token")}`,
+            },
+          })
+            .then((response) => {
+              console.log(response.data);
+              if (response.status === 200) {
+
+                // Update UI after successful API call
+                setUsers(users.map(user =>
+                  user._id === _id ? { ...user, status: newStatus } : user
+                ));
+
+                Swal.fire(
+                  `${newStatus}!`,
+                  `The user has been ${newStatus}.`,
+                  "success"
+                );
+              } else {
+                Swal.fire("Error!", "Failed to change the status of user.", "error");
+              }
+            })
+            .catch((error) => {
+              console.error(error);
+              Swal.fire("Error!", "Failed to delete the item.", "error");
+            });
+
+        } catch (error) {
+          console.error("Error updating user status:", error);
+          alert("Failed to update user status. Please try again.");
+        }
+      }
+    });
+
   };
 
+
+
+  const handleLogout = () => {
+    localStorage.removeItem("token"); // Remove token from local storage
+    navigate("/login"); // Redirect to login page
+  };
 
 
 
@@ -60,7 +108,21 @@ export default function AdminDashboard() {
         "Content-Type": "application/json",
         "Authorization": `${localStorage.getItem("token")}`,
       },
-    });
+    })
+      .then(response => {
+
+        Swal.fire({
+          title: "Sended!",
+          icon: "success",
+          draggable: true
+        });
+
+
+      })
+      .catch(error => {
+        console.error("Error sending notification:", error);
+        alert("Failed to send notification. Please try again.");
+      })
 
     setNotification("");
   };
@@ -93,6 +155,7 @@ export default function AdminDashboard() {
       .then(response => {
         setUsers(response.data.user);
         setFoodItems(response.data.food);
+        setAdmin(response.data.admindetails)
         console.log(response.data);
 
 
@@ -124,9 +187,19 @@ export default function AdminDashboard() {
         <div className="admin-dashboard-header-content">
           <h1 className="admin-dashboard-title">Admin Dashboard</h1>
           <div className="admin-dashboard-header-actions">
+            <nav style={{ gap: 30 }} >
+              <a href="" style={{ color: "black" }}>Home</a>
+              <a href="" style={{ color: "black" }}>Profile</a>
+              <a href="" style={{ color: "black" }} onClick={handleLogout}>Log out</a>
+
+            </nav>
+
             <Bell className="admin-dashboard-icon" />
-            <div className="admin-dashboard-avatar">A</div>
+            <div className="admin-dashboard-avatar">
+              <img src={`http://localhost:3006/my-upload/${admin.profilePicture}`} className="admin-dashboard-avatar" />
+            </div>
           </div>
+
         </div>
       </header>
 

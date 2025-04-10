@@ -10,6 +10,8 @@ import Box from '@mui/material/Box';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import CloseIcon from '@mui/icons-material/Close';
+import CircularProgress from '@mui/material/CircularProgress';
+
 
 
 import Swal from 'sweetalert2';
@@ -32,6 +34,8 @@ const CartIcon = () => (
 const Viewmeal = () => {
 
   const [mealItem, setmealItem] = useState([])
+  const [loading, setLoading] = useState(true);
+
 
 
 
@@ -47,22 +51,23 @@ const Viewmeal = () => {
 
 
   useEffect(() => {
-
-
+    setLoading(true);
     axios.get("http://localhost:3006/user/viewmeal", {
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `${localStorage.getItem("token")}`, // Add token from local storage
+        "Authorization": `${localStorage.getItem("token")}`,
       },
     })
       .then(response => {
         setmealItem(response.data);
-        console.log(response.data);
-
+        setTimeout(() => {
+          setLoading(false);
+        }, 2000);
       })
       .catch(error => {
-        console.error("Error:", error)
-        if (error.response.status === 401) {
+        setLoading(false);
+        console.error("Error:", error);
+        if (error.response?.status === 401) {
           Swal.fire({
             title: 'Unauthorized',
             text: 'Please login to use this option',
@@ -75,8 +80,7 @@ const Viewmeal = () => {
           });
         }
       });
-
-  }, [])
+  }, []);
 
 
   // Function to add item to cart
@@ -134,20 +138,34 @@ const Viewmeal = () => {
 
 
       {
-        mealItem.length === 0 ? (
+        loading ? (
+          <div className="loader-meal-container">
+            <div className="loader-meal-food-parade">
+              <span className="loader-meal-food">🍕</span>
+              <span className="loader-meal-food">🍔</span>
+              <span className="loader-meal-food">🍣</span>
+              <span className="loader-meal-food">🥗</span>
+              <span className="loader-meal-food">🍩</span>
+            </div>
+            <p className="loader-meal-text">Getting your meal ready...</p>
+          </div>
+        ) : mealItem.length === 0 ? (
           <div className="no-items-message">
             <h2>No items available</h2>
             <p>currently no meal is available🥺.</p>
           </div>
         ) : (
-
           <div className="food-page-container">
             {mealItem.map((food) => (
               <div key={food._id} className="food-card">
                 <div className={`food-type ${food.category === "Veg" ? "veg" : "non-veg"}`}>
                   {food.category}
                 </div>
-                <img src={`http://localhost:3006/my-upload/${food.photo}`} alt={food.name} className="food-image" />
+                <img
+                  src={`http://localhost:3006/my-upload/${food.photo}`}
+                  alt={food.name}
+                  className="food-image"
+                />
                 <div className="food-details">
                   <h2 className="food-name">{food.mealname}</h2>
                   <p className="food-price">Rs {food.price}</p>
@@ -161,7 +179,6 @@ const Viewmeal = () => {
               </div>
             ))}
           </div>
-
         )
       }
 

@@ -18,12 +18,12 @@ exports.login = async (req, res) => {
     try {
         const { email, pwd } = req.body;
 
-        console.log(req.body);
+        // console.log(req.body);
         
 
         const userdata = await User.findOne({ email: email });
 
-        console.log(userdata);
+        // console.log(userdata);
         
 
         if (!userdata) {
@@ -91,10 +91,10 @@ exports.register = async (req, res) => {
             to: newUser.email,
             subject: 'Welcome to Share A Meal!',
             text: `Hello ${newUser.username},\n\nWelcome to Share A Meal! We’re delighted to have you join our community, where kindness and generosity bring people together.  
-            \n\nAt Share A Meal, our mission is to connect individuals who want to share meals with those in need, fostering a culture of care and support. Whether you’re here to donate or receive meals, you are now part of a movement that makes a real difference.  
-            \n\nFeel free to explore our platform, connect with others, and start sharing! If you have any questions or need assistance, don’t hesitate to reach out or visit our website for more details.  
-            \n\nThank you for being part of this wonderful journey!  
-            \n\nBest regards,  
+            \nAt Share A Meal, our mission is to connect individuals who want to share meals with those in need, fostering a culture of care and support. Whether you’re here to donate or receive meals, you are now part of a movement that makes a real difference.  
+            \nFeel free to explore our platform, connect with others, and start sharing! If you have any questions or need assistance, don’t hesitate to reach out or visit our website for more details.  
+            \nThank you for being part of this wonderful journey!  
+            \nBest regards,  
             \nShare A Meal Team`
         };
 
