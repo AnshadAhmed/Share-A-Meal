@@ -1,7 +1,7 @@
 const User = require('../model/User');
 const Food = require('../model/Food');
 const Order = require('../model/Order');
-const Notification=require('../model/Notification')
+const Notification = require('../model/Notification')
 
 
 const nodemailer = require('nodemailer');
@@ -55,13 +55,15 @@ exports.editUserProfile = async (req, res) => {
 
 exports.addmeal = async (req, res) => {
     try {
-        const { mealname, price, location, category, quantity, pickupAddress, discription, option } = req.body;
+        const { mealname, price, location, category, quantity, pickupAddress, discription, option, latitude, longitude } = req.body;
+
 
         if (!req.file) {
             return res.status(400).send({ msg: "Please provide Meal Image To continue" });
         }
 
         // console.log("Received Data:", req.body);
+        
         console.log("File Data (if any):", req.file);
 
         // console.log(mealname, price, location, category, quantity, pickupAddress, discription, option);
@@ -71,7 +73,7 @@ exports.addmeal = async (req, res) => {
             return res.status(400).send({ msg: "Please provide all fields" });
         }
 
-        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, discription, option, photo: req.file.filename, user_id: req.userId, owner: req.userId });
+        const newFood = await Food.create({ mealname, price, location, category, quantity, pickupAddress, discription, option, photo: req.file.filename, user_id: req.userId, owner: req.userId, latitude, longitude });
         await newFood.save();
 
         res.status(201).send({ msg: "meal added successfully", data: newFood });
@@ -144,7 +146,7 @@ exports.addtocart = async (req, res) => {
         if (existingItemIndex !== -1) {
             user.cart[existingItemIndex].quantity = Math.max(1, user.cart[existingItemIndex].quantity + quantity);
         } else {
-            user.cart.push({ mealId, quantity, price, image, name, inquantity, prdiscription });
+            user.cart.push({ mealId, quantity, price, image, name, inquantity, prdiscription, MEALID: mealId });
         }
 
 
@@ -682,8 +684,8 @@ exports.supplierorderupdation = async (req, res) => {
 exports.viewnotification = async (req, res) => {
 
     try {
-        const notification = await Notification.find() 
-        
+        const notification = await Notification.find()
+
         res.status(200).send(notification)
 
     } catch (error) {

@@ -15,6 +15,10 @@ const userSchema = mongoose.Schema({
     createdAt: { type: Date, default: Date.now },
     cart: [{
         type: {
+            MEALID: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Food"
+            },
             mealId: String,
             name: String,
             price: Number,

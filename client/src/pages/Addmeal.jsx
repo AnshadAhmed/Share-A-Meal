@@ -1,4 +1,4 @@
-import React, { use, useState } from 'react'
+import React, { use, useEffect, useState } from 'react'
 import axios from 'axios';
 // import '../App.css';
 import './Addmeal.css';
@@ -29,6 +29,11 @@ function Addmeal() {
     const [category, setCategory] = useState("")
     const [option, setOption] = useState("")
     const [node, setNode] = useState(false)
+
+
+    const [latitude, setLatitude] = useState(null)
+    const [longitude, setLongitude] = useState(null)
+
 
     const [profilePic, setProfilePic] = useState(null);
 
@@ -70,6 +75,10 @@ function Addmeal() {
         formData.append("discription", discription);
         formData.append("category", category);
         formData.append("option", option);
+
+        formData.append("latitude", latitude);
+        formData.append("longitude", longitude);
+        
 
         if (profilePic) {
             formData.append("food-image", profilePic);
@@ -125,6 +134,34 @@ function Addmeal() {
     }
 
 
+    useEffect(() => {
+
+        if ('geolocation' in navigator) {
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+
+                    setLatitude(position.coords.latitude)
+                    setLongitude(position.coords.longitude)
+
+                },
+                (err) => {
+                    console.log(err);
+                },
+                {
+                    enableHighAccuracy: true, // 👈 Enables better precision (may consume more battery)
+                }
+            );
+        } else {
+            console.log('Geolocation is not supported by your browser');
+        }
+
+    }, []);
+
+
+
+
+
+    
 
 
 

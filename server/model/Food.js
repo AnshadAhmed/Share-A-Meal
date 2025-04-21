@@ -14,6 +14,8 @@ const foodSchema = mongoose.Schema({
     status: { type: String, enum: ["Available", "Sold-Out"], default: "Available" },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Ensure this reference exists
     createdAt: { type: Date, default: Date.now, },
+    latitude:Number,
+    longitude:Number,
 });
 
 module.exports = mongoose.model('Food', foodSchema);
